@@ -351,34 +351,11 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   line-height:1.7; margin:0;
 }
 
-/* Quantity + actions */
+/* Actions */
 .actions{
   display:flex; flex-wrap:wrap; gap:var(--sp-3);
   align-items:stretch;
 }
-.stepper{
-  display:inline-flex; align-items:center;
-  border:1px solid var(--line); border-radius:var(--radius-ctrl);
-  overflow:hidden; background:var(--surface);
-  min-height:52px;
-}
-.stepper button{
-  width:48px; height:52px; border:0; background:transparent;
-  color:var(--ink); font-size:22px; font-weight:600;
-  cursor:pointer; display:grid; place-items:center;
-  transition:background .12s ease;
-}
-.stepper button:hover{ background:var(--surface-2); color:var(--brand); }
-.stepper button:disabled{ opacity:.35; cursor:not-allowed; }
-.stepper input{
-  width:56px; height:52px; border:0; outline:0;
-  text-align:center; font-family:var(--font-mono);
-  font-size:var(--fs-16); font-weight:700;
-  background:transparent;
-  -moz-appearance:textfield;
-}
-.stepper input::-webkit-outer-spin-button,
-.stepper input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
 
 .btn--buy{
   flex:1; min-width:180px; min-height:52px;
@@ -407,6 +384,16 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 .btn--wa:hover{ background:#1EBE5D; color:#fff; }
 .btn--wa svg{ width:20px; height:20px; }
 
+/* Cart handoff hint */
+.cart-hint{
+  display:flex; align-items:flex-start; gap:8px;
+  font-size:var(--fs-12); color:var(--muted);
+  background:var(--brand-soft); border:1px solid color-mix(in srgb,var(--brand) 20%,var(--line));
+  padding:10px 12px; border-radius:10px;
+  line-height:1.5;
+}
+.cart-hint svg{ flex:0 0 16px; color:var(--brand); margin-top:1px; }
+
 /* Delivery note */
 .delivery-note{
   display:flex; gap:10px; align-items:flex-start;
@@ -418,7 +405,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 .delivery-note b{ color:var(--ink); }
 
 /* ============================================================
-   WHOLESALE TIERS
+   PACK PRICING TABLE  (replaces old fake wholesale tiers)
    ============================================================ */
 .tiers{
   border:1px solid var(--line); border-radius:var(--radius-card);
@@ -449,11 +436,6 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 .tier-table tr:last-child td{ border-bottom:0; }
 .tier-table td.price{ color:var(--ink); font-weight:600; }
 .tier-table td.save{ color:var(--good); font-weight:600; }
-.tier-table tr.is-active{
-  background:var(--brand-soft);
-}
-.tier-table tr.is-active td{ color:var(--brand); font-weight:700; }
-.tier-table tr.is-active td.price{ color:var(--brand); }
 
 /* ============================================================
    SPECS
@@ -552,11 +534,10 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 .not-found p{ color:var(--muted); margin-bottom:var(--sp-5); }
 
 /* ============================================================
-   STICKY ADD-TO-CART BAR (mobile only)
+   STICKY CART BAR (mobile only)
    ============================================================ */
 .sticky-cart{
-  position:fixed; left:0; right:0;
-  bottom:0;
+  position:fixed; left:0; right:0; bottom:0;
   padding:12px 16px calc(12px + env(safe-area-inset-bottom,0));
   background:var(--bg-2);
   border-top:1px solid var(--line);
@@ -694,7 +675,7 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 <!-- Sticky add-to-cart bar (mobile) -->
 <div class="sticky-cart" id="stickyCart" aria-hidden="true">
   <div class="sticky-cart__price">
-    <small>Total</small>
+    <small>Price</small>
     <span id="stickyTotal">₦0</span>
   </div>
   <button class="btn--buy" id="stickyAdd" type="button">
@@ -722,23 +703,18 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 
 <script>
 /* ============================================================
-   KAKA ENTERPRISES — Product detail page
+   KAKA ENTERPRISES — Product detail page (v2 cart)
    ============================================================ */
 window.KE = window.KE || {};
 
 KE.CONFIG = {
   freeDeliveryFrom: 50000,
-  flatDeliveryFee: 2500,
-  wholesale: [
-    { min:1,  max:9,        off:0    },
-    { min:10, max:49,       off:0.09 },
-    { min:50, max:Infinity, off:0.15 }
-  ],
   business: {
     name: 'KAKA ENTERPRISES',
     tagline: 'Power. Connect. Deliver.',
     address: 'No 19 St Micheals Road, Aba, Abia State',
     phone: '07034652385',
+    phonePretty: '0703 465 2385',
     whatsapp: '2347034652385'
   }
 };
@@ -828,93 +804,123 @@ KE.BRANDS = [
 
 KE.PRODUCTS = [
   { slug:'gan-65w-usb-c-wall-charger', sku:'KE-CHG-001', name:'GaN 65W USB-C Wall Charger', categoryPath:['phone-accessories','charging-accessories','chargers'], brand:'voltix', price:18500, compare_at_price:22000, tag:'Sale', stock:24, rating:4.8, reviews:246, img:'photo-1583863788434-e58a36330cf0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Compact GaN charger with dual USB-C and USB-A. Smaller, cooler and safer than a traditional charger.',
     specs:[['Output','65W'],['Ports','2× USB-C, 1× USB-A'],['Protocol','USB-PD 3.0'],['Warranty','12 months']] },
   { slug:'magsafe-10000mah-power-bank', sku:'KE-PWB-001', name:'MagSafe 10,000mAh Power Bank', categoryPath:['phone-accessories','charging-accessories','power-banks'], brand:'voltix', price:24900, compare_at_price:null, tag:'New', stock:12, rating:4.7, reviews:132, img:'photo-1609091839311-d5365f9ff1c5',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Wireless and wired charging in one slim pack. Snap-on MagSafe alignment.',
     specs:[['Capacity','10,000mAh'],['Wireless','15W'],['Wired','20W USB-C'],['Weight','215g']] },
   { slug:'usb-c-to-usb-c-2m-cable', sku:'KE-CBL-001', name:'USB-C to USB-C 2m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:4500, compare_at_price:6000, tag:'Sale', stock:60, rating:4.6, reviews:320, img:'photo-1589996448606-27d6a0f8e8e5',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Braided 100W USB-C cable for fast charging and data.',
     specs:[['Length','2m'],['Power','100W'],['Data','480 Mbps'],['Finish','Braided nylon']] },
   { slug:'lightning-braided-1m-cable', sku:'KE-CBL-002', name:'Lightning Braided 1m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:3800, compare_at_price:null, tag:null, stock:42, rating:4.5, reviews:180, img:'photo-1601524909162-ae8725290836',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Apple MFi-compatible Lightning cable.',
     specs:[['Length','1m'],['Power','20W'],['Finish','Braided nylon'],['Certification','MFi']] },
   { slug:'true-wireless-earbuds-pro', sku:'KE-AUD-001', name:'True Wireless Earbuds Pro', categoryPath:['phone-accessories','audio-accessories','earbuds'], brand:'sona', price:32500, compare_at_price:38000, tag:'Popular', stock:8, rating:4.9, reviews:412, img:'photo-1590658268037-6bf12165a8df',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Hybrid ANC with 6 hours playback and 24-hour case.',
     specs:[['Battery','6h + 24h case'],['ANC','Hybrid'],['Bluetooth','5.3'],['Water resistance','IPX4']] },
   { slug:'over-ear-studio-headset', sku:'KE-AUD-002', name:'Over-Ear Studio Headset', categoryPath:['phone-accessories','audio-accessories','headphones'], brand:'sona', price:42000, compare_at_price:null, tag:null, stock:5, rating:4.7, reviews:210, img:'photo-1505740420928-5e560c06d30e',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'40-hour battery, 40mm drivers, detachable mic.',
     specs:[['Battery','40h'],['Driver','40mm'],['Mic','Detachable'],['Connection','BT 5.2 + 3.5mm']] },
   { slug:'tempered-glass-2-pack', sku:'KE-SCP-001', name:'Tempered Glass Screen Protector', categoryPath:['phone-accessories','screen-protectors'], brand:'peak', price:3200, compare_at_price:4500, tag:'Sale', stock:100, rating:4.6, reviews:540, img:'photo-1603313010021-c5f0e70f3f5d',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'9H hardness, full-cover edge-to-edge fit.',
     specs:[['Hardness','9H'],['Pack','2 pieces'],['Fit','Full-cover'],['Finish','Oleophobic']] },
   { slug:'smart-watch-band-nylon', sku:'KE-WB-001', name:'Smart Watch Band — Nylon', categoryPath:['smart-gadgets','smart-watches'], brand:'peak', price:5500, compare_at_price:null, tag:null, stock:22, rating:4.3, reviews:88, img:'photo-1546868871-7041f2a55e12',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'22mm universal nylon watch band.',
     specs:[['Width','22mm'],['Fit','Universal'],['Washable','Yes'],['Buckle','Stainless steel']] },
   { slug:'oraimo-picbuddy-dual-camera-kids-camera', sku:'KE-KID-001', name:'Oraimo PicBuddy Dual Camera HD Kids Camera', categoryPath:['smart-gadgets'], brand:'oraimo', price:35900, compare_at_price:39890, tag:'Sale', stock:20, rating:4.7, reviews:120, img:'photo-1512756290469-ec264b7fbf87',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Dual-lens HD kids camera with 2.4" IPS screen and 4GB storage.',
     specs:[['Model','OBC-293A'],['Battery','600mAh'],['Storage','4GB (16GB HD video)'],['Screen','2.4" IPS'],['Camera','48MP dual lens'],['Extras','Music, time-lapse, variable-speed recording']] },
   { slug:'phone-battery-iphone-11-oem', sku:'KE-BAT-001', name:'Phone Battery — iPhone 11 (OEM)', categoryPath:['phone-batteries','iphone-batteries'], brand:'voltix', price:12500, compare_at_price:15000, tag:'Sale', stock:18, rating:4.5, reviews:96, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'OEM-grade iPhone 11 replacement battery with 6-month warranty.',
     specs:[['Model','iPhone 11'],['Capacity','3,110mAh'],['Type','Li-Ion'],['Warranty','6 months']] },
   { slug:'phone-battery-iphone-12-pro', sku:'KE-BAT-002', name:'Phone Battery — iPhone 12 Pro', categoryPath:['phone-batteries','iphone-batteries'], brand:'voltix', price:14500, compare_at_price:null, tag:'New', stock:14, rating:4.6, reviews:64, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'OEM-grade iPhone 12 Pro replacement battery.',
     specs:[['Model','iPhone 12 Pro'],['Capacity','2,815mAh'],['Type','Li-Ion'],['Warranty','6 months']] },
   { slug:'phone-battery-samsung-a52', sku:'KE-BAT-003', name:'Phone Battery — Samsung A52', categoryPath:['phone-batteries','samsung-batteries'], brand:'voltix', price:9800, compare_at_price:12000, tag:'Sale', stock:26, rating:4.4, reviews:118, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Samsung A52 replacement battery.',
     specs:[['Model','Samsung A52'],['Capacity','4,500mAh'],['Type','Li-Ion'],['Warranty','6 months']] },
   { slug:'phone-battery-samsung-s21', sku:'KE-BAT-004', name:'Phone Battery — Samsung S21', categoryPath:['phone-batteries','samsung-batteries'], brand:'voltix', price:13500, compare_at_price:null, tag:null, stock:11, rating:4.5, reviews:72, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Samsung S21 replacement battery.',
     specs:[['Model','Samsung S21'],['Capacity','4,000mAh'],['Type','Li-Ion'],['Warranty','6 months']] },
   { slug:'phone-battery-tecno-camon-17', sku:'KE-BAT-005', name:'Phone Battery — Tecno Camon 17', categoryPath:['phone-batteries','tecno-batteries'], brand:'voltix', price:7500, compare_at_price:null, tag:'Popular', stock:30, rating:4.3, reviews:140, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Tecno Camon 17 replacement battery.',
     specs:[['Model','Tecno Camon 17'],['Capacity','5,000mAh'],['Type','Li-Ion'],['Warranty','6 months']] },
   { slug:'phone-battery-infinix-hot-10', sku:'KE-BAT-006', name:'Phone Battery — Infinix Hot 10', categoryPath:['phone-batteries','infinix-batteries'], brand:'voltix', price:6800, compare_at_price:8500, tag:'Sale', stock:24, rating:4.2, reviews:88, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Infinix Hot 10 replacement battery.',
     specs:[['Model','Infinix Hot 10'],['Capacity','5,200mAh'],['Type','Li-Ion'],['Warranty','6 months']] },
   { slug:'clear-shock-case-iphone', sku:'KE-CAS-001', name:'Clear Shock Case — iPhone', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:6500, compare_at_price:null, tag:'New', stock:30, rating:4.4, reviews:96, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Anti-yellow clear TPU case with 2m drop rating.',
     specs:[['Drop rating','2m'],['Material','TPU + PC'],['Finish','Anti-yellow'],['Warranty','3 months']] },
   { slug:'case-clear-shock-iphone-14', sku:'KE-CAS-002', name:'Clear Shock Case — iPhone 14', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:4500, compare_at_price:6000, tag:'Sale', stock:45, rating:4.6, reviews:220, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Clear TPU case with reinforced corners.',
     specs:[['Drop rating','2m'],['Material','TPU'],['Finish','Anti-yellow'],['Warranty','3 months']] },
   { slug:'case-silicone-iphone-13', sku:'KE-CAS-003', name:'Silicone Case — iPhone 13', categoryPath:['phone-casings','silicone-cases'], brand:'peak', price:3800, compare_at_price:null, tag:null, stock:52, rating:4.5, reviews:180, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Soft-touch silicone case with microfiber lining.',
     specs:[['Material','Silicone'],['Lining','Microfiber'],['Finish','Matte'],['Warranty','3 months']] },
   { slug:'case-leather-samsung-s22', sku:'KE-CAS-004', name:'Leather Case — Samsung S22', categoryPath:['phone-casings','leather-cases'], brand:'peak', price:7500, compare_at_price:9500, tag:'Sale', stock:20, rating:4.7, reviews:96, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Genuine leather finish case with suede lining.',
     specs:[['Material','Leather'],['Lining','Suede'],['Finish','Matte'],['Warranty','3 months']] },
   { slug:'case-rugged-armour-tecno', sku:'KE-CAS-005', name:'Rugged Armour Case — Tecno', categoryPath:['phone-casings','rugged-cases'], brand:'peak', price:5500, compare_at_price:null, tag:'New', stock:34, rating:4.5, reviews:120, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Heavy-duty case with reinforced corners.',
     specs:[['Drop rating','3m'],['Material','TPU + PC'],['Finish','Textured grip'],['Warranty','6 months']] },
   { slug:'case-flip-cover-infinix', sku:'KE-CAS-006', name:'Flip Cover — Infinix', categoryPath:['phone-casings','flip-covers'], brand:'peak', price:4200, compare_at_price:5200, tag:'Sale', stock:38, rating:4.4, reviews:140, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Full-body flip cover with card slot.',
     specs:[['Material','PU Leather'],['Slot','Card + cash'],['Finish','Soft-touch'],['Warranty','3 months']] },
   { slug:'case-transparent-shock-xiaomi', sku:'KE-CAS-007', name:'Transparent Shock Case — Xiaomi', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:3500, compare_at_price:null, tag:null, stock:60, rating:4.5, reviews:186, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Ultra-slim transparent case.',
     specs:[['Material','TPU'],['Drop rating','1.5m'],['Finish','Crystal clear'],['Warranty','3 months']] },
   { slug:'case-magsafe-iphone-15-pro', sku:'KE-CAS-008', name:'MagSafe Case — iPhone 15 Pro', categoryPath:['phone-casings','magsafe-cases'], brand:'peak', price:8500, compare_at_price:null, tag:'Popular', stock:16, rating:4.8, reviews:92, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'MagSafe-compatible case with strong magnets.',
     specs:[['Material','TPU + magnets'],['MagSafe','Yes'],['Finish','Anti-fingerprint'],['Warranty','3 months']] },
   { slug:'mechanical-keyboard-75', sku:'KE-KB-001', name:'Mechanical Keyboard 75%', categoryPath:['computer-accessories','computer-input','keyboards'], brand:'northloop', price:46500, compare_at_price:52000, tag:'Popular', stock:7, rating:4.8, reviews:310, img:'photo-1587829741301-dc798b83add3',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Hot-swap 75% mechanical keyboard with Bluetooth and USB-C.',
     specs:[['Layout','75%'],['Switch','Hot-swap'],['Connection','BT + USB-C'],['Battery','4000mAh']] },
   { slug:'silent-wireless-mouse', sku:'KE-MS-001', name:'Silent Wireless Mouse', categoryPath:['computer-accessories','computer-input','mice'], brand:'northloop', price:9800, compare_at_price:null, tag:null, stock:18, rating:4.6, reviews:220, img:'photo-1527814050087-3793815479db',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Silent-click wireless mouse with 12-month battery.',
     specs:[['DPI','1600'],['Battery','12 months'],['Buttons','6'],['Connection','2.4GHz + BT']] },
   { slug:'usb-c-7in1-hub', sku:'KE-HUB-001', name:'USB-C 7-in-1 Hub', categoryPath:['computer-accessories','computer-desk','usb-hubs'], brand:'northloop', price:27500, compare_at_price:31000, tag:'Sale', stock:14, rating:4.7, reviews:188, img:'photo-1625842268584-8f3296236761',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'7-port USB-C hub with 4K 60Hz HDMI and 100W pass-through.',
     specs:[['Ports','7'],['HDMI','4K 60Hz'],['Power','100W PD'],['Ethernet','Gigabit']] },
   { slug:'laptop-stand-aluminium', sku:'KE-STD-001', name:'Aluminium Laptop Stand', categoryPath:['computer-accessories','computer-desk','laptop-stands'], brand:'peak', price:15900, compare_at_price:null, tag:null, stock:11, rating:4.5, reviews:140, img:'photo-1618384887929-16ec33fab9ef',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Foldable aluminium stand for 11–17" laptops.',
     specs:[['Material','Aluminium'],['Fit','11–17"'],['Foldable','Yes'],['Weight','680g']] },
   { slug:'1080p-webcam-with-mic', sku:'KE-CAM-001', name:'1080p Webcam with Mic', categoryPath:['computer-accessories','computer-desk','webcams'], brand:'arkstore', price:21500, compare_at_price:null, tag:'New', stock:9, rating:4.4, reviews:96, img:'photo-1587826080692-f439cd0b70da',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'Full HD webcam with dual mic.',
     specs:[['Resolution','1080p 30fps'],['Mic','Dual'],['Mount','Clip + tripod'],['Cable','1.5m USB-A']] },
   { slug:'nvme-ssd-1tb-enclosure', sku:'KE-SSD-001', name:'NVMe SSD 1TB + Enclosure', categoryPath:['computer-accessories','computer-storage','ssds'], brand:'arkstore', price:78000, compare_at_price:89000, tag:'Sale', stock:4, rating:4.9, reviews:210, img:'photo-1591370874773-6702e8f12fd8',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'1TB NVMe SSD with USB 3.2 Gen 2 enclosure.',
     specs:[['Capacity','1TB'],['Interface','USB 3.2 Gen 2'],['Speed','1050 MB/s'],['Warranty','24 months']] },
   { slug:'usb-c-dock-dual-hdmi', sku:'KE-DOCK-001', name:'USB-C Dock — Dual HDMI', categoryPath:['computer-accessories','computer-desk','usb-hubs'], brand:'northloop', price:58000, compare_at_price:null, tag:null, stock:6, rating:4.6, reviews:110, img:'photo-1625842268584-8f3296236761',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null,
     short:'10-port dock with dual 4K HDMI and Gigabit Ethernet.',
     specs:[['HDMI','2× 4K 30Hz'],['Ports','10'],['Ethernet','Gigabit'],['Power','100W PD']] }
 ];
@@ -927,8 +933,6 @@ KE.img = (id, w = 900) => {
   if (id.startsWith('assets/') || id.startsWith('http')) return id;
   return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=75`;
 };
-KE.tierFor = q => KE.CONFIG.wholesale.find(t => q >= t.min && q <= t.max) || KE.CONFIG.wholesale[0];
-KE.unitPrice = (p, q = 1) => Math.round(p.price * (1 - KE.tierFor(q).off));
 KE.findProduct = slug => KE.PRODUCTS.find(p => p.slug === slug) || null;
 KE.findBrand = slug => KE.BRANDS.find(b => b.slug === slug) || null;
 KE.brandName = slug => KE.findBrand(slug)?.name || slug;
@@ -942,26 +946,153 @@ KE.findCategory = function (slug, list = KE.CATEGORIES){
 };
 KE.productsInCategory = cat => KE.PRODUCTS.filter(p => p.categoryPath.includes(cat));
 
+/* ----------------------------------------------------------------
+   KE.getPackages — exactly 3 options. Missing config → disabled.
+   Same as cart.html / shop.html.
+   ---------------------------------------------------------------- */
+KE.getPackages = function(product) {
+  if (!product) return [];
+  const stock = Math.max(0, Number(product.stock) || 0);
+  const cartonSize = Number(product.cartonSize) || 0;
+  const halfSize = Number(product.halfCartonSize) || (cartonSize > 0 ? Math.ceil(cartonSize / 2) : 0);
+  const halfPrice = Number(product.halfCartonPrice) || 0;
+  const fullPrice = Number(product.fullCartonPrice) || 0;
+  const packs = [];
+
+  packs.push({
+    key: 'unit', label: 'Single Unit', sublabel: '1 item',
+    unitsPerPackage: 1, totalPrice: product.price, perUnit: product.price,
+    savePct: 0, available: stock >= 1,
+    disabledReason: stock < 1 ? 'Out of stock' : null
+  });
+
+  if (halfSize > 0 && halfPrice > 0) {
+    const retail = product.price * halfSize;
+    packs.push({
+      key: 'half-pack', label: 'Half Pack', sublabel: halfSize + ' items',
+      unitsPerPackage: halfSize, totalPrice: halfPrice,
+      perUnit: Math.round(halfPrice / halfSize),
+      savePct: retail > 0 ? Math.max(0, Math.round((1 - halfPrice / retail) * 100)) : 0,
+      available: stock >= halfSize,
+      disabledReason: stock < halfSize ? `Only ${stock} in stock — need ${halfSize} for this pack` : null
+    });
+  } else {
+    packs.push({
+      key: 'half-pack', label: 'Half Pack',
+      sublabel: halfSize > 0 ? halfSize + ' items' : 'Size not configured',
+      unitsPerPackage: halfSize, totalPrice: 0, perUnit: 0, savePct: 0, available: false,
+      disabledReason: 'Package not configured yet — available once admin sets size and price'
+    });
+  }
+
+  if (cartonSize > 0 && fullPrice > 0) {
+    const retail = product.price * cartonSize;
+    packs.push({
+      key: 'full-pack', label: 'Full Pack', sublabel: cartonSize + ' items',
+      unitsPerPackage: cartonSize, totalPrice: fullPrice,
+      perUnit: Math.round(fullPrice / cartonSize),
+      savePct: retail > 0 ? Math.max(0, Math.round((1 - fullPrice / retail) * 100)) : 0,
+      available: stock >= cartonSize,
+      disabledReason: stock < cartonSize ? `Only ${stock} in stock — need ${cartonSize} for this pack` : null
+    });
+  } else {
+    packs.push({
+      key: 'full-pack', label: 'Full Pack',
+      sublabel: cartonSize > 0 ? cartonSize + ' items' : 'Size not configured',
+      unitsPerPackage: cartonSize, totalPrice: 0, perUnit: 0, savePct: 0, available: false,
+      disabledReason: 'Package not configured yet — available once admin sets size and price'
+    });
+  }
+  return packs;
+};
+
+/* ----------------------------------------------------------------
+   KE.cart — v2. Same schema as shop.html / cart.html / checkout.html
+   ---------------------------------------------------------------- */
 KE.cart = (function(){
-  const KEY = 'kaka:cart:v1';
-  const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
-  const write = c => {
-    try { localStorage.setItem(KEY, JSON.stringify(c)); } catch {}
+  const KEY = 'kaka:cart:v2';
+  const OLD_KEY = 'kaka:cart:v1';
+  const OLD_PKG = 'kaka:cart:packages:v1';
+  const read = () => {
+    try {
+      const raw = JSON.parse(localStorage.getItem(KEY)) || {};
+      return Array.isArray(raw.lines) ? raw : { lines: [] };
+    } catch { return { lines: [] }; }
+  };
+  const write = data => {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch {}
     document.dispatchEvent(new CustomEvent('cart:updated'));
   };
+  const unitsInLine = l => (Number(l.qtyPacks) || 0) * (Number(l.unitsPerPackage) || 0);
+
+  const migrateLegacy = () => {
+    let oldCart = {}, oldPkgs = {};
+    try {
+      oldCart = JSON.parse(localStorage.getItem(OLD_KEY)) || {};
+      oldPkgs = JSON.parse(localStorage.getItem(OLD_PKG)) || {};
+    } catch { return; }
+    const slugList = Object.keys(oldCart);
+    if (!slugList.length) return;
+    const data = read();
+    if (data.lines.length > 0) {
+      try { localStorage.removeItem(OLD_KEY); localStorage.removeItem(OLD_PKG); } catch {}
+      return;
+    }
+    for (const slug of slugList) {
+      const qty = Number(oldCart[slug]) || 0;
+      if (qty <= 0) continue;
+      const product = KE.findProduct(slug);
+      if (!product) continue;
+      const livePkgs = KE.getPackages(product);
+      const hint = oldPkgs[slug];
+      let migrated = false;
+      if (hint && hint.key) {
+        const livePkg = livePkgs.find(pk => pk.key === hint.key);
+        if (livePkg && livePkg.available && livePkg.unitsPerPackage > 0 && livePkg.totalPrice > 0) {
+          const packs = Math.max(1, Math.floor(qty / livePkg.unitsPerPackage));
+          data.lines.push({
+            id: slug + '::' + livePkg.key, slug,
+            pkgKey: livePkg.key, pkgLabel: livePkg.label,
+            unitsPerPackage: livePkg.unitsPerPackage,
+            pricePerPackage: livePkg.totalPrice, qtyPacks: packs
+          });
+          migrated = true;
+        }
+      }
+      if (!migrated) {
+        data.lines.push({
+          id: slug + '::pending::' + Date.now() + Math.random().toString(36).slice(2, 6), slug,
+          pkgKey: null, pkgLabel: null, unitsPerPackage: 0, pricePerPackage: 0, qtyPacks: 0
+        });
+      }
+    }
+    write(data);
+    try { localStorage.removeItem(OLD_KEY); localStorage.removeItem(OLD_PKG); } catch {}
+  };
+
   return {
-    items: () => read(),
-    count: () => Object.values(read()).reduce((a,b) => a+b, 0),
-    add(slug, qty = 1) {
-      const p = KE.findProduct(slug); if (!p) return;
-      const c = read(); c[slug] = Math.min((c[slug] || 0) + qty, p.stock); write(c);
+    migrateLegacy,
+    lines: () => read().lines,
+    count: () => read().lines.reduce((s, l) => {
+      if (!l.pkgKey) return s + 1;
+      const u = unitsInLine(l);
+      return s + (u > 0 ? u : 0);
+    }, 0),
+    unitsOf(slug) {
+      return read().lines.filter(l => l.slug === slug).reduce((s, l) => s + unitsInLine(l), 0);
     },
-    setQty(slug, qty) {
-      const p = KE.findProduct(slug); if (!p) return;
-      const c = read();
-      const n = Math.max(0, Math.min(qty, p.stock));
-      if (n <= 0) delete c[slug]; else c[slug] = n;
-      write(c);
+    addPending(slug) {
+      const p = KE.findProduct(slug);
+      if (!p || p.stock <= 0) return false;
+      const data = read();
+      if (data.lines.some(l => l.slug === slug && !l.pkgKey)) return true;
+      if (this.unitsOf(slug) >= p.stock) return false;
+      data.lines.push({
+        id: slug + '::pending::' + Date.now() + Math.random().toString(36).slice(2, 6), slug,
+        pkgKey: null, pkgLabel: null, unitsPerPackage: 0, pricePerPackage: 0, qtyPacks: 0
+      });
+      write(data);
+      return true;
     }
   };
 })();
@@ -994,7 +1125,8 @@ const ICON = {
   truck:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>',
   shield:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>',
   share:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 3.9M15.4 6.6 8.6 10.5"/></svg>',
-  heart2:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'
+  heart2:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  info:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>'
 };
 
 /* ============================================================
@@ -1242,15 +1374,13 @@ function bindSticky(){
    PRODUCT PAGE RENDER
    ============================================================ */
 const PR = {
-  state: { product: null, qty: 1, galleryIndex: 0 },
+  state: { product: null, galleryIndex: 0 },
 
-  /* Read slug from URL */
   readSlug() {
     const p = new URLSearchParams(location.search);
     return p.get('slug') || '';
   },
 
-  /* Render not found */
   renderNotFound() {
     const root = document.getElementById('productRoot');
     root.innerHTML = `
@@ -1265,10 +1395,8 @@ const PR = {
     document.title = 'Not found — KAKA ENTERPRISES';
   },
 
-  /* Build breadcrumb from categoryPath */
   renderBreadcrumb(product) {
     const parts = ['<a href="index.html">Home</a>', '<span class="sep">/</span>', '<a href="shop.html">Shop</a>'];
-    let slugPath = '';
     product.categoryPath.forEach((slug, idx) => {
       const cat = KE.findCategory(slug);
       if (!cat) return;
@@ -1283,7 +1411,6 @@ const PR = {
     return `<nav class="breadcrumb" aria-label="Breadcrumb">${parts.join('')}</nav>`;
   },
 
-  /* Tag → class */
   tagClass(tag) {
     if (!tag) return '';
     const t = tag.toLowerCase();
@@ -1292,7 +1419,6 @@ const PR = {
     return 'gallery__tag--popular';
   },
 
-  /* Render stars */
   stars(rating) {
     const full = Math.floor(rating);
     const half = rating - full >= .5;
@@ -1303,20 +1429,17 @@ const PR = {
     return out;
   },
 
-  /* Stock line */
   stockInfo(product) {
     if (product.stock <= 0) return { text: 'Out of stock', cls: 'is-out' };
     if (product.stock < 5) return { text: `Low stock: only ${product.stock} left`, cls: 'is-low' };
     return { text: `In stock (${product.stock} available)`, cls: '' };
   },
 
-  /* Related products: same type first, then same category */
   related(product, limit = 4) {
     const type = product.categoryPath[product.categoryPath.length - 1];
     const cat  = product.categoryPath[0];
     const seen = new Set([product.slug]);
     const out = [];
-
     KE.PRODUCTS.forEach(p => {
       if (out.length >= limit) return;
       if (seen.has(p.slug)) return;
@@ -1330,7 +1453,6 @@ const PR = {
     return out;
   },
 
-  /* Product card (same as other pages) */
   card(p) {
     const out = p.stock <= 0;
     const tint = (p.name.length % 5) + 1;
@@ -1358,7 +1480,33 @@ const PR = {
       </a>`;
   },
 
-  /* Full render */
+  /* Pack-pricing rows for the table */
+  packRows(product) {
+    const pkgs = KE.getPackages(product);
+    return pkgs.map(pkg => {
+      const configured = pkg.totalPrice > 0 && pkg.unitsPerPackage > 0;
+      const isUnit = pkg.key === 'unit';
+      const priceHtml = configured
+        ? KE.money(pkg.totalPrice)
+        : `<span style="color:var(--muted)">Not configured</span>`;
+      const perUnitHtml = configured && pkg.unitsPerPackage > 1
+        ? `<span style="display:block;font-size:11px;color:var(--muted);font-weight:500;">${KE.money(pkg.perUnit)}/ea</span>`
+        : '';
+      const saveHtml = configured && pkg.savePct > 0
+        ? `${pkg.savePct}% off`
+        : (configured && isUnit ? '—' : '');
+      return `
+        <tr>
+          <td>
+            ${KE.esc(pkg.label)}
+            <span style="display:block;font-size:11px;color:var(--muted);font-weight:500;">${KE.esc(pkg.sublabel)}</span>
+          </td>
+          <td class="price">${priceHtml}${perUnitHtml}</td>
+          <td class="save">${saveHtml}</td>
+        </tr>`;
+    }).join('');
+  },
+
   render() {
     const slug = this.readSlug();
     const product = KE.findProduct(slug);
@@ -1367,45 +1515,22 @@ const PR = {
     if (!product) { this.renderNotFound(); this.hideSticky(); return; }
 
     this.state.product = product;
-    this.state.qty = 1;
     this.state.galleryIndex = 0;
 
-    /* SEO */
     document.title = product.name + ' — ' + KE.CONFIG.business.name;
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute('content', (product.short || product.name) + ' — Buy at ' + KE.CONFIG.business.name + '.');
 
     const stock = this.stockInfo(product);
-    const tier = KE.tierFor(1);
-    const unitNow = KE.unitPrice(product, 1);
     const save = product.compare_at_price ? product.compare_at_price - product.price : 0;
     const savePct = save ? Math.round((save / product.compare_at_price) * 100) : 0;
 
-    /* Wholesale rows */
-    const tierRows = KE.CONFIG.wholesale.map((t, i) => {
-      const min = t.min;
-      const max = t.max === Infinity ? '∞' : t.max;
-      const unit = Math.round(product.price * (1 - t.off));
-      const saveTxt = t.off === 0 ? '—' : Math.round(t.off * 100) + '%';
-      const active = (min === 1 && this.state.qty <= 9) ||
-                     (min === 10 && this.state.qty >= 10 && this.state.qty <= 49) ||
-                     (min === 50 && this.state.qty >= 50);
-      return `<tr data-tier="${i}" class="${active ? 'is-active' : ''}">
-        <td>${min} – ${max} units</td>
-        <td class="price">${KE.money(unit)}</td>
-        <td class="save">${saveTxt}</td>
-      </tr>`;
-    }).join('');
-
-    /* Specs */
     const specsRows = (product.specs || []).map(([k, v]) =>
       `<tr><th>${KE.esc(k)}</th><td>${KE.esc(v)}</td></tr>`
     ).join('') || '<tr><td colspan="2" style="text-align:center;color:var(--muted);">No specs listed</td></tr>';
 
-    /* Related */
     const related = this.related(product, 4);
 
-    /* WhatsApp enquiry with product info */
     const waMsg = `Hi KAKA ENTERPRISES, I'd like to enquire about:\n\n• ${product.name}\n• SKU: ${product.sku || '—'}\n• Price: ${KE.money(product.price)}\n\nPlease confirm availability and delivery.`;
     const waHref = `https://wa.me/${KE.CONFIG.business.whatsapp}?text=${encodeURIComponent(waMsg)}`;
 
@@ -1450,7 +1575,7 @@ const PR = {
             </div>` : ''}
 
           <div class="info__price-row">
-            <span class="info__price" id="priceNow">${KE.money(unitNow)}</span>
+            <span class="info__price" id="priceNow">${KE.money(product.price)}</span>
             ${product.compare_at_price ? `<span class="info__was">${KE.money(product.compare_at_price)}</span>` : ''}
             ${save ? `<span class="info__save">Save ${savePct}%</span>` : ''}
           </div>
@@ -1464,19 +1589,9 @@ const PR = {
 
           <!-- ACTIONS -->
           <div class="actions">
-            <div class="stepper" role="group" aria-label="Quantity">
-              <button type="button" id="qtyMinus" aria-label="Decrease">−</button>
-              <input id="qtyInput" type="number" value="1" min="1" max="${product.stock || 1}" aria-label="Quantity" />
-              <button type="button" id="qtyPlus" aria-label="Increase">+</button>
-            </div>
-
             <button class="btn--buy" id="addToCart" type="button" ${product.stock <= 0 ? 'disabled' : ''}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a2 2 0 0 0 2 1.7h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>
               ${product.stock <= 0 ? 'Sold out' : 'Add to cart'}
-            </button>
-
-            <button class="btn--outline-lg" id="buyNow" type="button" ${product.stock <= 0 ? 'disabled' : ''}>
-              Buy now
             </button>
 
             <a class="btn--wa" href="${waHref}" target="_blank" rel="noopener noreferrer">
@@ -1492,28 +1607,34 @@ const PR = {
             </button>
           </div>
 
+          <!-- Cart handoff hint -->
+          <div class="cart-hint">
+            ${ICON.info}
+            <span>You'll choose <b>Single Unit</b>, <b>Half Pack</b>, or <b>Full Pack</b> &mdash; and set quantity &mdash; on the cart page.</span>
+          </div>
+
           <!-- DELIVERY -->
           <div class="delivery-note">
             ${ICON.truck}
             <div>
-              <b>Delivery:</b> Free over ${KE.money(KE.CONFIG.freeDeliveryFrom)}.
-              Otherwise a flat ${KE.money(KE.CONFIG.flatDeliveryFee)} fee.
+              <b>Delivery:</b> Free on orders over ${KE.money(KE.CONFIG.freeDeliveryFrom)}.
+              Otherwise, delivery is calculated at checkout based on your state.
               Estimated dispatch within 24 hours.
             </div>
           </div>
 
-          <!-- WHOLESALE TIERS -->
+          <!-- PACK PRICING -->
           <div class="tiers">
             <div class="tiers__head">
               ${ICON.shield}
-              <b>Wholesale pricing</b>
-              <span>Auto-applied in cart</span>
+              <b>Pack pricing</b>
+              <span>Choose your pack on the cart page</span>
             </div>
             <table class="tier-table">
               <thead>
-                <tr><th>Quantity</th><th>Unit price</th><th>Discount</th></tr>
+                <tr><th>Option</th><th>Price</th><th>Save</th></tr>
               </thead>
-              <tbody id="tierRows">${tierRows}</tbody>
+              <tbody>${this.packRows(product)}</tbody>
             </table>
           </div>
         </div>
@@ -1540,52 +1661,28 @@ const PR = {
       </div>` : ''}
     `;
 
-    /* Wire stepper + buttons */
     this.bindActions(product);
     this.bindGallery(product);
-    this.updateStickyTotal();
-
-    /* Show sticky bar on scroll past the main CTA */
+    this.updateStickyPrice();
     this.watchSticky();
   },
 
   bindActions(product) {
-    const qtyInput = document.getElementById('qtyInput');
-    const minus = document.getElementById('qtyMinus');
-    const plus = document.getElementById('qtyPlus');
     const addBtn = document.getElementById('addToCart');
-    const buyBtn = document.getElementById('buyNow');
 
-    const setQty = (n) => {
-      n = Math.max(1, Math.min(n, product.stock || 1));
-      this.state.qty = n;
-      qtyInput.value = n;
-      this.refreshPrice(product);
-      this.updateStickyTotal();
+    const doAddToCart = () => {
+      if (product.stock <= 0) return;
+      const ok = KE.cart.addPending(product.slug);
+      if (!ok) {
+        KE.toast(`Only ${product.stock} in stock`, 'warn');
+        return;
+      }
+      updateCartBadge();
+      try { sessionStorage.setItem('kaka:cart:lastAdded', product.slug); } catch {}
+      window.location.href = 'cart.html#item-' + encodeURIComponent(product.slug);
     };
 
-    minus.addEventListener('click', () => setQty(this.state.qty - 1));
-    plus.addEventListener('click', () => setQty(this.state.qty + 1));
-    qtyInput.addEventListener('change', () => setQty(parseInt(qtyInput.value, 10) || 1));
-
-    if (addBtn) addBtn.addEventListener('click', () => {
-      if (product.stock <= 0) return;
-      const cur = KE.cart.items()[product.slug] || 0;
-      const room = product.stock - cur;
-      const adding = Math.min(this.state.qty, room);
-      if (adding <= 0) { KE.toast(`Only ${product.stock} in stock`, 'warn'); return; }
-      KE.cart.add(product.slug, adding);
-      KE.toast(`Added ${adding} to cart`, 'good');
-    });
-
-    if (buyBtn) buyBtn.addEventListener('click', () => {
-      if (product.stock <= 0) return;
-      const cur = KE.cart.items()[product.slug] || 0;
-      const room = product.stock - cur;
-      const adding = Math.min(this.state.qty, room);
-      if (adding > 0) KE.cart.add(product.slug, adding);
-      location.href = 'checkout.html';
-    });
+    if (addBtn) addBtn.addEventListener('click', doAddToCart);
 
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) shareBtn.addEventListener('click', async () => {
@@ -1605,21 +1702,6 @@ const PR = {
     if (stickyAdd) stickyAdd.addEventListener('click', () => addBtn.click());
   },
 
-  refreshPrice(product) {
-    const qty = this.state.qty;
-    const unit = KE.unitPrice(product, qty);
-    const el = document.getElementById('priceNow');
-    if (el) el.textContent = KE.money(unit);
-
-    /* Highlight the matching tier row */
-    document.querySelectorAll('#tierRows tr').forEach(tr => {
-      const idx = Number(tr.getAttribute('data-tier'));
-      const t = KE.CONFIG.wholesale[idx];
-      const active = qty >= t.min && qty <= t.max;
-      tr.classList.toggle('is-active', active);
-    });
-  },
-
   bindGallery(product) {
     const thumbs = document.querySelectorAll('#galleryThumbs .gallery__thumb');
     const main = document.getElementById('galleryMain');
@@ -1634,12 +1716,10 @@ const PR = {
     });
   },
 
-  updateStickyTotal() {
+  updateStickyPrice() {
     const el = document.getElementById('stickyTotal');
     if (!el || !this.state.product) return;
-    const qty = this.state.qty;
-    const unit = KE.unitPrice(this.state.product, qty);
-    el.textContent = KE.money(unit * qty);
+    el.textContent = KE.money(this.state.product.price);
   },
 
   hideSticky() {
@@ -1652,7 +1732,6 @@ const PR = {
     const bar = document.getElementById('stickyCart');
     const trigger = document.getElementById('addToCart');
     if (!bar || !trigger) return;
-    /* Reset first */
     bar.classList.remove('is-visible');
     document.body.classList.remove('has-sticky-cart');
 
@@ -1669,7 +1748,6 @@ const PR = {
         document.body.classList.remove('has-sticky-cart');
       }
     };
-    /* Remove old listener if re-rendering */
     if (this._stickyHandler) window.removeEventListener('scroll', this._stickyHandler);
     this._stickyHandler = onScroll;
     window.addEventListener('scroll', onScroll, { passive:true });
@@ -1679,6 +1757,7 @@ const PR = {
 
 /* ============================================================
    GLOBAL EVENT: add to cart from related products
+   (stays on page — user is still browsing)
    ============================================================ */
 document.addEventListener('click', e => {
   const btn = e.target.closest('[data-add]');
@@ -1687,14 +1766,20 @@ document.addEventListener('click', e => {
   const slug = btn.getAttribute('data-add');
   const p = KE.findProduct(slug);
   if (!p || p.stock <= 0) return;
-  KE.cart.add(slug, 1);
-  KE.toast('Added to cart', 'good');
+  const ok = KE.cart.addPending(slug);
+  if (!ok) {
+    KE.toast(`Only ${p.stock} in stock`, 'warn');
+    return;
+  }
+  updateCartBadge();
+  KE.toast('Added to cart — choose a package on the cart page', 'good');
 });
 
 /* ============================================================
    INIT
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
+  try { KE.cart.migrateLegacy(); } catch {}
   renderHeader();
   renderFooter();
   updateCartBadge();

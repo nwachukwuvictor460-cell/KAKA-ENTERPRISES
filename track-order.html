@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<meta name="theme-color" content="#ffffff" />
+<title>Orders — KAKA Admin (demo)</title>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%236C3BF0'/><path d='M 10 8 C 18 8, 22 12, 22 16 C 22 20, 18 24, 10 24' fill='none' stroke='%23ffffff' stroke-width='3.2' stroke-linecap='round'/><path d='M 10 16 L 16 16' fill='none' stroke='%23ffffff' stroke-width='3.2' stroke-linecap='round'/><circle cx='18' cy='16' r='2.2' fill='%23E8A33D'/></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --brand:#6C3BF0; --brand-2:#8B5CF6; --brand-soft:#EFE9FD;
+  --bg:#F5F6FA; --surface:#FFFFFF; --surface-2:#F2F3F8;
+  --ink:#0E1020; --ink-2:#2A2F42; --muted:#5F6579; --line:#E4E6EE; --line-2:#D2D5DF;
+  --good:#16A34A; --warn:#D97706; --danger:#DC2626;
+  --fs-11:11px; --fs-12:12px; --fs-13:13px; --fs-14:14px; --fs-15:15px; --fs-16:16px; --fs-18:18px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px; --sp-8:32px;
+  --radius-card:16px; --radius-ctrl:12px;
+  --gutter:16px; --maxw:1100px;
+  --font-display:'Inter',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --shadow-md:0 6px 20px rgba(15,23,42,.08);
+  --shadow-lg:0 20px 50px rgba(15,23,42,.12);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body);
+  font-size:var(--fs-15); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:clip; }
+button,input,select,textarea{ font:inherit; color:inherit; }
+h1,h2,h3{ font-family:var(--font-display); font-weight:800; letter-spacing:-0.02em; margin:0; }
+a{ color:var(--brand); text-decoration:none; }
+.wrap{ max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gutter); }
+.sr{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); }
+.mono{ font-family:var(--font-mono); font-feature-settings:"tnum" 1; }
+.muted{ color:var(--muted); }
+
+/* Demo warning banner */
+.demo-banner{
+  background:#FFF7E6; color:#7A4A00; border-bottom:1px solid #F2D69A;
+  padding:10px 16px; font-size:13px; line-height:1.5; text-align:center;
+}
+.demo-banner strong{ color:#5A3600; }
+
+/* Top bar */
+.admin-top{
+  background:#fff; border-bottom:1px solid var(--line);
+  padding-block:14px;
+}
+.admin-top__inner{ display:flex; align-items:center; justify-content:space-between;
+  gap:16px; flex-wrap:wrap; }
+.admin-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); }
+.admin-brand__mark{ width:36px; height:36px; border-radius:10px;
+  background:linear-gradient(135deg, var(--brand), var(--brand-2));
+  display:grid; place-items:center; color:#fff; flex-shrink:0; }
+.admin-brand__mark svg{ width:20px; height:20px; }
+.admin-brand__text{ display:flex; flex-direction:column; line-height:1.1; }
+.admin-brand__name{ font-weight:900; font-size:15px; text-transform:uppercase; letter-spacing:-0.02em; }
+.admin-brand__tag{ font-size:10px; color:var(--brand); text-transform:uppercase;
+  letter-spacing:0.12em; font-weight:700; margin-top:2px; }
+.admin-top__actions{ display:flex; gap:8px; align-items:center; }
+
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  min-height:38px; padding:8px 14px; border-radius:10px;
+  border:1px solid transparent; background:var(--surface); color:var(--ink);
+  font-weight:600; font-size:var(--fs-13); cursor:pointer; white-space:nowrap;
+  transition:background .15s ease, border-color .15s ease, color .15s ease; }
+.btn--primary{ background:linear-gradient(135deg,var(--brand),var(--brand-2));
+  color:#fff; box-shadow:0 3px 10px rgba(108,59,240,.20); }
+.btn--primary:hover{ color:#fff; }
+.btn--outline{ background:var(--surface); border-color:var(--line-2); }
+.btn--outline:hover{ border-color:var(--brand); color:var(--brand); }
+.btn--danger{ background:var(--danger); color:#fff; border-color:transparent; }
+.btn--sm{ min-height:32px; padding:6px 10px; font-size:var(--fs-12); border-radius:8px; }
+
+/* Page content */
+.admin-page{ padding-block:var(--sp-6) var(--sp-10); }
+.admin-head{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
+  gap:12px; margin-bottom:var(--sp-5); }
+.admin-head h1{ font-size:24px; font-weight:900; }
+.admin-head p{ margin:4px 0 0; color:var(--muted); font-size:13px; }
+
+/* Layout */
+.admin-layout{ display:grid; gap:var(--sp-4); grid-template-columns:1fr; align-items:start; }
+@media (min-width:900px){ .admin-layout{ grid-template-columns:360px 1fr; gap:var(--sp-5); } }
+
+/* Order list */
+.order-list{
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--radius-card); overflow:hidden;
+}
+@media (min-width:900px){ .order-list{ position:sticky; top:16px; max-height:calc(100vh - 40px); overflow-y:auto; } }
+.order-list__head{
+  padding:12px 16px; border-bottom:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--surface-2);
+}
+.order-list__head h2{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.order-list__count{
+  background:var(--brand-soft); color:var(--brand); font-family:var(--font-mono);
+  font-size:12px; font-weight:700; padding:2px 8px; border-radius:6px;
+}
+.order-item{
+  display:block; width:100%; text-align:left;
+  padding:12px 16px; border:0; border-bottom:1px solid var(--line);
+  background:transparent; cursor:pointer;
+  transition:background .12s ease;
+  border-left:3px solid transparent;
+}
+.order-item:last-child{ border-bottom:0; }
+.order-item:hover{ background:var(--surface-2); }
+.order-item.is-active{ background:var(--brand-soft); border-left-color:var(--brand); }
+.order-item__num{ font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--ink);
+  margin:0 0 2px; }
+.order-item__meta{ font-size:12px; color:var(--muted); }
+.order-item__row{ display:flex; align-items:center; justify-content:space-between;
+  gap:8px; margin-top:6px; }
+.order-item__total{ font-family:var(--font-mono); font-weight:600; font-size:13px; color:var(--ink); }
+
+/* Status pill */
+.status-pill{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:2px 8px; border-radius:999px;
+  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+}
+.status-pill::before{ content:''; width:6px; height:6px; border-radius:50%; background:currentColor; }
+.status-pill.is-placed, .status-pill.is-processing, .status-pill.is-payment-confirmed{
+  background:rgba(108,59,240,.10); color:var(--brand); }
+.status-pill.is-ready-for-dispatch, .status-pill.is-shipped{ background:rgba(139,92,246,.12); color:var(--brand-2); }
+.status-pill.is-out-for-delivery{ background:rgba(217,119,6,.12); color:var(--warn); }
+.status-pill.is-delivered{ background:rgba(22,163,74,.12); color:var(--good); }
+.status-pill.is-cancelled, .status-pill.is-payment-failed{ background:rgba(220,38,38,.10); color:var(--danger); }
+.status-pill.is-delivery-exception{ background:rgba(217,119,6,.12); color:var(--warn); }
+
+/* Empty */
+.empty{
+  padding:var(--sp-8) var(--sp-5); text-align:center;
+}
+.empty h3{ font-size:15px; margin-bottom:6px; }
+.empty p{ font-size:13px; color:var(--muted); margin:0; }
+
+/* Detail panel */
+.detail-panel{
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--radius-card); padding:var(--sp-5);
+}
+.detail-panel__placeholder{
+  padding:var(--sp-8) var(--sp-5); text-align:center;
+  color:var(--muted); font-size:14px;
+}
+.detail-head{
+  display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between;
+  gap:12px; padding-bottom:var(--sp-4); border-bottom:1px solid var(--line);
+  margin-bottom:var(--sp-4);
+}
+.detail-head h2{ font-family:var(--font-mono); font-size:18px; }
+.detail-head__sub{ color:var(--muted); font-size:12px; margin-top:4px; }
+
+.section-h{ font-size:12px; text-transform:uppercase; letter-spacing:0.08em;
+  color:var(--muted); font-weight:700; margin:var(--sp-4) 0 var(--sp-2); }
+.section-h:first-child{ margin-top:0; }
+
+.field{ display:flex; flex-direction:column; gap:4px; margin-bottom:var(--sp-3); }
+.field label{ font-size:12px; font-weight:600; color:var(--ink); }
+.field input, .field select, .field textarea{
+  width:100%; min-height:40px; padding:8px 12px;
+  border:1px solid var(--line-2); border-radius:8px;
+  background:var(--surface); color:var(--ink); font-size:13px; outline:0;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  border-color:var(--brand); box-shadow:0 0 0 3px rgba(108,59,240,.10);
+}
+.field textarea{ min-height:70px; resize:vertical; font-family:var(--font-body); }
+.field-row{ display:grid; gap:var(--sp-3); grid-template-columns:1fr; }
+@media (min-width:560px){ .field-row{ grid-template-columns:1fr 1fr; } }
+
+/* Readonly info */
+.info-grid{ display:grid; gap:var(--sp-3); grid-template-columns:1fr;
+  margin-bottom:var(--sp-4); }
+@media (min-width:560px){ .info-grid{ grid-template-columns:1fr 1fr; } }
+.info-block{ font-size:13px; }
+.info-block__label{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em;
+  color:var(--muted); font-weight:700; margin-bottom:2px; }
+.info-block__value{ color:var(--ink); }
+
+/* Items read-only */
+.items-mini{ display:flex; flex-direction:column; gap:8px; padding:var(--sp-3);
+  background:var(--surface-2); border-radius:8px; margin-bottom:var(--sp-4); }
+.items-mini__row{ display:grid; grid-template-columns:1fr auto; gap:8px; font-size:13px; }
+.items-mini__name{ font-weight:600; }
+.items-mini__meta{ font-size:11px; color:var(--muted); font-family:var(--font-mono); }
+
+/* History */
+.history{ display:flex; flex-direction:column; gap:8px; margin-top:var(--sp-3); }
+.history__row{ display:grid; grid-template-columns:110px 1fr; gap:8px; font-size:12px;
+  padding:6px 10px; background:var(--surface-2); border-radius:6px; align-items:baseline; }
+.history__time{ font-family:var(--font-mono); color:var(--muted); font-size:11px; }
+.history__note{ color:var(--ink-2); }
+
+/* Admin actions bar */
+.save-bar{ display:flex; flex-wrap:wrap; gap:8px; padding-top:var(--sp-4);
+  border-top:1px solid var(--line); margin-top:var(--sp-4); }
+
+/* Empty state at top */
+.no-data-panel{ text-align:center; padding:var(--sp-8) var(--sp-5);
+  background:var(--surface); border:1px dashed var(--line-2); border-radius:var(--radius-card); }
+.no-data-panel h3{ font-size:16px; margin-bottom:8px; }
+.no-data-panel p{ color:var(--muted); font-size:13px; margin:0 0 var(--sp-4); }
+
+/* Toast */
+.toast-stack{ position:fixed; left:50%; bottom:16px; transform:translateX(-50%);
+  z-index:3000; display:flex; flex-direction:column; gap:8px;
+  width:min(92vw,360px); pointer-events:none; }
+.toast{ background:var(--ink); color:#fff; padding:10px 14px; border-radius:10px;
+  font-size:13px; font-weight:500; box-shadow:var(--shadow-lg); animation:toast-in .18s ease; }
+.toast--good{ background:var(--good); }
+.toast--warn{ background:var(--warn); }
+.toast--error{ background:var(--danger); }
+@keyframes toast-in{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- IMPORTANT: This is a DEMO admin page -->
+<div class="demo-banner">
+  <strong>Demo only.</strong> This page reads orders saved in <em>this browser's localStorage</em>.
+  In production it must be served by a real backend behind authentication — <strong>never deploy this file to a public URL.</strong>
+</div>
+
+<header class="admin-top">
+  <div class="wrap admin-top__inner">
+    <a href="index.html" class="admin-brand">
+      <span class="admin-brand__mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 C 14 4, 20 9, 20 12 C 20 15, 14 20, 4 20"/><path d="M4 12 L 12 12"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg>
+      </span>
+      <span class="admin-brand__text">
+        <span class="admin-brand__name">KAKA Admin</span>
+        <span class="admin-brand__tag">Order management · demo</span>
+      </span>
+    </a>
+    <div class="admin-top__actions">
+      <a href="track-order.html" class="btn btn--outline" target="_blank" rel="noopener">Open customer tracker</a>
+      <a href="index.html" class="btn btn--outline">Back to store</a>
+    </div>
+  </div>
+</header>
+
+<main class="admin-page">
+  <div class="wrap">
+    <div class="admin-head">
+      <div>
+        <h1>Orders</h1>
+        <p>Select an order to update its status, add courier information, and record delivery timestamps.</p>
+      </div>
+      <div>
+        <button class="btn btn--outline btn--sm" id="refreshBtn" type="button">Refresh</button>
+        <button class="btn btn--outline btn--sm" id="seedBtn" type="button">Add demo order</button>
+      </div>
+    </div>
+
+    <div id="noData" class="no-data-panel" hidden>
+      <h3>No orders yet in this browser</h3>
+      <p>Place an order from <a href="checkout.html">checkout.html</a> first, or click <em>Add demo order</em> to create a sample one for testing this page.</p>
+    </div>
+
+    <div class="admin-layout" id="adminLayout">
+      <aside class="order-list" id="orderList" aria-label="Order list">
+        <div class="order-list__head">
+          <h2>All orders</h2>
+          <span class="order-list__count" id="orderCount">0</span>
+        </div>
+        <div id="orderItems"></div>
+      </aside>
+
+      <section class="detail-panel" id="detailPanel">
+        <div class="detail-panel__placeholder">
+          Select an order on the left to edit its tracking details.
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<script>
+window.KE = window.KE || {};
+
+/* ---------- Statuses (same as track-order.html) ---------- */
+KE.ORDER_STATUSES = [
+  { key:'placed',             label:'Order Placed' },
+  { key:'payment-confirmed',  label:'Payment Confirmed' },
+  { key:'processing',         label:'Processing' },
+  { key:'ready-for-dispatch', label:'Ready for Dispatch' },
+  { key:'shipped',            label:'Shipped' },
+  { key:'out-for-delivery',   label:'Out for Delivery' },
+  { key:'delivered',          label:'Delivered' }
+];
+KE.ORDER_TERMINAL_STATUSES = [
+  { key:'cancelled',          label:'Cancelled' },
+  { key:'payment-failed',     label:'Payment Failed' },
+  { key:'delivery-exception', label:'Delivery Exception' }
+];
+KE.statusLabel = key => {
+  const a = KE.ORDER_STATUSES.find(s => s.key === key);
+  const b = KE.ORDER_TERMINAL_STATUSES.find(s => s.key === key);
+  return (a || b)?.label || key;
+};
+
+KE.money = n => '₦' + (Number(n) || 0).toLocaleString('en-NG', { maximumFractionDigits: 0 });
+KE.esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- Orders storage (identical API to track-order.html) ---------- */
+KE.orders = (function(){
+  const KEY = 'kaka:orders:v1';
+  const read  = () => { try { const raw = JSON.parse(localStorage.getItem(KEY)) || {};
+    return raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {}; } catch { return {}; } };
+  const write = d => { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch {}
+    document.dispatchEvent(new CustomEvent('orders:updated')); };
+  return {
+    all: () => read(),
+    get: n => read()[n] || null,
+    update(n, patch) {
+      const d = read(); if (!d[n]) return null;
+      d[n] = { ...d[n], ...patch };
+      write(d); return d[n];
+    },
+    addStatus(n, key, note) {
+      const d = read(); if (!d[n]) return null;
+      d[n].status = key;
+      d[n].statusHistory = d[n].statusHistory || [];
+      d[n].statusHistory.push({ status:key, at:new Date().toISOString(), note:note||'' });
+      write(d); return d[n];
+    }
+  };
+})();
+
+KE.toast = function(msg, kind=''){
+  const stack = document.getElementById('toastStack'); if (!stack) return;
+  const el = document.createElement('div');
+  el.className = 'toast' + (kind ? ' toast--' + kind : '');
+  el.textContent = msg;
+  stack.appendChild(el);
+  setTimeout(() => { el.style.transition='opacity .2s'; el.style.opacity='0';
+    setTimeout(()=>el.remove(), 220); }, 2200);
+};
+
+/* ---------- Admin UI ---------- */
+const Admin = {
+  selected: null,
+
+  formatDate(iso, withTime=true) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '—';
+    const opts = withTime
+      ? { month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit' }
+      : { month:'short', day:'numeric', year:'numeric' };
+    return d.toLocaleString('en-NG', opts);
+  },
+
+  renderList() {
+    const all = KE.orders.all();
+    const orders = Object.values(all).sort((a,b) =>
+      (b.createdAt || '').localeCompare(a.createdAt || ''));
+
+    const items = document.getElementById('orderItems');
+    const count = document.getElementById('orderCount');
+    const noData = document.getElementById('noData');
+    const layout = document.getElementById('adminLayout');
+
+    count.textContent = orders.length;
+
+    if (!orders.length) {
+      items.innerHTML = '';
+      noData.hidden = false;
+      layout.style.display = 'none';
+      return;
+    }
+    noData.hidden = true;
+    layout.style.display = '';
+
+    items.innerHTML = orders.map(o => {
+      const active = this.selected === o.orderNumber ? 'is-active' : '';
+      return `
+        <button class="order-item ${active}" data-order="${KE.esc(o.orderNumber)}" type="button">
+          <p class="order-item__num">${KE.esc(o.orderNumber)}</p>
+          <div class="order-item__meta">${KE.esc(o.customer?.name || '—')} · ${KE.esc(this.formatDate(o.createdAt))}</div>
+          <div class="order-item__row">
+            <span class="status-pill is-${KE.esc(o.status)}">${KE.esc(KE.statusLabel(o.status))}</span>
+            <span class="order-item__total">${KE.money(o.total)}</span>
+          </div>
+        </button>`;
+    }).join('');
+
+    items.querySelectorAll('[data-order]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.selected = btn.getAttribute('data-order');
+        this.renderList();
+        this.renderDetail();
+      });
+    });
+  },
+
+  renderDetail() {
+    const panel = document.getElementById('detailPanel');
+    if (!this.selected) {
+      panel.innerHTML = `<div class="detail-panel__placeholder">
+        Select an order on the left to edit its tracking details.
+      </div>`;
+      return;
+    }
+    const o = KE.orders.get(this.selected);
+    if (!o) { this.selected = null; this.renderList(); this.renderDetail(); return; }
+
+    const itemsHtml = (o.items || []).map(it => `
+      <div class="items-mini__row">
+        <div>
+          <div class="items-mini__name">${KE.esc(it.name)}</div>
+          <div class="items-mini__meta">${it.qtyPacks} × ${KE.esc(it.pkgLabel || 'Unit')} (${it.qtyPacks * (it.unitsPerPackage || 1)} items)</div>
+        </div>
+        <div class="mono">${KE.money(it.lineTotal)}</div>
+      </div>`).join('');
+
+    const historyHtml = (o.statusHistory || []).map(h => `
+      <div class="history__row">
+        <span class="history__time">${KE.esc(this.formatDate(h.at))}</span>
+        <span><strong>${KE.esc(KE.statusLabel(h.status))}</strong>${h.note ? ' — <span class="history__note">' + KE.esc(h.note) + '</span>' : ''}</span>
+      </div>`).join('');
+
+    panel.innerHTML = `
+      <div class="detail-head">
+        <div>
+          <h2>${KE.esc(o.orderNumber)}</h2>
+          <div class="detail-head__sub">Placed ${KE.esc(this.formatDate(o.createdAt))} · ${KE.money(o.total)}</div>
+        </div>
+        <span class="status-pill is-${KE.esc(o.status)}">${KE.esc(KE.statusLabel(o.status))}</span>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-block">
+          <div class="info-block__label">Customer</div>
+          <div class="info-block__value">${KE.esc(o.customer?.name || '—')}</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block__label">Contact</div>
+          <div class="info-block__value mono" style="font-size:12px">${KE.esc(o.customer?.email || '—')}<br>${KE.esc(o.customer?.phone || '—')}</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block__label">Delivery address</div>
+          <div class="info-block__value">${KE.esc(o.customer?.address || '—')}<br>${KE.esc(o.customer?.city || '')}${o.customer?.city && (o.customer?.stateName || o.customer?.state) ? ', ' : ''}${KE.esc(o.customer?.stateName || o.customer?.state || '')}</div>
+        </div>
+        <div class="info-block">
+          <div class="info-block__label">Payment</div>
+          <div class="info-block__value">${KE.esc(o.payment?.methodLabel || '—')}</div>
+        </div>
+      </div>
+
+      <div class="section-h">Items</div>
+      <div class="items-mini">${itemsHtml || '<div class="muted" style="font-size:13px">No items</div>'}</div>
+      <div class="summary-row" style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0">
+        <span class="muted">Subtotal</span><span class="mono">${KE.money(o.subtotal)}</span>
+      </div>
+      <div class="summary-row" style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0">
+        <span class="muted">Delivery</span><span class="mono">${o.deliveryFee === 0 ? 'FREE' : KE.money(o.deliveryFee)}</span>
+      </div>
+      <div class="summary-row" style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-top:1px solid var(--line);margin-top:4px;font-weight:700">
+        <span>Total</span><span class="mono">${KE.money(o.total)}</span>
+      </div>
+
+      <div class="section-h">Update tracking</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ed-status">New status</label>
+          <select id="ed-status">
+            <optgroup label="Normal progression">
+              ${KE.ORDER_STATUSES.map(s => `<option value="${s.key}" ${o.status===s.key?'selected':''}>${s.label}</option>`).join('')}
+            </optgroup>
+            <optgroup label="Exceptions">
+              ${KE.ORDER_TERMINAL_STATUSES.map(s => `<option value="${s.key}" ${o.status===s.key?'selected':''}>${s.label}</option>`).join('')}
+            </optgroup>
+          </select>
+        </div>
+        <div class="field">
+          <label for="ed-eta">Estimated delivery date</label>
+          <input type="date" id="ed-eta" value="${o.estimatedDelivery ? new Date(o.estimatedDelivery).toISOString().slice(0,10) : ''}" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="ed-note">Status note (optional)</label>
+        <textarea id="ed-note" placeholder="e.g. Handed to GIG Logistics, ref GIG-7781"></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ed-courier">Courier name</label>
+          <input type="text" id="ed-courier" value="${KE.esc(o.courier?.name || '')}" placeholder="e.g. GIG Logistics" />
+        </div>
+        <div class="field">
+          <label for="ed-courier-ref">Courier reference</label>
+          <input type="text" id="ed-courier-ref" value="${KE.esc(o.courier?.reference || '')}" placeholder="e.g. GIG-7781" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="ed-courier-url">Courier tracking URL</label>
+        <input type="url" id="ed-courier-url" value="${KE.esc(o.courier?.trackingUrl || '')}" placeholder="https://…" />
+      </div>
+
+      <div class="save-bar">
+        <button class="btn btn--primary" id="saveBtn" type="button">Save changes</button>
+        <button class="btn btn--outline" id="cancelBtn" type="button">Cancel</button>
+      </div>
+
+      <div class="section-h">Activity log</div>
+      <div class="history">${historyHtml || '<div class="muted" style="font-size:13px">No status changes yet.</div>'}</div>
+    `;
+
+    document.getElementById('saveBtn').addEventListener('click', () => this.save());
+    document.getElementById('cancelBtn').addEventListener('click', () => this.renderDetail());
+  },
+
+  save() {
+    const o = KE.orders.get(this.selected);
+    if (!o) return;
+
+    const newStatus = document.getElementById('ed-status').value;
+    const note      = document.getElementById('ed-note').value.trim();
+    const eta       = document.getElementById('ed-eta').value;
+    const courier   = document.getElementById('ed-courier').value.trim();
+    const ref       = document.getElementById('ed-courier-ref').value.trim();
+    const url       = document.getElementById('ed-courier-url').value.trim();
+
+    // Update non-status fields
+    const patch = {
+      estimatedDelivery: eta ? new Date(eta + 'T12:00:00').toISOString() : null,
+      courier: { name: courier, reference: ref, trackingUrl: url }
+    };
+
+    // If status changed, log a history entry
+    if (newStatus !== o.status) {
+      KE.orders.addStatus(o.orderNumber, newStatus, note);
+      KE.orders.update(o.orderNumber, patch);
+      KE.toast('Status updated to "' + KE.statusLabel(newStatus) + '"', 'good');
+    } else {
+      KE.orders.update(o.orderNumber, patch);
+      KE.toast('Details saved', 'good');
+    }
+
+    this.renderList();
+    this.renderDetail();
+  },
+
+  seedDemoOrder() {
+    const num = 'KE-ORD-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
+    const now = new Date();
+    const day = 24 * 60 * 60 * 1000;
+    const order = {
+      orderNumber: num,
+      createdAt: now.toISOString(),
+      customer: {
+        name: 'Demo Customer',
+        email: 'demo@example.com',
+        phone: '08031234567',
+        state: 'abia',
+        stateName: 'Abia',
+        city: 'Aba',
+        address: "No. 19 St. Michael's Road"
+      },
+      items: [
+        {
+          slug:'gan-65w-usb-c-wall-charger', name:'GaN 65W USB-C Wall Charger', sku:'KE-CHG-001',
+          pkgKey:'unit', pkgLabel:'Single Unit', unitsPerPackage:1,
+          pricePerPackage: 18500, qtyPacks: 2, lineTotal: 37000
+        }
+      ],
+      subtotal: 37000,
+      deliveryFee: 1500,
+      total: 38500,
+      payment: { method:'transfer', methodLabel:'Bank transfer', status:'pending' },
+      status: 'placed',
+      statusHistory: [{ status:'placed', at: now.toISOString(), note:'Demo order created' }],
+      courier: { name:'', reference:'', trackingUrl:'' },
+      estimatedDelivery: new Date(now.getTime() + 3*day).toISOString()
+    };
+    const d = KE.orders.all();
+    d[num] = order;
+    try { localStorage.setItem('kaka:orders:v1', JSON.stringify(d)); } catch {}
+    this.selected = num;
+    KE.toast('Demo order created', 'good');
+    this.renderList();
+    this.renderDetail();
+  },
+
+  init() {
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      this.renderList();
+      if (this.selected) this.renderDetail();
+      KE.toast('Refreshed', 'good');
+    });
+    document.getElementById('seedBtn').addEventListener('click', () => this.seedDemoOrder());
+    window.addEventListener('storage', e => {
+      if (e.key === 'kaka:orders:v1') { this.renderList(); if (this.selected) this.renderDetail(); }
+    });
+    document.addEventListener('orders:updated', () => {
+      this.renderList(); if (this.selected) this.renderDetail();
+    });
+    this.renderList();
+    // Auto-select first order
+    const first = Object.values(KE.orders.all())
+      .sort((a,b) => (b.createdAt||'').localeCompare(a.createdAt||''))[0];
+    if (first) { this.selected = first.orderNumber; this.renderList(); this.renderDetail(); }
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => Admin.init());
+</script>
+</body>
+</html>

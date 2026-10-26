@@ -4,33 +4,27 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#ffffff" />
-<title>Your cart — KAKA ENTERPRISES</title>
-<meta name="description" content="Review your cart and proceed to checkout at KAKA ENTERPRISES." />
+<title>Cart — KAKA ENTERPRISES</title>
+<meta name="description" content="Review your cart at KAKA ENTERPRISES — choose Single Unit, Half Pack, or Full Pack before checkout." />
 <link rel="canonical" href="https://kakaenterprises.ng/cart.html" />
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%236C3BF0'/><path d='M 10 8 C 18 8, 22 12, 22 16 C 22 20, 18 24, 10 24' fill='none' stroke='%23ffffff' stroke-width='3.2' stroke-linecap='round'/><path d='M 10 16 L 16 16' fill='none' stroke='%23ffffff' stroke-width='3.2' stroke-linecap='round'/><circle cx='18' cy='16' r='2.2' fill='%23E8A33D'/></svg>" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================================
-   TOKENS
-   ============================================================ */
 :root {
   --brand:#6C3BF0; --brand-2:#8B5CF6; --brand-spark:#E8A33D; --brand-soft:#EFE9FD;
   --brand-soft-2:#F5F1FE; --brand-ink:#4A1FB8;
-  --wa:#25D366; --wa-2:#1EBE5D;
   --bg:#F5F6FA; --bg-2:#FFFFFF; --surface:#FFFFFF; --surface-2:#F2F3F8; --surface-3:#E9EBF2;
   --ink:#0E1020; --ink-2:#2A2F42; --muted:#5F6579; --line:#E4E6EE; --line-2:#D2D5DF;
   --good:#16A34A; --warn:#D97706; --danger:#DC2626;
   --t1:#EEF0F7; --t2:#F4EFFA; --t3:#E8F2F6; --t4:#F7EFF4; --t5:#F7F2E6;
-  --topbar-line:#EDEAF6;
-  --topbar-ink:#6B6F85;
-  --topbar-ink-strong:#2A2F42;
-  --nav-ink:#3A3F55;
-  --search-border:#E4E1F0;
+  --topbar-line:#EDEAF6; --topbar-ink:#6B6F85; --topbar-ink-strong:#2A2F42;
+  --nav-ink:#3A3F55; --search-border:#E4E1F0;
   --fs-11:11px; --fs-12:12px; --fs-13:13px; --fs-14:14px; --fs-15:15px; --fs-16:16px;
   --fs-18:18px; --fs-22:22px; --fs-28:28px;
   --fs-display:clamp(28px,5vw,52px); --fs-h2:clamp(20px,2.6vw,30px);
@@ -46,7 +40,6 @@
   --shadow-lg:0 20px 50px rgba(15,23,42,.12);
 }
 @media (min-width:760px){ :root{ --gutter:24px; } }
-
 [data-theme="dark"]{
   --bg:#0B0B14; --bg-2:#0F0F1A; --surface:#14141F; --surface-2:#1B1B29; --surface-3:#232333;
   --ink:#F4F5F8; --ink-2:#C7CBD6; --muted:#8A90A2; --line:#262637; --line-2:#33334A;
@@ -54,32 +47,19 @@
   --nav-ink:#C7CBD6; --search-border:#33334A;
   --t1:#1B1B2E;--t2:#2A1F3D;--t3:#182B3A;--t4:#2F1F2E;--t5:#2B2418;
 }
-
-/* ============================================================
-   BASE
-   ============================================================ */
 *,*::before,*::after{ box-sizing:border-box; }
-html{
-  -webkit-text-size-adjust:100%;
-  scroll-behavior:smooth;
-  scroll-padding-top:170px;
-  overflow-x:clip;
-}
-body{
-  margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body);
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; scroll-padding-top:170px; overflow-x:clip; }
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body);
   font-size:var(--fs-15); line-height:1.55; min-height:100dvh;
-  -webkit-font-smoothing:antialiased;
-  padding-left:env(safe-area-inset-left,0);
-  padding-right:env(safe-area-inset-right,0);
-}
+  -webkit-font-smoothing:antialiased; overflow-x:clip; overflow-wrap:anywhere;
+  padding-left:env(safe-area-inset-left,0); padding-right:env(safe-area-inset-right,0); }
 img,svg{ max-width:100%; display:block; }
 h1,h2,h3,h4,h5{ font-family:var(--font-display); font-weight:800; line-height:1.15;
-  margin:0 0 var(--sp-3); letter-spacing:-0.02em; color:var(--ink); }
+  margin:0 0 var(--sp-3); letter-spacing:-0.02em; color:var(--ink); overflow-wrap:break-word; }
 h1{ font-size:var(--fs-display); font-weight:900; }
 h2{ font-size:var(--fs-h2); }
 h3{ font-size:var(--fs-22); }
-h5{ font-size:var(--fs-16); font-weight:700; }
-p{ margin:0 0 var(--sp-3); color:var(--ink-2); }
+p{ margin:0 0 var(--sp-3); color:var(--ink-2); overflow-wrap:break-word; }
 a{ color:var(--brand); text-decoration:none; transition:color .15s ease; }
 a:hover{ color:var(--brand-2); text-decoration:none; }
 button,input,select,textarea{ font:inherit; color:inherit; }
@@ -89,738 +69,201 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 .mono{ font-family:var(--font-mono); font-feature-settings:"tnum" 1; }
 .muted{ color:var(--muted); }
-
+[data-placeholder]{ opacity:.55; cursor:not-allowed; pointer-events:none;
+  text-decoration:line-through; text-decoration-color:var(--muted); }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{ animation-duration:0.01ms !important; transition-duration:0.01ms !important;
-    scroll-behavior:auto !important; }
-}
+    scroll-behavior:auto !important; } }
+.skip-link{ position:absolute; left:8px; top:-60px; z-index:20000;
+  background:var(--brand); color:#fff; padding:10px 16px; border-radius:0 0 10px 10px;
+  font-weight:700; font-size:14px; transition:top .15s ease; }
+.skip-link:focus{ top:0; color:#fff; }
 
-/* ============================================================
-   HEADER
-   ============================================================ */
-#siteHeader{
-  position:sticky; position:-webkit-sticky; top:0; z-index:9999;
-  background:#FFFFFF;
-  transition:box-shadow .2s ease;
-}
+#siteHeader{ position:sticky; position:-webkit-sticky; top:0; z-index:9999;
+  background:#FFFFFF; transition:box-shadow .2s ease; }
 [data-theme="dark"] #siteHeader{ background:#0F0F1A; }
 #siteHeader:not(.is-stuck){ box-shadow:0 1px 0 var(--topbar-line); }
 #siteHeader.is-stuck{ box-shadow:0 1px 0 var(--topbar-line), 0 8px 24px rgba(108,59,240,.10); }
-
-.j-topbar{
-  background:#FFFFFF; color:var(--topbar-ink);
-  border-bottom:1px solid var(--topbar-line);
-  height:36px; display:flex; align-items:center;
-  font-size:11px; font-weight:600; letter-spacing:0.06em;
-}
+.j-topbar{ background:#FFFFFF; color:var(--topbar-ink);
+  border-bottom:1px solid var(--topbar-line); height:36px; display:flex; align-items:center;
+  font-size:11px; font-weight:600; letter-spacing:0.06em; }
 [data-theme="dark"] .j-topbar{ background:#0F0F1A; }
-.j-topbar__inner{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:22px; width:100%;
-}
+.j-topbar__inner{ display:flex; align-items:center; justify-content:space-between; gap:22px; width:100%; }
 .j-topbar__links, .j-topbar__right{ display:flex; align-items:center; gap:18px; }
-.j-topbar a{
-  color:var(--topbar-ink); display:inline-flex; align-items:center; gap:6px;
-  text-transform:uppercase; transition:color .15s ease; white-space:nowrap;
-}
+.j-topbar a{ color:var(--topbar-ink); display:inline-flex; align-items:center; gap:6px;
+  text-transform:uppercase; transition:color .15s ease; white-space:nowrap; }
 .j-topbar a:hover{ color:var(--brand); text-decoration:none; }
-.j-topbar a.is-current{ color:var(--brand); }
-.j-topbar__sep{
-  width:1px; height:12px; background:var(--topbar-line);
-  display:inline-block; flex:0 0 1px;
-}
+.j-topbar__sep{ width:1px; height:12px; background:var(--topbar-line); display:inline-block; flex:0 0 1px; }
+.j-topbar__cart{ color:var(--brand) !important; background:var(--brand-soft);
+  padding:4px 10px; border-radius:6px; font-weight:700; }
+.j-topbar__cart .count{ font-family:var(--font-mono); }
+@media (max-width:900px){ .j-topbar__links > *:not(:first-child){ display:none; } }
 @media (max-width:640px){
   .j-topbar{ font-size:10.5px; letter-spacing:0.04em; }
   .j-topbar__links > a:nth-of-type(n+3),
   .j-topbar__links > .j-topbar__sep:nth-of-type(n+2){ display:none; }
-  .j-topbar__right > a:not(:first-child),
+  .j-topbar__right > a:not(:first-child):not(.j-topbar__cart),
   .j-topbar__right > .j-topbar__sep{ display:none; }
   .j-topbar__links, .j-topbar__right{ gap:12px; }
 }
-
-.j-main{
-  background:#FFFFFF; border-bottom:1px solid var(--topbar-line);
-  padding-block:14px;
-}
+.j-main{ background:#FFFFFF; border-bottom:1px solid var(--topbar-line); padding-block:14px; }
 [data-theme="dark"] .j-main{ background:#0F0F1A; }
-.j-main__inner{
-  display:grid; grid-template-columns:auto 1fr auto;
-  align-items:center; gap:26px;
-}
+.j-main__inner{ display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:26px; }
 @media (max-width:900px){ .j-main__inner{ grid-template-columns:auto 1fr; gap:14px; } }
-
-.j-brand{
-  display:flex; align-items:center; gap:12px;
-  color:var(--topbar-ink-strong); text-decoration:none; min-width:0;
-}
-.j-brand:hover{ color:var(--topbar-ink-strong); text-decoration:none; }
-.j-brand__mark{
-  width:42px; height:42px; border-radius:12px;
+.j-brand{ display:flex; align-items:center; gap:12px; color:var(--topbar-ink-strong);
+  text-decoration:none; min-width:0; }
+.j-brand__mark{ width:42px; height:42px; border-radius:12px;
   background:linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
   display:grid; place-items:center; flex:0 0 42px;
-  box-shadow:0 2px 8px rgba(108,59,240,.22);
-}
+  box-shadow:0 2px 8px rgba(108,59,240,.22); }
 .j-brand__mark svg{ width:24px; height:24px; color:#fff; }
 .j-brand__text{ display:flex; flex-direction:column; min-width:0; }
-.j-brand__name{
-  font-family:var(--font-display); font-weight:900; font-size:20px;
-  letter-spacing:-0.02em; line-height:1.05;
-  color:var(--topbar-ink-strong); text-transform:uppercase; white-space:nowrap;
-}
-.j-brand__tag{
-  font-size:10px; font-weight:700; letter-spacing:0.14em;
-  color:var(--brand); text-transform:uppercase; margin-top:3px; white-space:nowrap;
-}
+.j-brand__name{ font-family:var(--font-display); font-weight:900; font-size:20px;
+  letter-spacing:-0.02em; line-height:1.05; color:var(--topbar-ink-strong);
+  text-transform:uppercase; white-space:nowrap; }
+.j-brand__tag{ font-size:10px; font-weight:700; letter-spacing:0.14em;
+  color:var(--brand); text-transform:uppercase; margin-top:3px; white-space:nowrap; }
 @media (max-width:520px){
   .j-brand__mark{ width:36px; height:36px; flex:0 0 36px; border-radius:10px; }
   .j-brand__mark svg{ width:20px; height:20px; }
   .j-brand__name{ font-size:16px; }
   .j-brand__tag{ font-size:9px; letter-spacing:0.1em; }
 }
-
-.j-search{
-  display:flex; align-items:stretch;
-  height:46px; background:#FFFFFF;
-  border:1px solid var(--search-border); border-radius:12px;
-  overflow:hidden; min-width:0;
-  transition:border-color .15s ease, box-shadow .15s ease;
-}
+.j-search{ display:flex; align-items:stretch; height:46px; background:#FFFFFF;
+  border:1px solid var(--search-border); border-radius:12px; overflow:hidden; min-width:0;
+  transition:border-color .15s ease, box-shadow .15s ease; }
 [data-theme="dark"] .j-search{ background:#1B1B29; }
-.j-search:hover{ border-color:#D6D0EC; }
 .j-search:focus-within{ border-color:var(--brand); box-shadow:0 0 0 4px rgba(108,59,240,.10); }
 .j-search svg{ align-self:center; margin-left:16px; color:var(--brand); flex:0 0 18px; opacity:.85; }
-.j-search input{
-  flex:1; border:0; outline:0; background:transparent;
-  padding:0 14px; font-size:16px; min-width:0; color:var(--ink);
-}
-.j-search input::placeholder{ color:#9A9DB0; }
-.j-search button{
-  background:var(--brand); color:#fff; border:0;
-  padding:0 28px; font-weight:700; font-size:13.5px;
-  letter-spacing:0.02em; cursor:pointer; white-space:nowrap;
-  transition:background .15s ease;
-}
-.j-search button:hover{ background:#5A2FE0; }
-@media (max-width:640px){
-  .j-search button{ padding:0 16px; font-size:13px; }
-  .j-search svg{ margin-left:12px; }
-}
-
+.j-search input{ flex:1; border:0; outline:0; background:transparent;
+  padding:0 14px; font-size:14px; min-width:0; color:var(--ink); }
+.j-search button{ background:var(--brand); color:#fff; border:0; padding:0 28px;
+  font-weight:700; font-size:13.5px; cursor:pointer; white-space:nowrap;
+  transition:background .15s ease; }
+@media (max-width:640px){ .j-search button{ padding:0 16px; font-size:13px; } .j-search svg{ margin-left:12px; } }
 .j-actions{ display:flex; align-items:center; gap:6px; white-space:nowrap; }
-@media (max-width:900px){
-  .j-actions{ grid-column:1/-1; justify-content:space-between; gap:4px; margin-top:4px; }
-}
-.j-action{
-  display:inline-flex; align-items:center; gap:8px;
-  color:var(--nav-ink); font-weight:600; font-size:13.5px;
-  padding:9px 12px; border-radius:10px;
-  transition:color .15s ease, background .15s ease; position:relative;
-}
+@media (max-width:900px){ .j-actions{ grid-column:1/-1; justify-content:space-between; gap:4px; margin-top:4px; } }
+.j-action{ display:inline-flex; align-items:center; gap:8px; color:var(--nav-ink);
+  font-weight:600; font-size:13.5px; padding:9px 12px; border-radius:10px;
+  transition:color .15s ease, background .15s ease; }
 .j-action:hover{ color:var(--brand); background:var(--brand-soft); text-decoration:none; }
 .j-action svg{ flex:0 0 20px; color:currentColor; }
-
-.j-cart{
-  position:relative; background:var(--brand); color:#fff !important;
-  padding:10px 16px; border-radius:10px;
-  box-shadow:0 2px 8px rgba(108,59,240,.22);
-  transition:background .15s ease, transform .1s ease, box-shadow .15s ease;
-}
-.j-cart:hover{
-  background:#5A2FE0; color:#fff !important;
-  transform:translateY(-1px); box-shadow:0 4px 14px rgba(108,59,240,.32);
-}
-.j-cart:active{ transform:translateY(0); }
-.j-cart .icon-badge{
-  position:absolute; top:-6px; right:-6px;
-  min-width:20px; height:20px; padding:0 5px;
-  border-radius:999px; background:#FFFFFF; color:var(--brand);
-  font-family:var(--font-mono); font-size:11px; font-weight:800;
-  display:inline-flex; align-items:center; justify-content:center;
-  border:2px solid var(--brand); box-shadow:0 1px 4px rgba(108,59,240,.25);
-}
+.j-cart{ position:relative; background:var(--brand); color:#fff !important;
+  padding:10px 16px; border-radius:10px; box-shadow:0 2px 8px rgba(108,59,240,.22); }
+.j-cart:hover{ background:#5A2FE0; color:#fff !important; }
+.j-cart .icon-badge{ position:absolute; top:-6px; right:-6px;
+  min-width:20px; height:20px; padding:0 5px; border-radius:999px;
+  background:#FFFFFF; color:var(--brand); font-family:var(--font-mono);
+  font-size:11px; font-weight:800; display:inline-flex; align-items:center; justify-content:center;
+  border:2px solid var(--brand); box-shadow:0 1px 4px rgba(108,59,240,.25); }
 .j-cart .icon-badge[hidden]{ display:none; }
-
-.j-menu-btn{
-  display:none; width:42px; height:42px;
-  border:1px solid var(--search-border); background:#FFFFFF;
-  border-radius:10px; align-items:center; justify-content:center;
-  cursor:pointer; color:var(--nav-ink);
-  transition:border-color .15s ease, color .15s ease, background .15s ease;
-}
+.j-menu-btn{ display:none; width:42px; height:42px; border:1px solid var(--search-border);
+  background:#FFFFFF; border-radius:10px; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--nav-ink); }
 [data-theme="dark"] .j-menu-btn{ background:#1B1B29; }
 .j-menu-btn:hover{ border-color:var(--brand); color:var(--brand); background:var(--brand-soft); }
 @media (max-width:900px){ .j-menu-btn{ display:inline-flex; } }
-
 .j-cats{ background:#FFFFFF; border-bottom:1px solid var(--topbar-line); }
 [data-theme="dark"] .j-cats{ background:#0F0F1A; }
-.j-cats__scroll{
-  display:flex; align-items:center; gap:4px;
-  padding-block:8px; overflow-x:auto;
-  scrollbar-width:none; -ms-overflow-style:none;
-}
+.j-cats__scroll{ display:flex; align-items:center; gap:4px; padding-block:8px; overflow-x:auto;
+  scrollbar-width:none; -ms-overflow-style:none; -webkit-overflow-scrolling:touch; }
 .j-cats__scroll::-webkit-scrollbar{ display:none; }
-.j-cats a{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:8px 14px; color:var(--nav-ink);
-  font-size:13px; font-weight:600; letter-spacing:-0.005em;
-  white-space:nowrap; border-radius:8px;
-  transition:color .15s ease, background .15s ease;
-}
+.j-cats a{ display:inline-flex; align-items:center; gap:8px; padding:8px 14px;
+  color:var(--nav-ink); font-size:13px; font-weight:600; white-space:nowrap;
+  border-radius:8px; flex:0 0 auto; transition:color .15s ease, background .15s ease; }
 .j-cats a:hover{ color:var(--brand); background:var(--brand-soft); text-decoration:none; }
 .j-cats a svg{ flex:0 0 18px; color:currentColor; opacity:.85; }
-.j-cats a .chev{
-  flex:0 0 12px; width:12px; height:12px; margin-left:2px;
-  opacity:.55; transition:opacity .15s ease, transform .15s ease;
-}
-.j-cats a:hover .chev{ opacity:1; transform:translateY(1px); }
-@media (max-width:640px){
-  .j-cats a{ padding:7px 11px; font-size:12.5px; gap:6px; }
-  .j-cats a .chev{ width:11px; height:11px; }
-}
-
-/* ============================================================
-   DRAWER
-   ============================================================ */
+@media (max-width:640px){ .j-cats a{ padding:7px 11px; font-size:12.5px; gap:6px; } }
 .drawer{ position:fixed; inset:0; z-index:10000; display:none; }
 .drawer[data-open="true"]{ display:block; }
 .drawer__scrim{ position:absolute; inset:0; background:rgba(30,20,70,.45); backdrop-filter:blur(2px); }
-.drawer__panel{
-  position:absolute; top:0; left:0; bottom:0;
-  width:min(320px,88vw); background:#FFFFFF;
-  border-right:1px solid var(--topbar-line);
-  box-shadow:0 20px 50px rgba(108,59,240,.12);
-  padding:var(--sp-5);
-  display:flex; flex-direction:column;
-  gap:var(--sp-3); overflow-y:auto;
-  transform:translateX(-100%);
-  animation:drawer-in .2s ease forwards;
-}
+.drawer__panel{ position:absolute; top:0; left:0; bottom:0; width:min(320px,88vw); background:#FFFFFF;
+  border-right:1px solid var(--topbar-line); box-shadow:0 20px 50px rgba(108,59,240,.12);
+  padding:var(--sp-5); display:flex; flex-direction:column; gap:var(--sp-3); overflow-y:auto;
+  transform:translateX(-100%); animation:drawer-in .2s ease forwards; }
 [data-theme="dark"] .drawer__panel{ background:#0F0F1A; }
 @keyframes drawer-in{ to{ transform:translateX(0); } }
-.drawer__close{
-  align-self:flex-end; width:40px; height:40px;
-  border:1px solid var(--search-border); background:#FFFFFF;
-  border-radius:10px; cursor:pointer; color:var(--nav-ink);
-  transition:border-color .15s ease, color .15s ease, background .15s ease;
-}
+.drawer__close{ align-self:flex-end; width:40px; height:40px; border:1px solid var(--search-border);
+  background:#FFFFFF; border-radius:10px; cursor:pointer; color:var(--nav-ink);
+  display:grid; place-items:center; }
 [data-theme="dark"] .drawer__close{ background:#1B1B29; }
 .drawer__close:hover{ border-color:var(--brand); color:var(--brand); background:var(--brand-soft); }
 .drawer__nav{ display:flex; flex-direction:column; gap:2px; margin-top:var(--sp-3); }
-.drawer__link{
-  display:flex; align-items:center;
-  padding:12px 12px; border-radius:10px;
+.drawer__link{ display:flex; align-items:center; padding:12px; border-radius:10px;
   color:var(--nav-ink); font-weight:600; font-size:15px;
-  transition:color .15s ease, background .15s ease;
-}
+  transition:color .15s ease, background .15s ease; }
 .drawer__link:hover{ background:var(--brand-soft); color:var(--brand); }
 .drawer__group{ display:flex; flex-direction:column; }
-.drawer__toggle{
-  display:flex; align-items:center; justify-content:space-between; gap:8px;
-  padding:12px 12px; border-radius:10px;
-  color:var(--nav-ink); font-weight:600; font-size:15px;
-  background:transparent; border:0; cursor:pointer;
-  text-align:left; width:100%; font-family:var(--font-body);
-  transition:color .15s ease, background .15s ease;
-}
+.drawer__toggle{ display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:12px; border-radius:10px; color:var(--nav-ink); font-weight:600; font-size:15px;
+  background:transparent; border:0; cursor:pointer; text-align:left; width:100%;
+  font-family:var(--font-body); }
 .drawer__toggle:hover{ background:var(--brand-soft); color:var(--brand); }
 .drawer__toggle[aria-expanded="true"]{ background:var(--brand-soft); color:var(--brand); }
-.drawer__toggle .chev{
-  flex:0 0 auto; opacity:.6;
-  transition:transform .2s ease, opacity .15s ease;
-}
+.drawer__toggle .chev{ flex:0 0 auto; opacity:.6; transition:transform .2s ease, opacity .15s ease; }
 .drawer__toggle[aria-expanded="true"] .chev{ transform:rotate(180deg); opacity:1; }
-.drawer__sub-list{
-  display:grid; grid-template-rows:0fr;
-  transition:grid-template-rows .25s ease;
-  overflow:hidden;
-}
+.drawer__sub-list{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .25s ease; overflow:hidden; }
 .drawer__sub-list.is-open{ grid-template-rows:1fr; }
-.drawer__sub-list > div{
-  overflow:hidden;
-  display:flex; flex-direction:column; gap:2px;
-}
-.drawer__sub{
-  display:block;
-  padding:9px 12px 9px 26px;
-  border-radius:8px;
-  color:var(--topbar-ink);
-  font-weight:500; font-size:14px;
-  transition:color .15s ease, background .15s ease;
-}
+.drawer__sub-list > div{ overflow:hidden; display:flex; flex-direction:column; gap:2px; }
+.drawer__sub{ display:block; padding:9px 12px 9px 26px; border-radius:8px;
+  color:var(--topbar-ink); font-weight:500; font-size:14px;
+  transition:color .15s ease, background .15s ease; }
 .drawer__sub:hover{ background:var(--brand-soft); color:var(--brand); }
 .drawer__sub--nested{ padding-left:42px; font-size:13.5px; }
-.drawer__sub--all{
-  padding-left:26px;
-  color:var(--brand);
-  font-weight:600;
-  margin-top:2px;
-}
+.drawer__sub--all{ padding-left:26px; color:var(--brand); font-weight:600; margin-top:2px; }
 
-/* ============================================================
-   CART PAGE
-   ============================================================ */
-.cart-page{ padding-block:var(--sp-6) var(--sp-12); }
-
-.breadcrumb{
-  display:flex; flex-wrap:wrap; align-items:center; gap:6px;
-  font-size:var(--fs-13); color:var(--muted); margin-bottom:var(--sp-4);
-}
-.breadcrumb a{ color:var(--muted); }
-.breadcrumb a:hover{ color:var(--brand); }
-.breadcrumb span.sep{ opacity:.5; }
-.breadcrumb strong{ color:var(--ink); font-weight:600; }
-
-.cart-head{
-  display:flex; align-items:end; justify-content:space-between;
-  gap:var(--sp-4); margin-bottom:var(--sp-6); flex-wrap:wrap;
-}
-.cart-head h1{ margin:0; font-size:var(--fs-28); }
-.cart-head p{ margin:0; color:var(--muted); font-size:var(--fs-14); }
-.cart-head__clear{
-  background:transparent; border:1px solid var(--line-2);
-  color:var(--muted); font-size:var(--fs-13); font-weight:600;
-  padding:8px 14px; border-radius:var(--radius-ctrl);
-  cursor:pointer; transition:color .15s ease, border-color .15s ease;
-}
-.cart-head__clear:hover{ color:var(--danger); border-color:var(--danger); }
-
-.cart-layout{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:var(--sp-6);
-}
-@media (min-width:900px){
-  .cart-layout{ grid-template-columns:1fr 360px; gap:var(--sp-8); align-items:start; }
-}
-
-/* Notice bar */
-.notice{
-  display:flex; gap:10px; align-items:flex-start;
-  padding:12px 16px; border-radius:var(--radius-ctrl);
-  background:color-mix(in srgb, var(--warn) 10%, transparent);
-  border:1px solid color-mix(in srgb, var(--warn) 30%, transparent);
-  color:#7a4b00; font-size:var(--fs-13); margin-bottom:var(--sp-4);
-}
-[data-theme="dark"] .notice{ color:var(--warn); }
-.notice svg{ flex:0 0 18px; color:var(--warn); margin-top:1px; }
-.notice b{ font-weight:700; }
-.notice button{
-  margin-left:auto; background:transparent; border:0;
-  color:inherit; cursor:pointer; font-weight:700; font-size:12px;
-  text-decoration:underline;
-}
-
-/* Cart lines */
-.cart-lines{
-  background:var(--surface); border:1px solid var(--line);
-  border-radius:var(--radius-card); overflow:hidden;
-}
-.line{
-  display:grid;
-  grid-template-columns:88px 1fr;
-  gap:var(--sp-3);
-  padding:var(--sp-4);
-  border-bottom:1px solid var(--line);
-  align-items:start;
-  position:relative;
-}
-.line:last-child{ border-bottom:0; }
-@media (min-width:640px){
-  .line{ grid-template-columns:100px 1fr auto; gap:var(--sp-4); padding:var(--sp-5); align-items:center; }
-}
-.line__media{
-  width:100%; aspect-ratio:1/1;
-  border-radius:12px; overflow:hidden;
-  background:var(--t1); flex:0 0 auto;
-  display:block;
-}
-.line__media img{ width:100%; height:100%; object-fit:contain; padding:4px; }
-.line__body{ min-width:0; }
-.line__brand{
-  font-size:var(--fs-11); color:var(--muted);
-  text-transform:uppercase; letter-spacing:0.06em; font-weight:600;
-}
-.line__name{
-  font-weight:600; font-size:var(--fs-15);
-  color:var(--ink); margin:2px 0 4px;
-  display:-webkit-box; -webkit-box-orient:vertical;
-  overflow:hidden; overflow-wrap:break-word;
-}
-.line__name a{ color:inherit; }
-.line__name a:hover{ color:var(--brand); }
-.line__sku{
-  font-family:var(--font-mono); font-size:11px;
-  color:var(--muted); margin-bottom:4px;
-}
-.line__unit{
-  font-size:var(--fs-13); color:var(--muted);
-  font-family:var(--font-mono);
-}
-.line__unit .save{
-  display:inline-block; margin-left:6px;
-  padding:1px 8px; border-radius:6px;
-  background:color-mix(in srgb, var(--good) 14%, transparent);
-  color:var(--good); font-weight:600; font-size:11px;
-}
-.line__hint{
-  font-size:var(--fs-12); color:var(--brand);
-  margin-top:4px; font-weight:500;
-}
-.line__actions{
-  display:flex; align-items:center; gap:var(--sp-3);
-  margin-top:var(--sp-3);
-  flex-wrap:wrap;
-}
-@media (min-width:640px){
-  .line__actions{ flex-direction:column; align-items:flex-end; margin-top:0; }
-}
-.line__qty{
-  display:inline-flex; align-items:center;
-  border:1px solid var(--line); border-radius:10px;
-  overflow:hidden; background:var(--surface);
-  height:40px;
-}
-.line__qty button{
-  width:38px; height:40px; border:0;
-  background:transparent; cursor:pointer;
-  color:var(--ink); font-size:18px; font-weight:600;
-  display:grid; place-items:center;
-  touch-action:manipulation;
-}
-.line__qty button:hover:not(:disabled){ background:var(--surface-2); color:var(--brand); }
-.line__qty button:disabled{ opacity:.35; cursor:not-allowed; }
-.line__qty input{
-  width:44px; height:40px; border:0; outline:0;
-  text-align:center; font-family:var(--font-mono);
-  font-size:16px; font-weight:700;
-  background:transparent;
-  -moz-appearance:textfield;
-}
-.line__qty input::-webkit-outer-spin-button,
-.line__qty input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
-.line__total{
-  font-family:var(--font-mono); font-weight:700;
-  font-size:var(--fs-15); color:var(--ink);
-  min-width:90px; text-align:right;
-}
-.line__remove{
-  background:transparent; border:0; cursor:pointer;
-  color:var(--muted); font-size:var(--fs-12);
-  text-decoration:underline;
-  padding:4px; border-radius:6px;
-}
-.line__remove:hover{ color:var(--danger); }
-
-/* Empty state */
-.cart-empty{
-  text-align:center;
-  padding:var(--sp-16) var(--sp-5);
-  background:var(--surface);
-  border:1px dashed var(--line);
-  border-radius:var(--radius-card);
-}
-.cart-empty__icon{
-  width:80px; height:80px;
-  margin:0 auto var(--sp-4);
-  border-radius:50%; background:var(--brand-soft);
-  color:var(--brand); display:grid; place-items:center;
-}
-.cart-empty h2{ margin:0 0 8px; font-size:var(--fs-22); }
-.cart-empty p{ color:var(--muted); margin:0 0 var(--sp-5); }
-
-/* Summary */
-.summary{
-  background:var(--surface); border:1px solid var(--line);
-  border-radius:var(--radius-card);
-  padding:var(--sp-5);
-}
-@media (min-width:900px){
-  .summary{ position:sticky; top:150px; }
-}
-.summary h3{
-  margin:0 0 var(--sp-4); font-size:var(--fs-18);
-  padding-bottom:var(--sp-3); border-bottom:1px solid var(--line);
-}
-.summary__row{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:var(--sp-3); font-size:var(--fs-14);
-  padding:8px 0;
-}
-.summary__row .label{ color:var(--muted); }
-.summary__row .value{ font-family:var(--font-mono); color:var(--ink); font-weight:600; text-align:right; }
-.summary__row--save .label,
-.summary__row--save .value{ color:var(--good); font-weight:600; }
-.summary__row--delivery .value{
-  font-family:var(--font-body);
-  color:var(--muted);
-  font-size:var(--fs-13);
-  font-weight:500;
-}
-.summary__note{
-  font-size:var(--fs-12); color:var(--muted);
-  padding:var(--sp-3) 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  margin:var(--sp-2) 0 var(--sp-4);
-  line-height:1.6;
-}
-.summary__note a{ color:var(--brand); font-weight:600; }
-.summary__total{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:var(--sp-3);
-  padding-top:var(--sp-2);
-}
-.summary__total .label{ font-weight:700; font-size:var(--fs-15); }
-.summary__total .value{
-  font-family:var(--font-display);
-  font-size:var(--fs-22); font-weight:900;
-  color:var(--ink);
-}
-.btn-checkout{
-  display:flex; align-items:center; justify-content:center; gap:8px;
-  width:100%; min-height:52px;
-  background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%);
-  color:#fff; border:0; border-radius:var(--radius-ctrl);
-  font-weight:700; font-size:var(--fs-15);
-  cursor:pointer; text-decoration:none;
-  margin-top:var(--sp-4);
-  box-shadow:0 4px 14px rgba(108,59,240,.22);
-  transition:transform .08s ease, box-shadow .15s ease;
-}
-.btn-checkout:hover{
-  background:linear-gradient(135deg,#5A2FE0 0%,#7B4CF0 100%);
-  color:#fff;
-  box-shadow:0 6px 20px rgba(108,59,240,.32);
-}
-.btn-checkout:active{ transform:translateY(1px); }
-.summary__keep{
-  display:block; text-align:center;
-  margin-top:var(--sp-3); font-size:var(--fs-13);
-  color:var(--brand); font-weight:600;
-}
-.summary__keep:hover{ color:var(--brand-2); }
-
-.summary__trust{
-  margin-top:var(--sp-5);
-  padding-top:var(--sp-4);
-  border-top:1px solid var(--line);
-  display:flex; flex-direction:column; gap:10px;
-  list-style:none; padding-left:0;
-}
-.summary__trust li{
-  display:flex; align-items:center; gap:10px;
-  font-size:var(--fs-12); color:var(--muted);
-}
-.summary__trust svg{ color:var(--brand); flex:0 0 16px; }
-
-/* Cross-sell */
-.crosssell{ margin-top:var(--sp-12); }
-.crosssell h2{ margin:0 0 var(--sp-4); font-size:var(--fs-22); }
-.crosssell-grid{
-  display:grid; gap:var(--sp-4);
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-}
-@media (min-width:640px){ .crosssell-grid{ grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); } }
-@media (min-width:1200px){ .crosssell-grid{ grid-template-columns:repeat(4, 1fr); } }
-
-.card{
-  display:flex; flex-direction:column;
-  background:var(--surface); border:1px solid var(--line);
-  border-radius:var(--radius-card); overflow:hidden;
-  color:var(--ink); height:100%;
-  position:relative;
-  transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
-}
-.card:hover{
-  transform:translateY(-3px);
-  border-color:color-mix(in srgb,var(--brand) 35%,var(--line));
-  box-shadow:0 8px 24px rgba(108,59,240,.08);
-}
-.card__link{
-  display:flex; flex-direction:column; flex:1;
-  color:inherit; text-decoration:none;
-}
-.card__link:hover{ color:inherit; text-decoration:none; }
-.card__media{ position:relative; aspect-ratio:1/1; background:var(--t1); overflow:hidden; }
-.card__media img{
-  width:100%; height:100%;
-  object-fit:contain; object-position:center; padding:8px;
-  transition:transform .4s ease;
-}
-.card:hover .card__media img{ transform:scale(1.04); }
-.card__tag{ position:absolute; top:10px; left:10px;
-  padding:4px 10px; border-radius:8px;
-  font-size:10.5px; font-weight:700; letter-spacing:0.04em;
-  text-transform:uppercase; color:#fff; z-index:2; }
-.card__tag--sale{ background:var(--danger); }
-.card__tag--new{ background:var(--good); }
-.card__tag--popular{ background:var(--brand); }
-.card__body{ padding:var(--sp-4); display:flex; flex-direction:column;
-  gap:6px; flex:1; }
-.card__brand{ font-size:var(--fs-11); color:var(--muted);
-  text-transform:uppercase; letter-spacing:0.06em; font-weight:600; }
-.card__name{ font-family:var(--font-body); font-weight:600; font-size:var(--fs-14);
-  line-height:1.35; margin:0; color:var(--ink);
-  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
-  overflow:hidden; min-height:2.7em; }
-.card__rating{ display:inline-flex; align-items:center; gap:4px;
-  font-size:var(--fs-11); color:var(--muted); }
-.card__rating .star{ color:var(--brand-spark); }
-.card__price{ margin-top:auto; display:flex; align-items:baseline;
-  gap:8px; flex-wrap:wrap; padding-top:var(--sp-2); }
-.card__price .money{ font-size:var(--fs-16); font-weight:700; color:var(--ink); }
-.card__price del{ color:var(--muted); font-size:var(--fs-13); }
-.card__foot{ padding:0 var(--sp-4) var(--sp-4); display:flex; gap:8px; }
-.card__foot .btn{ flex:1; }
-
-/* ============================================================
-   MOBILE STICKY CHECKOUT BAR
-   ============================================================ */
-.checkout-bar{
-  position:fixed; left:0; right:0; bottom:0;
-  padding:12px 16px calc(12px + env(safe-area-inset-bottom,0));
-  background:var(--bg-2);
-  border-top:1px solid var(--line);
-  z-index:1300;
-  display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center;
-  box-shadow:0 -6px 18px rgba(15,23,42,.06);
-}
-.checkout-bar__info{
-  display:flex; flex-direction:column; line-height:1.15;
-  min-width:0;
-}
-.checkout-bar__info small{
-  font-size:10px; color:var(--muted);
-  text-transform:uppercase; letter-spacing:0.06em;
-}
-.checkout-bar__info b{
-  font-family:var(--font-display); font-weight:900;
-  font-size:var(--fs-18); color:var(--ink);
-}
-.checkout-bar__btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  min-height:48px; padding:0 22px;
-  background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%);
-  color:#fff; border:0; border-radius:var(--radius-ctrl);
-  font-weight:700; font-size:var(--fs-14);
-  text-decoration:none; cursor:pointer; white-space:nowrap;
-  box-shadow:0 4px 14px rgba(108,59,240,.22);
-}
-.checkout-bar__btn:hover{ color:#fff; }
-@media (min-width:900px){ .checkout-bar{ display:none !important; } }
-@media (max-width:899px){
-  body.has-checkout-bar{ padding-bottom:96px; }
-}
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-.btn{ display:inline-flex; align-items:center; justify-content:center;
-  gap:var(--sp-2); min-height:44px; padding:11px 22px;
-  border-radius:var(--radius-ctrl); border:1px solid transparent;
-  background:var(--surface); color:var(--ink);
-  font-family:var(--font-body); font-weight:600; font-size:var(--fs-14);
-  line-height:1; cursor:pointer; text-decoration:none;
-  transition:transform .08s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
-  -webkit-tap-highlight-color:transparent; white-space:nowrap; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:var(--sp-2);
+  min-height:44px; padding:11px 22px; border-radius:var(--radius-ctrl);
+  border:1px solid transparent; background:var(--surface); color:var(--ink);
+  font-family:var(--font-body); font-weight:600; font-size:var(--fs-14); line-height:1;
+  cursor:pointer; text-decoration:none; -webkit-tap-highlight-color:transparent; white-space:nowrap;
+  transition:transform .08s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease; }
 .btn:active{ transform:translateY(1px); }
 .btn--primary{ background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%);
-  color:#fff; border-color:transparent;
-  box-shadow:0 4px 14px rgba(108,59,240,.22); }
-.btn--primary:hover{ background:linear-gradient(135deg,#5A2FE0 0%,#7B4CF0 100%); color:#fff;
-  box-shadow:0 6px 20px rgba(108,59,240,.32); }
+  color:#fff; border-color:transparent; box-shadow:0 4px 14px rgba(108,59,240,.22); }
+.btn--primary:hover{ background:linear-gradient(135deg,#5A2FE0 0%,#7B4CF0 100%);
+  color:#fff; box-shadow:0 6px 20px rgba(108,59,240,.32); }
 .btn--outline{ background:var(--surface); color:var(--ink); border-color:var(--line-2); }
 .btn--outline:hover{ border-color:var(--brand); color:var(--brand); }
-.btn--sm{ min-height:36px; padding:8px 14px; font-size:var(--fs-13); border-radius:10px; }
+.btn--lg{ min-height:50px; padding:14px 26px; font-size:var(--fs-15); }
+.btn--block{ width:100%; }
+.btn[disabled]{ opacity:.55; cursor:not-allowed; }
+/* NEW: allow a visually-disabled but still-clickable checkout button */
+.btn[aria-disabled="true"]{ opacity:.55; cursor:not-allowed; }
+.btn[aria-disabled="true"]:hover{ background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%);
+  box-shadow:0 4px 14px rgba(108,59,240,.22); }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.site-footer{
-  margin-top:var(--sp-12);
-  background:var(--bg-2);
-  border-top:1px solid var(--line);
-  padding-block:var(--sp-12) var(--sp-6);
-  color:var(--muted);
-  font-size:var(--fs-14);
-}
-.site-footer__grid{
-  display:grid; gap:var(--sp-8); grid-template-columns:1fr;
-}
-@media (min-width:760px){
-  .site-footer__grid{ grid-template-columns:1.6fr 1fr 1fr 1fr; }
-}
-.site-footer h5{
-  color:var(--ink); font-size:var(--fs-13); font-weight:700;
-  margin-bottom:var(--sp-4); text-transform:uppercase; letter-spacing:0.06em;
-}
-.site-footer a{
-  display:block; padding:5px 0;
-  color:var(--muted); font-size:var(--fs-14);
-}
+.site-footer{ margin-top:var(--sp-12); background:var(--bg-2); border-top:1px solid var(--line);
+  padding-block:var(--sp-12) var(--sp-6); color:var(--muted); font-size:var(--fs-14);
+  padding-bottom:calc(var(--sp-6) + env(safe-area-inset-bottom,0px)); }
+.site-footer__grid{ display:grid; gap:var(--sp-8); grid-template-columns:1fr; }
+@media (min-width:760px){ .site-footer__grid{ grid-template-columns:1.6fr 1fr 1fr 1fr; } }
+.site-footer h5{ color:var(--ink); font-size:var(--fs-13); font-weight:700;
+  margin-bottom:var(--sp-4); text-transform:uppercase; letter-spacing:0.06em; }
+.site-footer a{ display:block; padding:5px 0; color:var(--muted); font-size:var(--fs-14); }
 .site-footer a:hover{ color:var(--brand); }
 .site-footer a.footer-inline{ display:inline; padding:0; }
-.site-footer__brand{
-  display:flex; align-items:center; gap:var(--sp-3);
-  margin-bottom:var(--sp-4);
-}
+.site-footer__brand{ display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-4); }
 .site-footer__brand .j-brand__mark{ width:36px; height:36px; flex:0 0 36px; border-radius:10px; }
 .site-footer__brand .j-brand__mark svg{ width:20px; height:20px; }
-.site-footer__name{
-  font-family:var(--font-display); font-weight:900;
-  font-size:var(--fs-16); color:var(--ink); line-height:1.1;
-}
-.site-footer__tag{
-  font-size:10px; font-weight:700; letter-spacing:0.08em;
-  color:var(--brand); text-transform:uppercase; margin-top:2px;
-}
-.site-footer__bottom{
-  margin-top:var(--sp-10);
-  padding-top:var(--sp-4);
-  border-top:1px solid var(--line);
-  display:flex; flex-wrap:wrap;
-  gap:var(--sp-3);
-  justify-content:space-between;
-  font-size:var(--fs-12);
-}
+.site-footer__name{ font-family:var(--font-display); font-weight:900; font-size:var(--fs-16);
+  color:var(--ink); line-height:1.1; }
+.site-footer__tag{ font-size:10px; font-weight:700; letter-spacing:0.08em;
+  color:var(--brand); text-transform:uppercase; margin-top:2px; }
+.site-footer__bottom{ margin-top:var(--sp-10); padding-top:var(--sp-4); border-top:1px solid var(--line);
+  display:flex; flex-wrap:wrap; gap:var(--sp-3); justify-content:space-between; font-size:var(--fs-12); }
 .site-footer__pay{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-.pay-badge{
-  padding:4px 10px; border-radius:6px;
-  background:var(--surface);
-  border:1px solid var(--line);
-  font-size:11px; font-weight:700; color:var(--ink);
-}
+.pay-badge{ padding:6px 12px; border-radius:8px; background:var(--surface-2);
+  border:1px solid var(--line); font-size:11px; font-weight:700; color:var(--ink); letter-spacing:0.02em; }
 
-/* ============================================================
-   WHATSAPP FLOAT
-   ============================================================ */
-.wa-float{
-  position:fixed; right:16px;
-  bottom:calc(96px + env(safe-area-inset-bottom,0));
-  z-index:1500;
-  display:inline-flex; align-items:center; gap:10px;
-  padding:12px 20px 12px 12px;
-  background:#25D366; color:#fff;
-  border-radius:var(--radius-pill);
-  text-decoration:none;
-  font-weight:600; font-size:14px;
-  box-shadow:0 14px 32px rgba(37,211,102,.40), 0 4px 10px rgba(0,0,0,.10);
-  transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
-}
-@media (min-width:900px){
-  .wa-float{ bottom:calc(16px + env(safe-area-inset-bottom,0)); }
-}
-.wa-float:hover{
-  transform:translateY(-2px) scale(1.02);
-  background:#1EBE5D;
-  box-shadow:0 20px 42px rgba(37,211,102,.5), 0 6px 14px rgba(0,0,0,.15);
-  color:#fff;
-}
-.wa-float__icon{
-  width:36px; height:36px; border-radius:50%;
-  background:rgba(255,255,255,.18);
-  display:grid; place-items:center; flex:0 0 36px;
-}
+.wa-float{ position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom,0));
+  z-index:1500; display:inline-flex; align-items:center; gap:10px;
+  padding:12px 20px 12px 12px; background:#25D366; color:#fff;
+  border-radius:var(--radius-pill); text-decoration:none; font-weight:600; font-size:14px;
+  box-shadow:0 14px 32px rgba(37,211,102,.40), 0 4px 10px rgba(0,0,0,.10); }
+.wa-float:hover{ transform:translateY(-2px) scale(1.02); background:#1EBE5D; color:#fff; }
+.wa-float__icon{ width:36px; height:36px; border-radius:50%;
+  background:rgba(255,255,255,.18); display:grid; place-items:center; flex:0 0 36px; }
 .wa-float__icon svg{ width:22px; height:22px; color:#fff; }
 .wa-float__text{ white-space:nowrap; font-weight:700; font-size:14px; }
 @media (max-width:600px){
@@ -829,87 +272,183 @@ button,input,select,textarea{ font:inherit; color:inherit; }
   .wa-float__icon svg{ width:32px; height:32px; }
   .wa-float__text{ display:none; }
 }
-
-/* ============================================================
-   TOAST
-   ============================================================ */
-.toast-stack{
-  position:fixed; left:50%;
-  bottom:max(16px, env(safe-area-inset-bottom, 16px));
-  transform:translateX(-50%);
-  z-index:3000;
-  display:flex; flex-direction:column;
-  gap:8px;
-  width:min(92vw,380px);
-  pointer-events:none;
-}
-@media (max-width:899px){
-  .toast-stack{ bottom:calc(104px + env(safe-area-inset-bottom,0)); }
-}
-.toast{
-  background:var(--ink); color:#fff;
-  padding:12px 16px;
-  border-radius:var(--radius-ctrl);
-  font-size:var(--fs-14); font-weight:500;
-  box-shadow:var(--shadow-lg);
-  animation:toast-in .18s ease;
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-}
+.toast-stack{ position:fixed; left:50%; bottom:max(16px, calc(16px + env(safe-area-inset-bottom, 0px)));
+  transform:translateX(-50%); z-index:3000; display:flex; flex-direction:column; gap:8px;
+  width:min(92vw,380px); pointer-events:none; }
+.toast{ background:var(--ink); color:#fff; padding:12px 16px; border-radius:var(--radius-ctrl);
+  font-size:var(--fs-14); font-weight:500; box-shadow:var(--shadow-lg);
+  animation:toast-in .18s ease; display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .toast--good{ background:var(--good); color:#fff; }
 .toast--warn{ background:var(--warn); color:#fff; }
-.toast a{
-  color:#fff; font-weight:700; text-decoration:underline;
-  font-size:var(--fs-13); pointer-events:auto;
-}
+.toast a{ color:#fff; font-weight:700; text-decoration:underline;
+  font-size:var(--fs-13); pointer-events:auto; }
 @keyframes toast-in{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
 
-/* ============================================================
-   SMARTWATCH
-   ============================================================ */
-@media (max-width:280px){
-  .j-topbar{ display:none; }
-  .j-main{ padding-block:10px; }
-  .j-brand__text{ display:none; }
-  .j-search{ height:42px; }
-  .j-search button{ padding:0 12px; font-size:12px; }
-  .cart-head h1{ font-size:22px; }
-  .cart-head{ flex-direction:column; align-items:flex-start; gap:12px; }
-  .line{ grid-template-columns:72px 1fr; gap:10px; padding:12px; }
-  .line__actions{ flex-direction:row; align-items:center; justify-content:space-between; width:100%; margin-top:10px; }
-  .line__total{ text-align:left; min-width:0; font-size:14px; }
-  .summary{ padding:14px; }
-  .checkout-bar__btn{ padding:0 14px; font-size:13px; }
-  .crosssell-grid{ grid-template-columns:1fr; }
-  .site-footer__grid{ grid-template-columns:1fr; gap:20px; }
+.cart-page{ padding-block:var(--sp-5) var(--sp-12); }
+.crumbs{ display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+  font-size:var(--fs-13); color:var(--muted); margin-bottom:var(--sp-4); }
+.crumbs a{ color:var(--muted); }
+.crumbs a:hover{ color:var(--brand); }
+.crumbs .sep{ opacity:.5; }
+.crumbs strong{ color:var(--ink); font-weight:600; }
+.page-head{ margin-bottom:var(--sp-5); }
+.page-head h1{ margin:0 0 6px; font-size:clamp(24px,3.6vw,38px); font-weight:900; letter-spacing:-0.025em; }
+.page-head p{ color:var(--muted); margin:0; font-size:var(--fs-14); }
+.cart-layout{ display:grid; grid-template-columns:1fr; gap:var(--sp-5); align-items:start; }
+@media (min-width:900px){ .cart-layout{ grid-template-columns:1fr 380px; gap:var(--sp-6); } }
+.cart-items{ display:flex; flex-direction:column; gap:var(--sp-3); }
+.cart-item{ background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--radius-card); overflow:hidden; position:relative;
+  transition:border-color .15s ease, box-shadow .15s ease; }
+.cart-item--awaiting{ border-color:var(--warn); box-shadow:0 0 0 3px rgba(217,119,6,.10); }
+.cart-item--new{ animation:cart-new-flash 1.4s ease; }
+@keyframes cart-new-flash{
+  0%   { box-shadow:0 0 0 0 rgba(108,59,240,.35); }
+  50%  { box-shadow:0 0 0 8px rgba(108,59,240,.05); }
+  100% { box-shadow:0 0 0 0 rgba(108,59,240,0); }
+}
+.cart-item__head{ display:grid; grid-template-columns:80px 1fr auto; gap:var(--sp-3);
+  padding:var(--sp-4); align-items:start; border-bottom:1px solid var(--line); }
+@media (min-width:560px){ .cart-item__head{ grid-template-columns:96px 1fr auto; padding:var(--sp-4) var(--sp-5); } }
+.cart-item__media{ width:80px; height:80px; border-radius:10px; background:var(--t1);
+  overflow:hidden; flex-shrink:0; }
+@media (min-width:560px){ .cart-item__media{ width:96px; height:96px; } }
+.cart-item__media img{ width:100%; height:100%; object-fit:contain; padding:6px; }
+.cart-item__info{ min-width:0; }
+.cart-item__brand{ font-size:11px; color:var(--muted); text-transform:uppercase;
+  letter-spacing:0.06em; font-weight:600; }
+.cart-item__name{ margin:2px 0 6px; font-family:var(--font-body); font-weight:700;
+  font-size:var(--fs-15); line-height:1.3; color:var(--ink); word-break:break-word; }
+.cart-item__unit-price{ font-size:var(--fs-13); color:var(--muted); }
+.cart-item__unit-price .money{ font-family:var(--font-mono); color:var(--ink); font-weight:600; }
+.cart-item__pkg-tag{ display:inline-block; background:var(--brand-soft); color:var(--brand);
+  font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; margin-top:6px;
+  text-transform:uppercase; letter-spacing:0.04em; }
+.cart-item__awaiting{ display:inline-flex; align-items:center; gap:6px; margin-top:8px;
+  padding:4px 10px; background:rgba(217,119,6,.10); color:var(--warn); border-radius:8px;
+  font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
+.cart-item__remove{ background:transparent; border:1px solid var(--line); width:34px; height:34px;
+  border-radius:8px; cursor:pointer; color:var(--muted); display:grid; place-items:center;
+  transition:border-color .15s ease, color .15s ease, background .15s ease; flex-shrink:0; }
+.cart-item__remove:hover{ border-color:var(--danger); color:var(--danger); background:rgba(220,38,38,.06); }
+.cart-item__remove svg{ width:16px; height:16px; }
+.cart-item__packages{ padding:var(--sp-4); display:flex; flex-direction:column; gap:var(--sp-2); }
+@media (min-width:560px){ .cart-item__packages{ padding:var(--sp-4) var(--sp-5); } }
+.cart-item__packages-label{ font-size:12px; font-weight:700; color:var(--muted);
+  text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px; }
+.pkg-option{ display:flex; align-items:center; gap:12px; padding:12px 14px;
+  border:1.5px solid var(--line); border-radius:10px; background:var(--surface);
+  cursor:pointer; transition:border-color .15s ease, background .15s ease; position:relative; }
+.pkg-option:hover:not(.is-disabled){ border-color:var(--brand); }
+.pkg-option.is-selected{ border-color:var(--brand); background:var(--brand-soft); }
+.pkg-option.is-disabled{ opacity:.55; cursor:not-allowed; background:var(--surface-2); }
+.pkg-option.is-disabled:hover{ border-color:var(--line); }
+.pkg-option input[type="radio"]{ width:18px; height:18px; margin:0;
+  accent-color:var(--brand); flex-shrink:0; cursor:pointer; }
+.pkg-option.is-disabled input[type="radio"]{ cursor:not-allowed; }
+.pkg-option__info{ flex:1; min-width:0; }
+.pkg-option__label{ display:flex; align-items:center; gap:6px; font-size:var(--fs-14);
+  font-weight:700; color:var(--ink); line-height:1.3; margin-bottom:1px; }
+.pkg-option__sub{ display:block; font-size:12px; color:var(--muted); font-family:var(--font-mono); }
+.pkg-option__price{ font-family:var(--font-display); font-weight:900; font-size:15px;
+  color:var(--ink); text-align:right; line-height:1.15; flex-shrink:0; }
+.pkg-option.is-selected .pkg-option__price{ color:var(--brand); }
+.pkg-option__per{ display:block; font-size:10.5px; color:var(--muted);
+  font-family:var(--font-mono); font-weight:500; margin-top:2px; }
+.pkg-save{ display:inline-block; background:var(--brand); color:#fff; font-weight:700;
+  padding:1px 6px; border-radius:4px; font-size:10px; font-family:var(--font-body); }
+.pkg-option__disabled-note{ font-size:11px; color:var(--danger); font-weight:600; margin-top:2px; }
+.cart-item__foot{ padding:var(--sp-4); border-top:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between; gap:var(--sp-3); flex-wrap:wrap; }
+@media (min-width:560px){ .cart-item__foot{ padding:var(--sp-4) var(--sp-5); } }
+.cart-item__qty{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+.cart-item__qty-label{ font-size:11px; color:var(--muted); text-transform:uppercase;
+  letter-spacing:0.05em; font-weight:700; }
+.cart-item__qty-stepper{ display:inline-flex; align-items:center; border:1px solid var(--line);
+  border-radius:8px; overflow:hidden; background:var(--surface); }
+.cart-item__qty-stepper button{ width:34px; height:34px; border:0; background:transparent;
+  font-size:18px; font-weight:600; color:var(--ink); cursor:pointer;
+  display:grid; place-items:center; }
+.cart-item__qty-stepper button:hover:not(:disabled){ background:var(--surface-2); color:var(--brand); }
+.cart-item__qty-stepper button:disabled{ opacity:.35; cursor:not-allowed; }
+.cart-item__qty-val{ min-width:42px; height:34px; border-left:1px solid var(--line);
+  border-right:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--ink); }
+.cart-item__qty-hint{ font-size:11px; color:var(--muted); font-family:var(--font-mono); margin-top:2px; }
+.cart-item__total{ text-align:right; }
+.cart-item__total-label{ font-size:11px; color:var(--muted); text-transform:uppercase;
+  letter-spacing:0.05em; font-weight:700; display:block; margin-bottom:2px; }
+.cart-item__total-value{ font-family:var(--font-display); font-weight:900;
+  font-size:var(--fs-22); color:var(--ink); letter-spacing:-0.02em; line-height:1.1; }
+.cart-item__total-pkg{ font-size:11px; color:var(--muted); font-family:var(--font-mono);
+  margin-top:2px; display:block; }
+.cart-item__empty-note{ font-size:12px; color:var(--muted); font-style:italic; }
+.cart-item__stock-warn{ font-size:11px; color:var(--danger); font-weight:600;
+  margin-top:4px; display:flex; align-items:center; gap:4px; }
+.cart-summary{ background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--radius-card); padding:var(--sp-5); }
+@media (min-width:900px){ .cart-summary{ position:sticky; top:170px; } }
+.cart-summary h2{ margin:0 0 var(--sp-4); font-size:var(--fs-16); font-weight:800;
+  text-transform:uppercase; letter-spacing:0.06em; }
+.summary-rows{ display:flex; flex-direction:column; }
+.summary-row{ display:flex; justify-content:space-between; align-items:baseline;
+  gap:12px; padding:8px 0; font-size:var(--fs-14); }
+.summary-row .label{ color:var(--muted); }
+.summary-row .value{ font-family:var(--font-mono); font-weight:600; color:var(--ink); }
+.summary-row--total{ padding-top:14px; margin-top:8px;
+  border-top:2px solid var(--line); font-weight:700; }
+.summary-row--total .label{ color:var(--ink); font-weight:700; }
+.summary-row--total .value{ font-family:var(--font-display); font-weight:900; font-size:var(--fs-22); }
+.summary-hint{ font-size:12px; color:var(--muted); margin:8px 0 0; line-height:1.5; }
+.summary-hint--warn{ background:rgba(217,119,6,.10); color:var(--warn);
+  padding:10px 12px; border-radius:8px; font-weight:600; margin-top:12px;
+  display:flex; align-items:flex-start; gap:6px; }
+.summary-hint--warn svg{ flex-shrink:0; margin-top:2px; }
+.cart-summary__actions{ display:flex; flex-direction:column; gap:8px; margin-top:var(--sp-4); }
+.cart-summary__secure{ display:flex; align-items:center; justify-content:center; gap:6px;
+  margin-top:var(--sp-3); font-size:11px; color:var(--muted); }
+.cart-summary__secure svg{ width:14px; height:14px; color:var(--good); }
+.cart-empty{ text-align:center; padding:var(--sp-12) var(--sp-5);
+  border:1px dashed var(--line); border-radius:var(--radius-card); background:var(--surface);
+  max-width:600px; margin:0 auto; }
+.cart-empty__icon{ width:80px; height:80px; margin:0 auto var(--sp-4); border-radius:50%;
+  background:var(--brand-soft); color:var(--brand); display:grid; place-items:center; }
+.cart-empty__icon svg{ width:36px; height:36px; }
+.cart-empty h2{ margin:0 0 8px; font-size:var(--fs-22); }
+.cart-empty p{ color:var(--muted); margin:0 0 var(--sp-5); font-size:var(--fs-14); }
+.cart-empty__actions{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+@media (max-width:360px){
+  .cart-item__head{ grid-template-columns:64px 1fr auto; gap:10px; padding:var(--sp-3); }
+  .cart-item__media{ width:64px; height:64px; }
+  .cart-item__packages,
+  .cart-item__foot{ padding:var(--sp-3); }
+  .cart-item__total-value{ font-size:var(--fs-18); }
 }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to main content</a>
 <div id="siteHeader"></div>
 
 <main id="main">
-  <div class="wrap cart-page" id="cartRoot">
-    <!-- Rendered by JS -->
+  <div class="wrap cart-page">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span class="sep" aria-hidden="true">/</span>
+      <a href="shop.html">Shop</a><span class="sep" aria-hidden="true">/</span>
+      <strong>Cart</strong>
+    </nav>
+    <div class="page-head">
+      <h1>Your cart</h1>
+      <p id="cartSubtitle">Review your items and select a package before checkout.</p>
+    </div>
+    <div id="cartRoot"><!-- Rendered by JS --></div>
   </div>
 </main>
 
-<!-- Mobile sticky checkout bar -->
-<div class="checkout-bar" id="checkoutBar" style="display:none">
-  <div class="checkout-bar__info">
-    <small>Subtotal</small>
-    <b id="barTotal">₦0</b>
-  </div>
-  <a class="checkout-bar__btn" href="checkout.html">
-    Checkout
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </a>
-</div>
-
 <div id="siteFooter"></div>
 
-<a class="wa-float"
-   href="https://wa.me/2347034652385?text=Hi%20KAKA%2C%20I%20have%20a%20question%20about%20my%20cart."
+<a class="wa-float" href="https://wa.me/2347034652385?text=Hello%20KAKA%20ENTERPRISES%2C%20I%27d%20like%20to%20enquire%20about%20my%20cart."
    target="_blank" rel="noopener noreferrer"
    aria-label="Chat with KAKA ENTERPRISES on WhatsApp">
   <span class="wa-float__icon" aria-hidden="true">
@@ -924,31 +463,19 @@ button,input,select,textarea{ font:inherit; color:inherit; }
 <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
 
 <script>
-/* ============================================================
-   KAKA ENTERPRISES — Cart page
-   ------------------------------------------------------------
-   Delivery fee is NOT shown here — it depends on the customer's
-   location and is resolved on checkout.html via KE.delivery
-   (populated from the Admin Dashboard).
-   ============================================================ */
 window.KE = window.KE || {};
 
 KE.CONFIG = {
-  wholesale: [
-    { min:1,  max:9,        off:0    },
-    { min:10, max:49,       off:0.09 },
-    { min:50, max:Infinity, off:0.15 }
-  ],
   business: {
     name: 'KAKA ENTERPRISES',
     tagline: 'Power. Connect. Deliver.',
     address: "No. 19 St. Michael's Road, Aba, Abia State, Nigeria",
     phone: '07034652385',
+    phonePretty: '0703 465 2385',
     whatsapp: '2347034652385'
   }
 };
 
-/* ---------- CATEGORIES ---------- */
 KE.CATEGORIES = [
   { slug:'phones-tablets', name:'Phones & Tablets', icon:'phone', order:1, published:true,
     children:[
@@ -1023,58 +550,80 @@ KE.CATEGORIES = [
 ];
 
 KE.BRANDS = [
-  { slug:'voltix', name:'Voltix', initial:'V' },
-  { slug:'kord', name:'Kord', initial:'K' },
-  { slug:'sona', name:'Sona', initial:'S' },
-  { slug:'peak', name:'Peak', initial:'P' },
-  { slug:'northloop', name:'Northloop', initial:'N' },
-  { slug:'arkstore', name:'Arkstore', initial:'A' },
-  { slug:'oraimo', name:'Oraimo', initial:'O' }
+  { slug:'voltix', name:'Voltix' },{ slug:'kord', name:'Kord' },{ slug:'sona', name:'Sona' },
+  { slug:'peak', name:'Peak' },{ slug:'northloop', name:'Northloop' },
+  { slug:'arkstore', name:'Arkstore' },{ slug:'oraimo', name:'Oraimo' }
 ];
 
 KE.PRODUCTS = [
-  { slug:'gan-65w-usb-c-wall-charger', sku:'KE-CHG-001', name:'GaN 65W USB-C Wall Charger', categoryPath:['phone-accessories','charging-accessories','chargers'], brand:'voltix', price:18500, compare_at_price:22000, tag:'Sale', stock:24, rating:4.8, reviews:246, img:'photo-1583863788434-e58a36330cf0', image_alt:'GaN 65W USB-C wall charger', specs:[['Output','65W']] },
-  { slug:'magsafe-10000mah-power-bank', sku:'KE-PWB-001', name:'MagSafe 10,000mAh Power Bank', categoryPath:['phone-accessories','charging-accessories','power-banks'], brand:'voltix', price:24900, compare_at_price:null, tag:'New', stock:12, rating:4.7, reviews:132, img:'photo-1609091839311-d5365f9ff1c5', image_alt:'MagSafe wireless power bank', specs:[['Capacity','10,000mAh']] },
-  { slug:'usb-c-to-usb-c-2m-cable', sku:'KE-CBL-001', name:'USB-C to USB-C 2m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:4500, compare_at_price:6000, tag:'Sale', stock:60, rating:4.6, reviews:320, img:'photo-1572569511254-d8f925fe2cbb', image_alt:'USB-C to USB-C charging cable', specs:[['Length','2m']] },
-  { slug:'lightning-braided-1m-cable', sku:'KE-CBL-002', name:'Lightning Braided 1m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:3800, compare_at_price:null, tag:null, stock:42, rating:4.5, reviews:180, img:'photo-1572569511254-d8f925fe2cbb', image_alt:'Braided Lightning cable', specs:[['Length','1m']] },
-  { slug:'true-wireless-earbuds-pro', sku:'KE-AUD-001', name:'True Wireless Earbuds Pro', categoryPath:['phone-accessories','audio-accessories','earbuds'], brand:'sona', price:32500, compare_at_price:38000, tag:'Popular', stock:8, rating:4.9, reviews:412, img:'photo-1590658268037-6bf12165a8df', image_alt:'True wireless earbuds', specs:[['Battery','24h']] },
-  { slug:'over-ear-studio-headset', sku:'KE-AUD-002', name:'Over-Ear Studio Headset', categoryPath:['phone-accessories','audio-accessories','headphones'], brand:'sona', price:42000, compare_at_price:null, tag:null, stock:5, rating:4.7, reviews:210, img:'photo-1505740420928-5e560c06d30e', image_alt:'Over-ear studio headphones', specs:[['Battery','40h']] },
-  { slug:'tempered-glass-2-pack', sku:'KE-SCP-001', name:'Tempered Glass Screen Protector', categoryPath:['phone-accessories','screen-protectors'], brand:'peak', price:3200, compare_at_price:4500, tag:'Sale', stock:100, rating:4.6, reviews:540, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Tempered glass screen protector', specs:[['Hardness','9H']] },
-  { slug:'smart-watch-band-nylon', sku:'KE-WB-001', name:'Smart Watch Band — Nylon', categoryPath:['smart-gadgets','smart-watches'], brand:'peak', price:5500, compare_at_price:null, tag:null, stock:22, rating:4.3, reviews:88, img:'photo-1546868871-7041f2a55e12', image_alt:'Nylon smart watch band', specs:[['Width','22mm']] },
-  { slug:'oraimo-picbuddy-dual-camera-kids-camera', sku:'KE-KID-001', name:'Oraimo PicBuddy Dual Camera HD Kids Camera', categoryPath:['smart-gadgets'], brand:'oraimo', price:35900, compare_at_price:39890, tag:'Sale', stock:20, rating:4.7, reviews:120, img:'photo-1512756290469-ec264b7fbf87', image_alt:'Kids digital camera', specs:[['Model','OBC-293A']] },
-  { slug:'phone-battery-iphone-11-oem', sku:'KE-BAT-001', name:'Phone Battery — iPhone 11 (OEM)', categoryPath:['phone-batteries','iphone-batteries'], brand:'voltix', price:12500, compare_at_price:15000, tag:'Sale', stock:18, rating:4.5, reviews:96, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery', specs:[['Model','iPhone 11']] },
-  { slug:'phone-battery-iphone-12-pro', sku:'KE-BAT-002', name:'Phone Battery — iPhone 12 Pro', categoryPath:['phone-batteries','iphone-batteries'], brand:'voltix', price:14500, compare_at_price:null, tag:'New', stock:14, rating:4.6, reviews:64, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery', specs:[['Model','iPhone 12 Pro']] },
-  { slug:'phone-battery-samsung-a52', sku:'KE-BAT-003', name:'Phone Battery — Samsung A52', categoryPath:['phone-batteries','samsung-batteries'], brand:'voltix', price:9800, compare_at_price:12000, tag:'Sale', stock:26, rating:4.4, reviews:118, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery', specs:[['Model','Samsung A52']] },
-  { slug:'phone-battery-samsung-s21', sku:'KE-BAT-004', name:'Phone Battery — Samsung S21', categoryPath:['phone-batteries','samsung-batteries'], brand:'voltix', price:13500, compare_at_price:null, tag:null, stock:11, rating:4.5, reviews:72, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery', specs:[['Model','Samsung S21']] },
-  { slug:'phone-battery-tecno-camon-17', sku:'KE-BAT-005', name:'Phone Battery — Tecno Camon 17', categoryPath:['phone-batteries','tecno-batteries'], brand:'voltix', price:7500, compare_at_price:null, tag:'Popular', stock:30, rating:4.3, reviews:140, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery', specs:[['Model','Tecno Camon 17']] },
-  { slug:'phone-battery-infinix-hot-10', sku:'KE-BAT-006', name:'Phone Battery — Infinix Hot 10', categoryPath:['phone-batteries','infinix-batteries'], brand:'voltix', price:6800, compare_at_price:8500, tag:'Sale', stock:24, rating:4.2, reviews:88, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery', specs:[['Model','Infinix Hot 10']] },
-  { slug:'clear-shock-case-iphone', sku:'KE-CAS-001', name:'Clear Shock Case — iPhone', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:6500, compare_at_price:null, tag:'New', stock:30, rating:4.4, reviews:96, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Clear shock-proof phone case', specs:[['Drop rating','2m']] },
-  { slug:'case-clear-shock-iphone-14', sku:'KE-CAS-002', name:'Clear Shock Case — iPhone 14', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:4500, compare_at_price:6000, tag:'Sale', stock:45, rating:4.6, reviews:220, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Clear shock-proof phone case', specs:[['Drop rating','2m']] },
-  { slug:'case-silicone-iphone-13', sku:'KE-CAS-003', name:'Silicone Case — iPhone 13', categoryPath:['phone-casings','silicone-cases'], brand:'peak', price:3800, compare_at_price:null, tag:null, stock:52, rating:4.5, reviews:180, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Silicone phone case', specs:[['Material','Silicone']] },
-  { slug:'case-leather-samsung-s22', sku:'KE-CAS-004', name:'Leather Case — Samsung S22', categoryPath:['phone-casings','leather-cases'], brand:'peak', price:7500, compare_at_price:9500, tag:'Sale', stock:20, rating:4.7, reviews:96, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Leather phone case', specs:[['Material','Leather']] },
-  { slug:'case-rugged-armour-tecno', sku:'KE-CAS-005', name:'Rugged Armour Case — Tecno', categoryPath:['phone-casings','rugged-cases'], brand:'peak', price:5500, compare_at_price:null, tag:'New', stock:34, rating:4.5, reviews:120, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Rugged phone case', specs:[['Drop rating','3m']] },
-  { slug:'case-flip-cover-infinix', sku:'KE-CAS-006', name:'Flip Cover — Infinix', categoryPath:['phone-casings','flip-covers'], brand:'peak', price:4200, compare_at_price:5200, tag:'Sale', stock:38, rating:4.4, reviews:140, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Flip cover phone case', specs:[['Material','PU Leather']] },
-  { slug:'case-transparent-shock-xiaomi', sku:'KE-CAS-007', name:'Transparent Shock Case — Xiaomi', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:3500, compare_at_price:null, tag:null, stock:60, rating:4.5, reviews:186, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Transparent phone case', specs:[['Material','TPU']] },
-  { slug:'case-magsafe-iphone-15-pro', sku:'KE-CAS-008', name:'MagSafe Case — iPhone 15 Pro', categoryPath:['phone-casings','magsafe-cases'], brand:'peak', price:8500, compare_at_price:null, tag:'Popular', stock:16, rating:4.8, reviews:92, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'MagSafe phone case', specs:[['MagSafe','Yes']] },
-  { slug:'mechanical-keyboard-75', sku:'KE-KB-001', name:'Mechanical Keyboard 75%', categoryPath:['computer-accessories','computer-input','keyboards'], brand:'northloop', price:46500, compare_at_price:52000, tag:'Popular', stock:7, rating:4.8, reviews:310, img:'photo-1587829741301-dc798b83add3', image_alt:'Mechanical keyboard', specs:[['Layout','75%']] },
-  { slug:'silent-wireless-mouse', sku:'KE-MS-001', name:'Silent Wireless Mouse', categoryPath:['computer-accessories','computer-input','mice'], brand:'northloop', price:9800, compare_at_price:null, tag:null, stock:18, rating:4.6, reviews:220, img:'photo-1527814050087-3793815479db', image_alt:'Wireless computer mouse', specs:[['DPI','1600']] },
-  { slug:'usb-c-7in1-hub', sku:'KE-HUB-001', name:'USB-C 7-in-1 Hub', categoryPath:['computer-accessories','computer-desk','usb-hubs'], brand:'northloop', price:27500, compare_at_price:31000, tag:'Sale', stock:14, rating:4.7, reviews:188, img:'photo-1625842268584-8f3296236761', image_alt:'USB-C hub', specs:[['Ports','7']] },
-  { slug:'laptop-stand-aluminium', sku:'KE-STD-001', name:'Aluminium Laptop Stand', categoryPath:['computer-accessories','computer-desk','laptop-stands'], brand:'peak', price:15900, compare_at_price:null, tag:null, stock:11, rating:4.5, reviews:140, img:'photo-1618384887929-16ec33fab9ef', image_alt:'Aluminium laptop stand', specs:[['Material','Aluminium']] },
-  { slug:'1080p-webcam-with-mic', sku:'KE-CAM-001', name:'1080p Webcam with Mic', categoryPath:['computer-accessories','computer-desk','webcams'], brand:'arkstore', price:21500, compare_at_price:null, tag:'New', stock:9, rating:4.4, reviews:96, img:'photo-1587826080692-f439cd0b70da', image_alt:'1080p webcam', specs:[['Resolution','1080p']] },
-  { slug:'nvme-ssd-1tb-enclosure', sku:'KE-SSD-001', name:'NVMe SSD 1TB + Enclosure', categoryPath:['computer-accessories','computer-storage','ssds'], brand:'arkstore', price:78000, compare_at_price:89000, tag:'Sale', stock:4, rating:4.9, reviews:210, img:'photo-1591370874773-6702e8f12fd8', image_alt:'NVMe SSD drive', specs:[['Capacity','1TB']] },
-  { slug:'usb-c-dock-dual-hdmi', sku:'KE-DOCK-001', name:'USB-C Dock — Dual HDMI', categoryPath:['computer-accessories','computer-desk','usb-hubs'], brand:'northloop', price:58000, compare_at_price:null, tag:null, stock:6, rating:4.6, reviews:110, img:'photo-1625842268584-8f3296236761', image_alt:'USB-C dual HDMI dock', specs:[['HDMI','4K']] }
+  { slug:'gan-65w-usb-c-wall-charger', sku:'KE-CHG-001', name:'GaN 65W USB-C Wall Charger', categoryPath:['phone-accessories','charging-accessories','chargers'], brand:'voltix', price:18500, compare_at_price:22000, tag:'Sale', stock:24, rating:4.8, reviews:246, img:'photo-1583863788434-e58a36330cf0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'magsafe-10000mah-power-bank', sku:'KE-PWB-001', name:'MagSafe 10,000mAh Power Bank', categoryPath:['phone-accessories','charging-accessories','power-banks'], brand:'voltix', price:24900, compare_at_price:null, tag:'New', stock:12, rating:4.7, reviews:132, img:'photo-1609091839311-d5365f9ff1c5',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'usb-c-to-usb-c-2m-cable', sku:'KE-CBL-001', name:'USB-C to USB-C 2m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:4500, compare_at_price:6000, tag:'Sale', stock:60, rating:4.6, reviews:320, img:'photo-1589996448606-27d6a0f8e8e5',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'lightning-braided-1m-cable', sku:'KE-CBL-002', name:'Lightning Braided 1m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:3800, compare_at_price:null, tag:null, stock:42, rating:4.5, reviews:180, img:'photo-1601524909162-ae8725290836',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'true-wireless-earbuds-pro', sku:'KE-AUD-001', name:'True Wireless Earbuds Pro', categoryPath:['phone-accessories','audio-accessories','earbuds'], brand:'sona', price:32500, compare_at_price:38000, tag:'Popular', stock:8, rating:4.9, reviews:412, img:'photo-1590658268037-6bf12165a8df',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'over-ear-studio-headset', sku:'KE-AUD-002', name:'Over-Ear Studio Headset', categoryPath:['phone-accessories','audio-accessories','headphones'], brand:'sona', price:42000, compare_at_price:null, tag:null, stock:5, rating:4.7, reviews:210, img:'photo-1505740420928-5e560c06d30e',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'tempered-glass-2-pack', sku:'KE-SCP-001', name:'Tempered Glass Screen Protector', categoryPath:['phone-accessories','screen-protectors'], brand:'peak', price:3200, compare_at_price:4500, tag:'Sale', stock:100, rating:4.6, reviews:540, img:'photo-1603313010021-c5f0e70f3f5d',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'smart-watch-band-nylon', sku:'KE-WB-001', name:'Smart Watch Band — Nylon', categoryPath:['smart-gadgets','smart-watches'], brand:'peak', price:5500, compare_at_price:null, tag:null, stock:22, rating:4.3, reviews:88, img:'photo-1546868871-7041f2a55e12',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'oraimo-picbuddy-dual-camera-kids-camera', sku:'KE-KID-001', name:'Oraimo PicBuddy Dual Camera HD Kids Camera', categoryPath:['smart-gadgets'], brand:'oraimo', price:35900, compare_at_price:39890, tag:'Sale', stock:20, rating:4.7, reviews:120, img:'photo-1512756290469-ec264b7fbf87',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'phone-battery-iphone-11-oem', sku:'KE-BAT-001', name:'Phone Battery — iPhone 11 (OEM)', categoryPath:['phone-batteries','iphone-batteries'], brand:'voltix', price:12500, compare_at_price:15000, tag:'Sale', stock:18, rating:4.5, reviews:96, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'phone-battery-iphone-12-pro', sku:'KE-BAT-002', name:'Phone Battery — iPhone 12 Pro', categoryPath:['phone-batteries','iphone-batteries'], brand:'voltix', price:14500, compare_at_price:null, tag:'New', stock:14, rating:4.6, reviews:64, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'phone-battery-samsung-a52', sku:'KE-BAT-003', name:'Phone Battery — Samsung A52', categoryPath:['phone-batteries','samsung-batteries'], brand:'voltix', price:9800, compare_at_price:12000, tag:'Sale', stock:26, rating:4.4, reviews:118, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'phone-battery-samsung-s21', sku:'KE-BAT-004', name:'Phone Battery — Samsung S21', categoryPath:['phone-batteries','samsung-batteries'], brand:'voltix', price:13500, compare_at_price:null, tag:null, stock:11, rating:4.5, reviews:72, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'phone-battery-tecno-camon-17', sku:'KE-BAT-005', name:'Phone Battery — Tecno Camon 17', categoryPath:['phone-batteries','tecno-batteries'], brand:'voltix', price:7500, compare_at_price:null, tag:'Popular', stock:30, rating:4.3, reviews:140, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'phone-battery-infinix-hot-10', sku:'KE-BAT-006', name:'Phone Battery — Infinix Hot 10', categoryPath:['phone-batteries','infinix-batteries'], brand:'voltix', price:6800, compare_at_price:8500, tag:'Sale', stock:24, rating:4.2, reviews:88, img:'photo-1619641805634-3e0d1e5c6ac0',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'clear-shock-case-iphone', sku:'KE-CAS-001', name:'Clear Shock Case — iPhone', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:6500, compare_at_price:null, tag:'New', stock:30, rating:4.4, reviews:96, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'case-clear-shock-iphone-14', sku:'KE-CAS-002', name:'Clear Shock Case — iPhone 14', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:4500, compare_at_price:6000, tag:'Sale', stock:45, rating:4.6, reviews:220, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'case-silicone-iphone-13', sku:'KE-CAS-003', name:'Silicone Case — iPhone 13', categoryPath:['phone-casings','silicone-cases'], brand:'peak', price:3800, compare_at_price:null, tag:null, stock:52, rating:4.5, reviews:180, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'case-leather-samsung-s22', sku:'KE-CAS-004', name:'Leather Case — Samsung S22', categoryPath:['phone-casings','leather-cases'], brand:'peak', price:7500, compare_at_price:9500, tag:'Sale', stock:20, rating:4.7, reviews:96, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'case-rugged-armour-tecno', sku:'KE-CAS-005', name:'Rugged Armour Case — Tecno', categoryPath:['phone-casings','rugged-cases'], brand:'peak', price:5500, compare_at_price:null, tag:'New', stock:34, rating:4.5, reviews:120, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'case-flip-cover-infinix', sku:'KE-CAS-006', name:'Flip Cover — Infinix', categoryPath:['phone-casings','flip-covers'], brand:'peak', price:4200, compare_at_price:5200, tag:'Sale', stock:38, rating:4.4, reviews:140, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'case-transparent-shock-xiaomi', sku:'KE-CAS-007', name:'Transparent Shock Case — Xiaomi', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:3500, compare_at_price:null, tag:null, stock:60, rating:4.5, reviews:186, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'case-magsafe-iphone-15-pro', sku:'KE-CAS-008', name:'MagSafe Case — iPhone 15 Pro', categoryPath:['phone-casings','magsafe-cases'], brand:'peak', price:8500, compare_at_price:null, tag:'Popular', stock:16, rating:4.8, reviews:92, img:'photo-1601784551446-20c9e07cdbdb',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'mechanical-keyboard-75', sku:'KE-KB-001', name:'Mechanical Keyboard 75%', categoryPath:['computer-accessories','computer-input','keyboards'], brand:'northloop', price:46500, compare_at_price:52000, tag:'Popular', stock:7, rating:4.8, reviews:310, img:'photo-1587829741301-dc798b83add3',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'silent-wireless-mouse', sku:'KE-MS-001', name:'Silent Wireless Mouse', categoryPath:['computer-accessories','computer-input','mice'], brand:'northloop', price:9800, compare_at_price:null, tag:null, stock:18, rating:4.6, reviews:220, img:'photo-1527814050087-3793815479db',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'usb-c-7in1-hub', sku:'KE-HUB-001', name:'USB-C 7-in-1 Hub', categoryPath:['computer-accessories','computer-desk','usb-hubs'], brand:'northloop', price:27500, compare_at_price:31000, tag:'Sale', stock:14, rating:4.7, reviews:188, img:'photo-1625842268584-8f3296236761',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'laptop-stand-aluminium', sku:'KE-STD-001', name:'Aluminium Laptop Stand', categoryPath:['computer-accessories','computer-desk','laptop-stands'], brand:'peak', price:15900, compare_at_price:null, tag:null, stock:11, rating:4.5, reviews:140, img:'photo-1618384887929-16ec33fab9ef',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'1080p-webcam-with-mic', sku:'KE-CAM-001', name:'1080p Webcam with Mic', categoryPath:['computer-accessories','computer-desk','webcams'], brand:'arkstore', price:21500, compare_at_price:null, tag:'New', stock:9, rating:4.4, reviews:96, img:'photo-1587826080692-f439cd0b70da',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'nvme-ssd-1tb-enclosure', sku:'KE-SSD-001', name:'NVMe SSD 1TB + Enclosure', categoryPath:['computer-accessories','computer-storage','ssds'], brand:'arkstore', price:78000, compare_at_price:89000, tag:'Sale', stock:4, rating:4.9, reviews:210, img:'photo-1591370874773-6702e8f12fd8',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null },
+  { slug:'usb-c-dock-dual-hdmi', sku:'KE-DOCK-001', name:'USB-C Dock — Dual HDMI', categoryPath:['computer-accessories','computer-desk','usb-hubs'], brand:'northloop', price:58000, compare_at_price:null, tag:null, stock:6, rating:4.6, reviews:110, img:'photo-1625842268584-8f3296236761',
+    cartonSize:null, halfCartonSize:null, halfCartonPrice:null, fullCartonPrice:null }
 ];
 
-/* ---------- HELPERS ---------- */
 KE.money = n => '₦' + (Number(n) || 0).toLocaleString('en-NG', { maximumFractionDigits: 0 });
 KE.esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 KE.PLACEHOLDER_IMG = "data:image/svg+xml;utf8," + encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">' +
-  '<rect width="200" height="200" fill="#EFE9FD"/>' +
-  '<text x="50%" y="50%" text-anchor="middle" fill="#6C3BF0" font-family="system-ui,sans-serif" font-size="16" font-weight="700" dy=".35em">KAKA</text>' +
-  '</svg>'
-);
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#EFE9FD"/>' +
+  '<text x="50%" y="50%" text-anchor="middle" fill="#6C3BF0" font-family="system-ui,sans-serif" font-size="16" font-weight="700" dy=".35em">KAKA</text></svg>');
 
 KE.img = (id, w = 400) => {
   if (!id) return KE.PLACEHOLDER_IMG;
@@ -1082,69 +631,247 @@ KE.img = (id, w = 400) => {
   return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`;
 };
 
-KE.imgFallback = function(el){
-  if (!el || el.dataset.fallbackApplied) return;
-  el.dataset.fallbackApplied = '1';
-  el.src = KE.PLACEHOLDER_IMG;
-};
-
-KE.tierFor = q => KE.CONFIG.wholesale.find(t => q >= t.min && q <= t.max) || KE.CONFIG.wholesale[0];
-KE.unitPrice = (p, q = 1) => Math.round(p.price * (1 - KE.tierFor(q).off));
 KE.findProduct = slug => KE.PRODUCTS.find(p => p.slug === slug) || null;
 KE.findBrand = slug => KE.BRANDS.find(b => b.slug === slug) || null;
 KE.brandName = slug => KE.findBrand(slug)?.name || slug;
-KE.productsInCategory = cat => KE.PRODUCTS.filter(p => p.categoryPath.includes(cat));
 
-/* ---------- CART ---------- */
+KE.getPackages = function(product) {
+  if (!product) return [];
+  const stock = Math.max(0, Number(product.stock) || 0);
+  const cartonSize = Number(product.cartonSize) || 0;
+  const halfSize = Number(product.halfCartonSize) || (cartonSize > 0 ? Math.ceil(cartonSize / 2) : 0);
+  const halfPrice = Number(product.halfCartonPrice) || 0;
+  const fullPrice = Number(product.fullCartonPrice) || 0;
+  const packs = [];
+
+  packs.push({
+    key: 'unit', label: 'Single Unit', sublabel: '1 item',
+    unitsPerPackage: 1, totalPrice: product.price, perUnit: product.price,
+    savePct: 0, available: stock >= 1,
+    disabledReason: stock < 1 ? 'Out of stock' : null
+  });
+
+  if (halfSize > 0 && halfPrice > 0) {
+    const retail = product.price * halfSize;
+    packs.push({
+      key: 'half-pack', label: 'Half Pack', sublabel: halfSize + ' items',
+      unitsPerPackage: halfSize, totalPrice: halfPrice,
+      perUnit: Math.round(halfPrice / halfSize),
+      savePct: retail > 0 ? Math.max(0, Math.round((1 - halfPrice / retail) * 100)) : 0,
+      available: stock >= halfSize,
+      disabledReason: stock < halfSize ? `Only ${stock} in stock — need ${halfSize} for this pack` : null
+    });
+  } else {
+    packs.push({
+      key: 'half-pack', label: 'Half Pack',
+      sublabel: halfSize > 0 ? halfSize + ' items' : 'Size not configured',
+      unitsPerPackage: halfSize, totalPrice: 0, perUnit: 0, savePct: 0, available: false,
+      disabledReason: 'Package not configured yet — available once admin sets size and price'
+    });
+  }
+
+  if (cartonSize > 0 && fullPrice > 0) {
+    const retail = product.price * cartonSize;
+    packs.push({
+      key: 'full-pack', label: 'Full Pack', sublabel: cartonSize + ' items',
+      unitsPerPackage: cartonSize, totalPrice: fullPrice,
+      perUnit: Math.round(fullPrice / cartonSize),
+      savePct: retail > 0 ? Math.max(0, Math.round((1 - fullPrice / retail) * 100)) : 0,
+      available: stock >= cartonSize,
+      disabledReason: stock < cartonSize ? `Only ${stock} in stock — need ${cartonSize} for this pack` : null
+    });
+  } else {
+    packs.push({
+      key: 'full-pack', label: 'Full Pack',
+      sublabel: cartonSize > 0 ? cartonSize + ' items' : 'Size not configured',
+      unitsPerPackage: cartonSize, totalPrice: 0, perUnit: 0, savePct: 0, available: false,
+      disabledReason: 'Package not configured yet — available once admin sets size and price'
+    });
+  }
+  return packs;
+};
+
 KE.cart = (function(){
-  const KEY = 'kaka:cart:v1';
-  const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
-  const write = c => {
-    try { localStorage.setItem(KEY, JSON.stringify(c)); } catch {}
+  const KEY = 'kaka:cart:v2';
+  const OLD_KEY = 'kaka:cart:v1';
+  const OLD_PKG = 'kaka:cart:packages:v1';
+
+  const read = () => {
+    try {
+      const raw = JSON.parse(localStorage.getItem(KEY)) || {};
+      return Array.isArray(raw.lines) ? raw : { lines: [] };
+    } catch { return { lines: [] }; }
+  };
+  const write = data => {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch {}
     document.dispatchEvent(new CustomEvent('cart:updated'));
   };
+  const unitsInLine  = l => (Number(l.qtyPacks) || 0) * (Number(l.unitsPerPackage) || 0);
+  const lineTotalVal = l => (Number(l.qtyPacks) || 0) * (Number(l.pricePerPackage) || 0);
+
+  const migrateLegacy = () => {
+    let oldCart = {}, oldPkgs = {};
+    try {
+      oldCart = JSON.parse(localStorage.getItem(OLD_KEY)) || {};
+      oldPkgs = JSON.parse(localStorage.getItem(OLD_PKG)) || {};
+    } catch { return; }
+    const slugList = Object.keys(oldCart);
+    if (!slugList.length) return;
+
+    const data = read();
+    if (data.lines.length > 0) {
+      try { localStorage.removeItem(OLD_KEY); localStorage.removeItem(OLD_PKG); } catch {}
+      return;
+    }
+    for (const slug of slugList) {
+      const qty = Number(oldCart[slug]) || 0;
+      if (qty <= 0) continue;
+      const product = KE.findProduct(slug);
+      if (!product) continue;
+      const livePkgs = KE.getPackages(product);
+      const hint = oldPkgs[slug];
+      let migrated = false;
+      if (hint && hint.key) {
+        const livePkg = livePkgs.find(pk => pk.key === hint.key);
+        if (livePkg && livePkg.available && livePkg.unitsPerPackage > 0 && livePkg.totalPrice > 0) {
+          const packs = Math.max(1, Math.floor(qty / livePkg.unitsPerPackage));
+          data.lines.push({
+            id: slug + '::' + livePkg.key, slug,
+            pkgKey: livePkg.key, pkgLabel: livePkg.label,
+            unitsPerPackage: livePkg.unitsPerPackage,
+            pricePerPackage: livePkg.totalPrice, qtyPacks: packs
+          });
+          migrated = true;
+        }
+      }
+      if (!migrated) {
+        data.lines.push({
+          id: slug + '::pending::' + Date.now() + Math.random().toString(36).slice(2, 6), slug,
+          pkgKey: null, pkgLabel: null, unitsPerPackage: 0, pricePerPackage: 0, qtyPacks: 0
+        });
+      }
+    }
+    write(data);
+    try { localStorage.removeItem(OLD_KEY); localStorage.removeItem(OLD_PKG); } catch {}
+  };
+
+  const reconcileStock = () => {
+    const data = read();
+    let clamped = 0;
+    const stockUsed = {};
+    for (const line of data.lines) {
+      if (!line.pkgKey) continue;
+      const product = KE.findProduct(line.slug);
+      if (!product) continue;
+      const used = stockUsed[line.slug] || 0;
+      const availableUnits = Math.max(0, product.stock - used);
+      const upp = Number(line.unitsPerPackage) || 0;
+      const maxPacks = upp > 0 ? Math.floor(availableUnits / upp) : 0;
+      if (maxPacks >= 1 && line.qtyPacks > maxPacks) {
+        line.qtyPacks = maxPacks;
+        clamped++;
+      }
+      stockUsed[line.slug] = used + (line.qtyPacks * upp);
+    }
+    if (clamped > 0) write(data);
+    return clamped;
+  };
+
   return {
-    items: () => read(),
-    count: () => Object.values(read()).reduce((a,b) => a+b, 0),
-    add(slug, qty = 1) {
-      const p = KE.findProduct(slug); if (!p) return;
-      const c = read(); c[slug] = Math.min((c[slug] || 0) + qty, p.stock); write(c);
+    migrateLegacy,
+    reconcileStock,
+    lines: () => read().lines,
+    count: () => read().lines.reduce((s, l) => {
+      if (!l.pkgKey) return s + 1;
+      const u = unitsInLine(l);
+      return s + (u > 0 ? u : 0);
+    }, 0),
+    subtotal: () => read().lines.reduce((s, l) => s + lineTotalVal(l), 0),
+    hasPending: () => read().lines.some(l => !l.pkgKey),
+    unitsOf(slug) {
+      return read().lines.filter(l => l.slug === slug).reduce((s, l) => s + unitsInLine(l), 0);
     },
-    setQty(slug, qty) {
-      const p = KE.findProduct(slug); if (!p) return;
-      const c = read();
-      const n = Math.max(0, Math.min(qty, p.stock));
-      if (n <= 0) delete c[slug]; else c[slug] = n;
-      write(c);
+    addPending(slug) {
+      const p = KE.findProduct(slug);
+      if (!p || p.stock <= 0) return false;
+      const data = read();
+      if (data.lines.some(l => l.slug === slug && !l.pkgKey)) return true;
+      if (this.unitsOf(slug) >= p.stock) return false;
+      data.lines.push({
+        id: slug + '::pending::' + Date.now() + Math.random().toString(36).slice(2, 6), slug,
+        pkgKey: null, pkgLabel: null, unitsPerPackage: 0, pricePerPackage: 0, qtyPacks: 0
+      });
+      write(data);
+      return true;
     },
-    remove(slug) { const c = read(); delete c[slug]; write(c); },
-    clear() { write({}); },
-    lines() {
-      const c = read();
-      const out = [];
-      for (const [slug, qty] of Object.entries(c)) {
-        const p = KE.findProduct(slug);
-        if (!p) continue;
-        out.push({ product: p, qty });
+    setPackage(lineId, pkgKey) {
+      const data = read();
+      const line = data.lines.find(l => l.id === lineId);
+      if (!line) return { ok: false, reason: 'Line not found' };
+      const product = KE.findProduct(line.slug);
+      if (!product) return { ok: false, reason: 'Product not found' };
+
+      const pkgs = KE.getPackages(product);
+      const pkg = pkgs.find(pk => pk.key === pkgKey);
+      if (!pkg) return { ok: false, reason: 'Package not found' };
+      if (!pkg.available) return { ok: false, reason: pkg.disabledReason || 'Package unavailable' };
+
+      const upp = pkg.unitsPerPackage;
+      if (!upp || upp < 1) return { ok: false, reason: 'Package size unknown' };
+      if (pkg.totalPrice == null || pkg.totalPrice <= 0) return { ok: false, reason: 'Package price not configured' };
+
+      const otherUnits = data.lines
+        .filter(l => l.slug === line.slug && l.id !== lineId)
+        .reduce((s, l) => s + unitsInLine(l), 0);
+      if (otherUnits + upp > product.stock) {
+        return { ok: false, reason: `Only ${product.stock - otherUnits} unit(s) available for this product` };
       }
-      return out;
-    },
-    /* Subtotal only — delivery is resolved at checkout based on the
-       customer's location, using admin-configured rates. */
-    totals() {
-      const c = read();
-      let subtotal = 0;
-      let itemCount = 0;
-      let savings = 0;
-      for (const [slug, qty] of Object.entries(c)) {
-        const p = KE.findProduct(slug); if (!p) continue;
-        const unit = KE.unitPrice(p, qty);
-        subtotal += unit * qty;
-        itemCount += qty;
-        /* "Savings" = how much lower our price is vs. retail (p.price) */
-        savings += (p.price - unit) * qty;
+
+      const existing = data.lines.find(l => l.slug === line.slug && l.pkgKey === pkg.key && l.id !== lineId);
+      if (existing) {
+        existing.qtyPacks += 1;
+        data.lines = data.lines.filter(l => l.id !== lineId);
+      } else {
+        line.pkgKey = pkg.key;
+        line.pkgLabel = pkg.label;
+        line.unitsPerPackage = upp;
+        line.pricePerPackage = pkg.totalPrice;
+        line.qtyPacks = 1;
+        line.id = line.slug + '::' + pkg.key;
       }
-      return { subtotal, itemCount, savings };
+      write(data);
+      return { ok: true };
+    },
+    setQtyPacks(lineId, qtyPacks) {
+      const data = read();
+      const line = data.lines.find(l => l.id === lineId);
+      if (!line || !line.pkgKey) return { ok: false, reason: 'Line is not ready' };
+      const product = KE.findProduct(line.slug);
+      if (!product) return { ok: false, reason: 'Product not found' };
+
+      const n = Math.max(1, Math.floor(Number(qtyPacks) || 1));
+      const upp = Number(line.unitsPerPackage) || 0;
+      if (upp < 1) return { ok: false, reason: 'Package size unknown' };
+
+      const otherUnits = data.lines
+        .filter(l => l.slug === line.slug && l.id !== lineId)
+        .reduce((s, l) => s + unitsInLine(l), 0);
+      const totalUnits = otherUnits + n * upp;
+      if (totalUnits > product.stock) {
+        return { ok: false, reason: `Only ${product.stock - otherUnits} unit(s) available for this line` };
+      }
+      line.qtyPacks = n;
+      write(data);
+      return { ok: true };
+    },
+    remove(lineId) {
+      const data = read();
+      data.lines = data.lines.filter(l => l.id !== lineId);
+      write(data);
+    },
+    clear() {
+      write({ lines: [] });
+      try { localStorage.removeItem(OLD_KEY); localStorage.removeItem(OLD_PKG); } catch {}
     }
   };
 })();
@@ -1153,13 +880,9 @@ KE.toast = function(msg, kind = '', action){
   const stack = document.getElementById('toastStack'); if (!stack) return;
   const el = document.createElement('div');
   el.className = 'toast' + (kind ? ' toast--' + kind : '');
-  const span = document.createElement('span');
-  span.textContent = msg;
-  el.appendChild(span);
+  const span = document.createElement('span'); span.textContent = msg; el.appendChild(span);
   if (action && action.href && action.label) {
-    const a = document.createElement('a');
-    a.href = action.href;
-    a.textContent = action.label;
+    const a = document.createElement('a'); a.href = action.href; a.textContent = action.label;
     el.appendChild(a);
   }
   stack.appendChild(el);
@@ -1167,45 +890,32 @@ KE.toast = function(msg, kind = '', action){
     el.style.transition = 'opacity .2s ease, transform .2s ease';
     el.style.opacity = '0'; el.style.transform = 'translateY(6px)';
     setTimeout(() => el.remove(), 240);
-  }, 2200);
+  }, 2600);
 };
 
-/* ============================================================
-   ICONS
-   ============================================================ */
 const ICON = {
-  phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
-  headphones:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 14v3a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg>',
-  laptop:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
-  speaker:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="14" r="4"/><circle cx="12" cy="6" r="1"/></svg>',
-  watch:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 2M9 2h6M9 22h6"/></svg>',
-  battery:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4"/><path d="M6 10v4M10 10v4"/></svg>',
-  casing:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M9 5h6"/></svg>',
   search:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
   cart:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a2 2 0 0 0 2 1.7h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>',
   menu:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
   close:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6l-12 12"/></svg>',
-  chevron:'<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',
-  chevronSm:'<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',
+  chevron:'<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+  chevronSm:'<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
   user:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
   help:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 1 1 5.3 2c-.8.8-2 1.4-2 2.7v.3"/><circle cx="12.5" cy="17.5" r=".5" fill="currentColor"/></svg>',
   store:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 4 4h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 22V13h6v9"/></svg>',
   brandMark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 C 14 4, 20 9, 20 12 C 20 15, 14 20, 4 20"/><path d="M4 12 L 12 12"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg>',
-  truck:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>',
-  shield:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>',
-  file:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6v20h12V8z"/><path d="M14 2v6h6"/></svg>',
-  cartEmpty:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a2 2 0 0 0 2 1.7h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>'
+  trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"/><path d="M10 11v6M14 11v6"/></svg>',
+  arrowRight:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
+  arrowLeft:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>',
+  warn:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
 };
 
-/* ============================================================
-   DRAWER NAV — accordion
-   ============================================================ */
 function buildDrawerNav(){
   let html = `
     <a href="shop.html" class="drawer__link">Shop all products</a>
     <a href="shop.html?tag=Sale" class="drawer__link">Deals</a>
     <a href="shop.html?sort=new" class="drawer__link">New Arrivals</a>`;
-
   KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order).forEach(cat => {
     const subs = (cat.children || []).filter(c => c.published);
     if (!subs.length) {
@@ -1215,135 +925,99 @@ function buildDrawerNav(){
     const groupId = 'drawer-group-' + cat.slug;
     const subLinks = subs.map(sub => {
       const nested = (sub.children || []).filter(c => c.published);
-      return `
-        <a class="drawer__sub" href="shop.html?type=${encodeURIComponent(sub.slug)}">${KE.esc(sub.name)}</a>
-        ${nested.map(n => `<a class="drawer__sub drawer__sub--nested" href="shop.html?type=${encodeURIComponent(n.slug)}">${KE.esc(n.name)}</a>`).join('')}
-      `;
+      return `<a class="drawer__sub" href="shop.html?type=${encodeURIComponent(sub.slug)}">${KE.esc(sub.name)}</a>
+        ${nested.map(n => `<a class="drawer__sub drawer__sub--nested" href="shop.html?type=${encodeURIComponent(n.slug)}">${KE.esc(n.name)}</a>`).join('')}`;
     }).join('');
-    html += `
-      <div class="drawer__group">
-        <button type="button" class="drawer__toggle" aria-expanded="false" aria-controls="${groupId}">
-          <span>${KE.esc(cat.name)}</span>
-          ${ICON.chevron}
-        </button>
-        <div class="drawer__sub-list" id="${groupId}">
-          <div>
-            ${subLinks}
-            <a class="drawer__sub drawer__sub--all" href="shop.html?cat=${encodeURIComponent(cat.slug)}">View all ${KE.esc(cat.name)} →</a>
-          </div>
-        </div>
-      </div>`;
+    html += `<div class="drawer__group">
+      <button type="button" class="drawer__toggle" aria-expanded="false" aria-controls="${groupId}">
+        <span>${KE.esc(cat.name)}</span>${ICON.chevron}
+      </button>
+      <div class="drawer__sub-list" id="${groupId}"><div>${subLinks}
+        <a class="drawer__sub drawer__sub--all" href="shop.html?cat=${encodeURIComponent(cat.slug)}">View all ${KE.esc(cat.name)} →</a>
+      </div></div>
+    </div>`;
   });
-
   html += `
-    <a href="store-location.html" class="drawer__link">Visit our store</a>
+    <a href="index.html#store" class="drawer__link">Visit our store</a>
     <a href="track-order.html" class="drawer__link">Track order</a>
+    <a href="warranty.html" class="drawer__link">Warranty &amp; claims</a>
+    <a href="return.html" class="drawer__link">Returns &amp; refunds</a>
     <a href="cart.html" class="drawer__link">Cart</a>`;
   return html;
 }
 
-/* ============================================================
-   HEADER
-   ============================================================ */
 function renderHeader(){
-  const host = document.getElementById('siteHeader');
-  if (!host) return;
-
+  const host = document.getElementById('siteHeader'); if (!host) return;
   const topCats = KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order);
-  const catIcons = {
-    phone: ICON.phone, headphones: ICON.headphones, laptop: ICON.laptop,
-    speaker: ICON.speaker, watch: ICON.watch, battery: ICON.battery, casing: ICON.casing
-  };
   const catLinks = topCats.map(cat => {
     const hasSubs = (cat.children || []).some(c => c.published);
-    return `
-      <a href="shop.html?cat=${encodeURIComponent(cat.slug)}">
-        ${catIcons[cat.icon] || ICON.laptop}
-        ${KE.esc(cat.name)}
-        ${hasSubs ? ICON.chevronSm : ''}
-      </a>`;
+    return `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}">${KE.esc(cat.name)}${hasSubs ? ICON.chevronSm : ''}</a>`;
   }).join('');
-
   host.innerHTML = `
     <div class="j-topbar">
       <div class="wrap j-topbar__inner">
         <nav class="j-topbar__links" aria-label="Information">
-          <a href="store-location.html">Visit our store</a>
-          <span class="j-topbar__sep" aria-hidden="true"></span>
-          <a href="delivery.html">Delivery</a>
-          <span class="j-topbar__sep" aria-hidden="true"></span>
-          <a href="#">Warranty</a>
-          <span class="j-topbar__sep" aria-hidden="true"></span>
-          <a href="#">Returns</a>
+          <a href="index.html#store">Visit our store</a><span class="j-topbar__sep"></span>
+          <a href="delivery.html">Delivery</a><span class="j-topbar__sep"></span>
+          <a href="warranty.html">Warranty</a><span class="j-topbar__sep"></span>
+          <a href="return.html">Returns</a>
         </nav>
         <div class="j-topbar__right">
           <a href="track-order.html">Track order</a>
-          <span class="j-topbar__sep" aria-hidden="true"></span>
-          <a href="tel:+2347034652385">${KE.CONFIG.business.phone}</a>
+          <span class="j-topbar__sep" id="topbarCartSep" style="display:none"></span>
+          <a href="cart.html" class="j-topbar__cart" id="topbarCartLink" style="display:none">
+            Cart · <span class="count" id="topbarCartCount">0</span>
+          </a>
+          <span class="j-topbar__sep"></span>
+          <a href="tel:+2347034652385">${KE.CONFIG.business.phonePretty}</a>
         </div>
       </div>
     </div>
-
     <div class="j-main">
       <div class="wrap j-main__inner">
-        <a href="index.html" class="j-brand" aria-label="${KE.esc(KE.CONFIG.business.name)} — Home">
-          <span class="j-brand__mark" aria-hidden="true">${ICON.brandMark}</span>
+        <a href="index.html" class="j-brand">
+          <span class="j-brand__mark">${ICON.brandMark}</span>
           <span class="j-brand__text">
             <span class="j-brand__name">${KE.esc(KE.CONFIG.business.name)}</span>
             <span class="j-brand__tag">${KE.esc(KE.CONFIG.business.tagline)}</span>
           </span>
         </a>
-
-        <form class="j-search" id="searchForm" role="search"
-              onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) location.href='shop.html?q='+encodeURIComponent(q);">
+        <form class="j-search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) location.href='shop.html?q='+encodeURIComponent(q);">
           ${ICON.search}
-          <label class="sr" for="q">Search products</label>
-          <input id="q" name="q" type="search" placeholder="Search products…" autocomplete="off" />
+          <input id="q" name="q" type="search" placeholder="Search products…" />
           <button type="submit">Search</button>
         </form>
-
         <div class="j-actions">
-          <button class="j-menu-btn" id="menuBtn" aria-label="Open menu"
-                  aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button>
-          <a href="#" class="j-action">${ICON.user} Account</a>
-          <a href="#" class="j-action">${ICON.help} Help</a>
-          <a href="cart.html" class="j-action j-cart" aria-label="Open cart">
-            ${ICON.cart} Cart
-            <span class="icon-badge" id="cartBadge" hidden>0</span>
-          </a>
+          <button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button>
+          <a href="#" class="j-action" data-placeholder>${ICON.user} Account</a>
+          <a href="warranty.html" class="j-action">${ICON.help} Help</a>
+          <a href="cart.html" class="j-action j-cart">${ICON.cart} Cart <span class="icon-badge" id="cartBadge" hidden>0</span></a>
         </div>
       </div>
     </div>
-
-    <nav class="j-cats" aria-label="Shop by category">
+    <nav class="j-cats">
       <div class="wrap j-cats__scroll">
         <a href="shop.html">${ICON.store} All products</a>
         ${catLinks}
       </div>
     </nav>
-
     <div class="drawer" id="navDrawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu">
       <div class="drawer__scrim" data-close></div>
       <div class="drawer__panel">
         <button class="drawer__close" data-close aria-label="Close menu">${ICON.close}</button>
-        <nav class="drawer__nav" aria-label="Mobile">${buildDrawerNav()}</nav>
+        <nav class="drawer__nav">${buildDrawerNav()}</nav>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
 function renderFooter(){
-  const host = document.getElementById('siteFooter');
-  if (!host) return;
+  const host = document.getElementById('siteFooter'); if (!host) return;
   host.innerHTML = `
     <div class="wrap">
       <div class="site-footer__grid">
         <div>
           <div class="site-footer__brand">
-            <span class="j-brand__mark" aria-hidden="true">${ICON.brandMark}</span>
+            <span class="j-brand__mark">${ICON.brandMark}</span>
             <div>
               <div class="site-footer__name">${KE.esc(KE.CONFIG.business.name)}</div>
               <div class="site-footer__tag">${KE.esc(KE.CONFIG.business.tagline)}</div>
@@ -1352,7 +1026,7 @@ function renderFooter(){
           <p style="font-size:13px">Phone &amp; computer accessories for retail and wholesale buyers.</p>
           <p style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.8">
             ${KE.esc(KE.CONFIG.business.address)}<br>
-            <a class="footer-inline" href="tel:+2347034652385">${KE.CONFIG.business.phone}</a><br>
+            <a class="footer-inline" href="tel:+2347034652385">${KE.CONFIG.business.phonePretty}</a><br>
             <a class="footer-inline" href="https://wa.me/${KE.CONFIG.business.whatsapp}" target="_blank" rel="noopener">WhatsApp us</a>
           </p>
         </div>
@@ -1365,11 +1039,13 @@ function renderFooter(){
           <a href="cart.html">Your cart</a>
           <a href="track-order.html">Track your order</a>
           <a href="delivery.html">Delivery info</a>
+          <a href="warranty.html">Warranty &amp; claims</a>
+          <a href="return.html">Returns &amp; refunds</a>
         </div>
         <div><h5>About</h5>
           <a href="index.html">Home</a>
-          <a href="store-location.html">Visit our store</a>
-          <a href="#">Contact us</a>
+          <a href="index.html#store">Visit our store</a>
+          <a href="#" data-placeholder>Contact us</a>
         </div>
       </div>
       <div class="site-footer__bottom">
@@ -1386,60 +1062,60 @@ function renderFooter(){
   const y = host.querySelector('#year'); if (y) y.textContent = new Date().getFullYear();
 }
 
-/* ============================================================
-   HEADER BEHAVIOURS
-   ============================================================ */
 function updateCartBadge(){
-  const b = document.getElementById('cartBadge'); if (!b) return;
   const n = KE.cart.count();
-  if (n > 0) { b.hidden = false; b.textContent = n > 99 ? '99+' : String(n); }
-  else { b.hidden = true; b.textContent = '0'; }
+  const b = document.getElementById('cartBadge');
+  if (b){
+    if (n > 0) { b.hidden = false; b.textContent = n > 99 ? '99+' : String(n); }
+    else { b.hidden = true; b.textContent = '0'; }
+  }
+  const link = document.getElementById('topbarCartLink');
+  const sep = document.getElementById('topbarCartSep');
+  const cnt = document.getElementById('topbarCartCount');
+  if (link && cnt && sep){
+    if (n > 0){
+      link.style.display = 'inline-flex';
+      sep.style.display = 'inline-block';
+      cnt.textContent = n > 99 ? '99+' : String(n);
+    } else {
+      link.style.display = 'none';
+      sep.style.display = 'none';
+    }
+  }
 }
 
 function bindDrawer(){
   const drawer = document.getElementById('navDrawer');
   const openBtn = document.getElementById('menuBtn');
   if (!drawer || !openBtn) return;
-  let lastFocused = null;
-
   const open = () => {
-    lastFocused = document.activeElement;
     drawer.setAttribute('data-open','true');
     openBtn.setAttribute('aria-expanded','true');
     document.body.style.overflow = 'hidden';
-    const closeBtn = drawer.querySelector('.drawer__close');
-    if (closeBtn) closeBtn.focus();
   };
   const close = () => {
     drawer.setAttribute('data-open','false');
     openBtn.setAttribute('aria-expanded','false');
     document.body.style.overflow = '';
-    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
   };
-
   openBtn.addEventListener('click', open);
   drawer.addEventListener('click', e => { if (e.target.closest('[data-close]')) close(); });
-
   drawer.querySelectorAll('.drawer__toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      const listId = btn.getAttribute('aria-controls');
-      const list = listId ? document.getElementById(listId) : null;
+      const list = document.getElementById(btn.getAttribute('aria-controls'));
       btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
       if (list) list.classList.toggle('is-open', !isOpen);
     });
   });
-
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
-
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') close();
   });
 }
 
 function bindHeaderSticky(){
-  const header = document.getElementById('siteHeader');
-  if (!header) return;
+  const header = document.getElementById('siteHeader'); if (!header) return;
   const onScroll = () => {
     if (window.scrollY > 4) header.classList.add('is-stuck');
     else header.classList.remove('is-stuck');
@@ -1448,360 +1124,398 @@ function bindHeaderSticky(){
   onScroll();
 }
 
-/* ============================================================
-   CART PAGE — main logic
-   ============================================================ */
-const CT = {
-  reconcile() {
-    const c = KE.cart.items();
-    const notices = [];
-    Object.keys(c).forEach(slug => {
-      const p = KE.findProduct(slug);
-      if (!p) {
-        KE.cart.remove(slug);
-        notices.push({ slug, reason:'removed' });
-        return;
+const CartPage = {
+  state: { highlightedSlug: null, highlightedLineId: null },
+
+  init() {
+    try { KE.cart.migrateLegacy(); } catch {}
+    const clamped = KE.cart.reconcileStock();
+    this.readHighlight();
+    this.render();
+    this.bindGlobal();
+    if (clamped > 0) {
+      setTimeout(() => KE.toast(`${clamped} cart line${clamped > 1 ? 's' : ''} reduced to available stock`, 'warn'), 300);
+    }
+  },
+
+  readHighlight() {
+    const hash = location.hash || '';
+    if (hash.startsWith('#line-')) {
+      this.state.highlightedLineId = decodeURIComponent(hash.slice(6));
+    } else if (hash.startsWith('#item-')) {
+      this.state.highlightedSlug = decodeURIComponent(hash.slice(6));
+    }
+    try {
+      const last = sessionStorage.getItem('kaka:cart:lastAdded');
+      if (last && !this.state.highlightedSlug && !this.state.highlightedLineId) {
+        this.state.highlightedSlug = last;
       }
-      if (c[slug] > p.stock) {
-        const reduced = p.stock;
-        KE.cart.setQty(slug, reduced);
-        notices.push({ slug, reason:'reduced', from:c[slug], to:reduced, name:p.name });
+      sessionStorage.removeItem('kaka:cart:lastAdded');
+    } catch {}
+  },
+
+  clearHighlight() {
+    if (this.state.highlightedSlug || this.state.highlightedLineId) {
+      this.state.highlightedSlug = null;
+      this.state.highlightedLineId = null;
+      if (location.hash) {
+        try { history.replaceState(null, '', location.pathname + location.search); } catch {}
       }
-    });
-    return notices;
+    }
   },
 
-  tierHint(product, qty) {
-    const t = KE.tierFor(qty);
-    const idx = KE.CONFIG.wholesale.indexOf(t);
-    const next = KE.CONFIG.wholesale[idx + 1];
-    if (!next || next.off <= t.off) return '';
-    const need = next.min - qty;
-    const nextUnit = Math.round(product.price * (1 - next.off));
-    const save = product.price - nextUnit;
-    return `Add ${need} more → save ${KE.money(save)} per unit`;
+  availableFor(line) {
+    const product = KE.findProduct(line.slug);
+    if (!product) return 0;
+    const used = KE.cart.unitsOf(line.slug) - ((line.qtyPacks || 0) * (line.unitsPerPackage || 0));
+    return Math.max(0, product.stock - Math.max(0, used));
   },
 
-  crosssell() {
-    const items = KE.cart.items();
-    const slugs = Object.keys(items);
-    if (!slugs.length) return [];
-    const cats = new Set();
-    slugs.forEach(s => {
-      const p = KE.findProduct(s);
-      if (p) p.categoryPath.forEach(c => cats.add(c));
-    });
-    const seen = new Set(slugs);
-    const out = [];
-    KE.PRODUCTS.forEach(p => {
-      if (out.length >= 4) return;
-      if (seen.has(p.slug)) return;
-      if (p.categoryPath.some(c => cats.has(c))) { out.push(p); seen.add(p.slug); }
-    });
-    KE.PRODUCTS.forEach(p => {
-      if (out.length >= 4) return;
-      if (seen.has(p.slug)) return;
-      out.push(p); seen.add(p.slug);
-    });
-    return out;
-  },
-
-  card(p) {
-    const out = p.stock <= 0;
-    const tint = (p.name.length % 5) + 1;
-    const tagCls = p.tag ? `card__tag--${p.tag.toLowerCase()}` : '';
-    const altText = p.image_alt || p.name;
-    return `
-      <div class="card">
-        <a class="card__link" href="product.html?slug=${encodeURIComponent(p.slug)}">
-          <div class="card__media" style="background:var(--t${tint});">
-            <img src="${KE.img(p.img)}" alt="${KE.esc(altText)}"
-                 loading="lazy" decoding="async" width="500" height="500"
-                 onerror="window.KE && window.KE.imgFallback && window.KE.imgFallback(this)" />
-            ${p.tag ? `<span class="card__tag ${tagCls}">${KE.esc(p.tag)}</span>` : ''}
-          </div>
-          <div class="card__body">
-            <span class="card__brand">${KE.esc(KE.brandName(p.brand))}</span>
-            <h3 class="card__name">${KE.esc(p.name)}</h3>
-            ${p.rating ? `<span class="card__rating"><span class="star">★</span> ${p.rating} <span>(${p.reviews||0})</span></span>` : ''}
-            <div class="card__price">
-              <span class="money">${KE.money(p.price)}</span>
-              ${p.compare_at_price ? `<del>${KE.money(p.compare_at_price)}</del>` : ''}
-            </div>
-          </div>
-        </a>
-        <div class="card__foot">
-          <button class="btn btn--primary btn--sm" type="button" data-add="${KE.esc(p.slug)}" ${out ? 'disabled' : ''}>
-            ${out ? 'Sold out' : 'Add to cart'}
-          </button>
-        </div>
-      </div>`;
-  },
-
-  renderEmpty() {
-    const root = document.getElementById('cartRoot');
-    const cross = KE.PRODUCTS.slice(0, 4);
-    root.innerHTML = `
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="index.html">Home</a><span class="sep" aria-hidden="true">/</span><strong>Cart</strong>
-      </nav>
-      <div class="cart-empty">
-        <div class="cart-empty__icon">${ICON.cartEmpty}</div>
-        <h2>Your cart is empty</h2>
-        <p>Browse our accessories and add a few items to get started.</p>
-        <a class="btn btn--primary" href="shop.html">Start shopping</a>
-      </div>
-      <div class="crosssell">
-        <h2>Popular right now</h2>
-        <div class="crosssell-grid">
-          ${cross.map(p => this.card(p)).join('')}
-        </div>
-      </div>`;
-    this.hideBar();
+  analyze() {
+    const lines = KE.cart.lines();
+    const pending = lines.filter(l => !l.pkgKey);
+    const invalid = [];
+    for (const line of lines) {
+      if (!line.pkgKey) continue;
+      const product = KE.findProduct(line.slug);
+      if (!product) { invalid.push({ line, reason: 'Product no longer available' }); continue; }
+      const totalForProduct = KE.cart.unitsOf(line.slug);
+      if (totalForProduct > product.stock) {
+        invalid.push({ line, reason: `Exceeds stock (${product.stock})` });
+      }
+      if (!line.qtyPacks || line.qtyPacks < 1) {
+        invalid.push({ line, reason: 'Quantity invalid' });
+      }
+      if (!line.unitsPerPackage || !line.pricePerPackage) {
+        invalid.push({ line, reason: 'Package data missing' });
+      }
+    }
+    return { pending, invalid, canCheckout: lines.length > 0 && pending.length === 0 && invalid.length === 0 };
   },
 
   render() {
-    const notices = this.reconcile();
     const lines = KE.cart.lines();
+    const root = document.getElementById('cartRoot');
+    const subtitle = document.getElementById('cartSubtitle');
 
-    if (!lines.length) { this.renderEmpty(); return; }
-
-    const totals = KE.cart.totals();
-    const itemCount = totals.itemCount;
-
-    let noticeHtml = '';
-    const reduced = notices.filter(n => n.reason === 'reduced');
-    if (reduced.length) {
-      noticeHtml = `
-        <div class="notice">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-          <div>
-            <b>Some quantities were adjusted.</b>
-            Stock changed for ${reduced.length} item${reduced.length>1?'s':''}. We updated your cart to match available stock.
-          </div>
-          <button type="button" data-dismiss-notice>Dismiss</button>
-        </div>`;
+    if (!lines.length) {
+      subtitle.textContent = 'Your cart is empty.';
+      this.renderEmpty(root);
+      return;
     }
+    const analysis = this.analyze();
+    if (analysis.pending.length) {
+      subtitle.textContent = analysis.pending.length === 1
+        ? 'One item needs a package selected before checkout.'
+        : `${analysis.pending.length} items need a package selected before checkout.`;
+    } else if (analysis.invalid.length) {
+      subtitle.textContent = 'Some items need attention before checkout.';
+    } else {
+      subtitle.textContent = 'Review your items and proceed when ready.';
+    }
+    this.renderFull(root, lines, analysis);
+  },
 
-    const linesHtml = lines.map(({ product, qty }) => {
-      const unit = KE.unitPrice(product, qty);
-      const lineTotal = unit * qty;
-      const savePerUnit = product.price - unit;
-      const hint = this.tierHint(product, qty);
-      const tint = (product.name.length % 5) + 1;
+  renderEmpty(root) {
+    root.innerHTML = `
+      <div class="cart-empty">
+        <div class="cart-empty__icon">${ICON.cart}</div>
+        <h2>Your cart is empty</h2>
+        <p>Add products from the shop to start your order.</p>
+        <div class="cart-empty__actions">
+          <a class="btn btn--primary btn--lg" href="shop.html">Shop now ${ICON.arrowRight}</a>
+          <a class="btn btn--outline btn--lg" href="index.html">Back to home</a>
+        </div>
+      </div>`;
+  },
+
+  renderFull(root, lines, analysis) {
+    const subtotal = KE.cart.subtotal();
+    const warnMsg = analysis.pending.length
+      ? `Select a package for ${analysis.pending.length === 1 ? '1 item' : analysis.pending.length + ' items'} to enable checkout.`
+      : (analysis.invalid.length
+        ? `${analysis.invalid.length} item${analysis.invalid.length > 1 ? 's need' : ' needs'} attention before checkout.`
+        : '');
+
+    root.innerHTML = `
+      <div class="cart-layout">
+        <section class="cart-items" aria-label="Cart items">
+          ${lines.map(line => this.renderLine(line)).join('')}
+        </section>
+
+        <aside class="cart-summary" aria-label="Order summary">
+          <h2>Order summary</h2>
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span class="label">Subtotal</span>
+              <span class="value">${KE.money(subtotal)}</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">Delivery</span>
+              <span class="value muted">Calculated at checkout</span>
+            </div>
+            ${warnMsg ? `<p class="summary-hint summary-hint--warn">${ICON.warn}<span>${KE.esc(warnMsg)}</span></p>` : ''}
+            <div class="summary-row summary-row--total">
+              <span class="label">Total (before delivery)</span>
+              <span class="value">${KE.money(subtotal)}</span>
+            </div>
+            <p class="summary-hint">Final delivery fee is added at checkout based on your address.</p>
+          </div>
+
+          <div class="cart-summary__actions">
+            <!-- FIX: aria-disabled (not disabled) so clicking still fires a handler -->
+            <button class="btn btn--primary btn--lg btn--block" type="button"
+                    id="checkoutBtn" ${analysis.canCheckout ? '' : 'aria-disabled="true"'}>
+              Proceed to Checkout ${ICON.arrowRight}
+            </button>
+            <a class="btn btn--outline btn--block" href="shop.html">
+              ${ICON.arrowLeft} Continue Shopping
+            </a>
+          </div>
+
+          <p class="cart-summary__secure">
+            ${ICON.lock} Secure checkout · Delivery &amp; payment confirmed on WhatsApp
+          </p>
+        </aside>
+      </div>`;
+
+    if (this.state.highlightedLineId || this.state.highlightedSlug) {
+      let el = null;
+      if (this.state.highlightedLineId) {
+        el = root.querySelector(`[data-line-id="${CSS.escape(this.state.highlightedLineId)}"]`);
+      }
+      if (!el && this.state.highlightedSlug) {
+        const pending = KE.cart.lines().find(l => l.slug === this.state.highlightedSlug && !l.pkgKey);
+        const tid = pending ? pending.id : null;
+        if (tid) el = root.querySelector(`[data-line-id="${CSS.escape(tid)}"]`);
+        if (!el) el = root.querySelector(`[data-item-slug="${CSS.escape(this.state.highlightedSlug)}"]`);
+      }
+      if (el) {
+        el.classList.add('cart-item--new');
+        const y = el.getBoundingClientRect().top + window.scrollY - 200;
+        window.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' });
+        setTimeout(() => el.classList.remove('cart-item--new'), 1500);
+      }
+      this.clearHighlight();
+    }
+  },
+
+  renderLine(line) {
+    const product = KE.findProduct(line.slug);
+    if (!product) return '';
+    const tint = (product.name.length % 5) + 1;
+    const allPkgs = KE.getPackages(product);
+    const awaiting = !line.pkgKey;
+    const available = this.availableFor(line);
+    const lineTotal = (Number(line.qtyPacks) || 0) * (Number(line.pricePerPackage) || 0);
+    const totalUnits = (Number(line.qtyPacks) || 0) * (Number(line.unitsPerPackage) || 0);
+
+    const pkgOptionsHtml = allPkgs.map(pkg => {
+      const isSelected = pkg.key === line.pkgKey;
+      const fitsStock = pkg.unitsPerPackage > 0 && available >= pkg.unitsPerPackage;
+      const configured = pkg.totalPrice != null && pkg.totalPrice > 0 && pkg.unitsPerPackage > 0;
+      const isAvailable = configured && fitsStock && pkg.available;
+      let disabledNote = '';
+      if (!configured) disabledNote = pkg.disabledReason || 'Package not configured yet';
+      else if (!fitsStock) disabledNote = `Not enough stock — ${available} unit${available === 1 ? '' : 's'} available for this product`;
+
+      const priceHtml = configured
+        ? `${KE.money(pkg.totalPrice)}${pkg.unitsPerPackage > 1 ? `<span class="pkg-option__per">${KE.money(pkg.perUnit)}/ea</span>` : ''}`
+        : '—';
+      const saveHtml = configured && pkg.savePct > 0 ? `<span class="pkg-save">−${pkg.savePct}%</span>` : '';
+
       return `
-        <div class="line" data-slug="${KE.esc(product.slug)}">
-          <a class="line__media" href="product.html?slug=${encodeURIComponent(product.slug)}" style="background:var(--t${tint});">
-            <img src="${KE.img(product.img, 200)}" alt="${KE.esc(product.image_alt || product.name)}"
-                 loading="lazy" decoding="async"
-                 onerror="window.KE && window.KE.imgFallback && window.KE.imgFallback(this)" />
-          </a>
-          <div class="line__body">
-            <div class="line__brand">${KE.esc(KE.brandName(product.brand))}</div>
-            <h3 class="line__name"><a href="product.html?slug=${encodeURIComponent(product.slug)}">${KE.esc(product.name)}</a></h3>
-            ${product.sku ? `<div class="line__sku">SKU ${KE.esc(product.sku)}</div>` : ''}
-            <div class="line__unit">
-              ${KE.money(unit)} each
-              ${savePerUnit > 0 ? `<span class="save">You save ${KE.money(savePerUnit)}/unit</span>` : ''}
-            </div>
-            ${hint ? `<div class="line__hint">${KE.esc(hint)}</div>` : ''}
+        <label class="pkg-option ${isSelected ? 'is-selected' : ''} ${!isAvailable ? 'is-disabled' : ''}">
+          <input type="radio" name="pkg-${KE.esc(line.id)}" value="${KE.esc(pkg.key)}"
+                 ${isSelected ? 'checked' : ''} ${!isAvailable ? 'disabled' : ''}
+                 data-pkg-select="${KE.esc(line.id)}" data-pkg-key="${KE.esc(pkg.key)}" />
+          <div class="pkg-option__info">
+            <span class="pkg-option__label">${KE.esc(pkg.label)} ${saveHtml}</span>
+            <span class="pkg-option__sub">${KE.esc(pkg.sublabel)}</span>
+            ${disabledNote ? `<div class="pkg-option__disabled-note">${KE.esc(disabledNote)}</div>` : ''}
           </div>
-          <div class="line__actions">
-            <div class="line__qty" role="group" aria-label="Quantity for ${KE.esc(product.name)}">
-              <button type="button" data-line-minus ${qty <= 1 ? 'disabled' : ''} aria-label="Decrease quantity">−</button>
-              <input type="number" value="${qty}" min="1" max="${product.stock}" data-line-input aria-label="Quantity" />
-              <button type="button" data-line-plus ${qty >= product.stock ? 'disabled' : ''} aria-label="Increase quantity">+</button>
-            </div>
-            <div class="line__total">${KE.money(lineTotal)}</div>
-            <button type="button" class="line__remove" data-line-remove aria-label="Remove ${KE.esc(product.name)}">Remove</button>
-          </div>
-        </div>`;
+          <div class="pkg-option__price">${priceHtml}</div>
+        </label>`;
     }).join('');
 
-    const savingsHtml = totals.savings > 0 ? `
-      <div class="summary__row summary__row--save">
-        <span class="label">Wholesale savings</span>
-        <span class="value">−${KE.money(totals.savings)}</span>
-      </div>` : '';
+    const pkgTag = line.pkgKey
+      ? `<span class="cart-item__pkg-tag">${KE.esc(line.pkgLabel)}</span>`
+      : `<span class="cart-item__awaiting">${ICON.warn} Select a package</span>`;
 
-    const summaryHtml = `
-      <aside class="summary" aria-label="Order summary">
-        <h3>Order summary</h3>
-        <div class="summary__row">
-          <span class="label">Subtotal (${itemCount} item${itemCount>1?'s':''})</span>
-          <span class="value">${KE.money(totals.subtotal)}</span>
+    const maxPacks = (line.unitsPerPackage > 0) ? Math.floor(available / line.unitsPerPackage) : 0;
+
+    const qtyBlock = line.pkgKey
+      ? `<div class="cart-item__qty">
+          <span class="cart-item__qty-label">Number of ${line.unitsPerPackage === 1 ? 'units' : 'packs'}</span>
+          <div class="cart-item__qty-stepper" role="group" aria-label="Adjust quantity">
+            <button type="button" data-qty-minus="${KE.esc(line.id)}" aria-label="Decrease"
+                    ${line.qtyPacks <= 1 ? 'disabled' : ''}>−</button>
+            <span class="cart-item__qty-val" aria-live="polite">${line.qtyPacks}</span>
+            <button type="button" data-qty-plus="${KE.esc(line.id)}" aria-label="Increase"
+                    ${line.qtyPacks >= maxPacks ? 'disabled' : ''}>+</button>
+          </div>
+          <span class="cart-item__qty-hint">
+            ${line.qtyPacks} × ${line.unitsPerPackage} unit${line.unitsPerPackage === 1 ? '' : 's'} = ${totalUnits} unit${totalUnits === 1 ? '' : 's'} total
+          </span>
+        </div>`
+      : `<div class="cart-item__qty">
+          <span class="cart-item__qty-label">Quantity</span>
+          <span class="cart-item__empty-note">Choose a package to set quantity</span>
+        </div>`;
+
+    const totalBlock = line.pkgKey
+      ? `<div class="cart-item__total">
+          <span class="cart-item__total-label">Line total</span>
+          <span class="cart-item__total-value">${KE.money(lineTotal)}</span>
+          <span class="cart-item__total-pkg">${line.qtyPacks} × ${KE.money(line.pricePerPackage)}/pack</span>
+        </div>`
+      : `<div class="cart-item__total">
+          <span class="cart-item__total-label">Line total</span>
+          <span class="cart-item__total-value muted">—</span>
+        </div>`;
+
+    const stockLine = product.stock <= 0
+      ? `<div class="cart-item__stock-warn">${ICON.warn} Out of stock</div>`
+      : (product.stock <= 5
+        ? `<div class="cart-item__stock-warn" style="color:var(--warn)">Only ${product.stock} left</div>`
+        : '');
+
+    return `
+      <article class="cart-item ${awaiting ? 'cart-item--awaiting' : ''}"
+               data-line-id="${KE.esc(line.id)}" data-item-slug="${KE.esc(line.slug)}">
+        <div class="cart-item__head">
+          <div class="cart-item__media" style="background:var(--t${tint});">
+            <img src="${KE.img(product.img, 200)}" alt="${KE.esc(product.name)}"
+                 loading="lazy" onerror="this.src='${KE.PLACEHOLDER_IMG}'" />
+          </div>
+          <div class="cart-item__info">
+            <div class="cart-item__brand">${KE.esc(KE.brandName(product.brand))}</div>
+            <h2 class="cart-item__name">${KE.esc(product.name)}</h2>
+            <div class="cart-item__unit-price">Unit price: <span class="money">${KE.money(product.price)}</span></div>
+            ${pkgTag}
+            ${stockLine}
+          </div>
+          <button class="cart-item__remove" type="button"
+                  data-remove="${KE.esc(line.id)}"
+                  aria-label="Remove ${KE.esc(product.name)}${line.pkgLabel ? ' (' + line.pkgLabel + ')' : ''} from cart">
+            ${ICON.trash}
+          </button>
         </div>
-        ${savingsHtml}
-        <div class="summary__row summary__row--delivery">
-          <span class="label">Delivery</span>
-          <span class="value">Calculated at checkout</span>
+
+        <div class="cart-item__packages">
+          <div class="cart-item__packages-label">Choose purchase option</div>
+          ${pkgOptionsHtml}
         </div>
-        <div class="summary__note">
-          Delivery fee depends on your location. We'll calculate it at checkout using our current rates.
-          <a href="delivery.html">See delivery info →</a>
+
+        <div class="cart-item__foot">
+          ${qtyBlock}
+          ${totalBlock}
         </div>
-        <div class="summary__total">
-          <span class="label">Subtotal due now</span>
-          <span class="value">${KE.money(totals.subtotal)}</span>
-        </div>
-        <a class="btn-checkout" href="checkout.html">
-          Proceed to checkout
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a class="summary__keep" href="shop.html">Continue shopping</a>
-        <ul class="summary__trust">
-          <li>${ICON.shield}<span>Secure checkout</span></li>
-          <li>${ICON.truck}<span>Fast dispatch within 24 hours</span></li>
-          <li>${ICON.file}<span>Invoice emailed with every order</span></li>
-        </ul>
-      </aside>`;
-
-    const cross = this.crosssell();
-    const crossHtml = cross.length ? `
-      <div class="crosssell">
-        <h2>You may also like</h2>
-        <div class="crosssell-grid">
-          ${cross.map(p => this.card(p)).join('')}
-        </div>
-      </div>` : '';
-
-    document.getElementById('cartRoot').innerHTML = `
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="index.html">Home</a><span class="sep" aria-hidden="true">/</span><strong>Cart</strong>
-      </nav>
-
-      <div class="cart-head">
-        <div>
-          <h1>Your cart</h1>
-          <p>Review your items and proceed to checkout when ready.</p>
-        </div>
-        <button class="cart-head__clear" type="button" id="clearCart">Clear cart</button>
-      </div>
-
-      ${noticeHtml}
-
-      <div class="cart-layout">
-        <div class="cart-lines" id="cartLines">
-          ${linesHtml}
-        </div>
-        ${summaryHtml}
-      </div>
-
-      ${crossHtml}
-    `;
-
-    this.updateBar(totals.subtotal, itemCount);
-    this.bindLines();
+      </article>`;
   },
 
-  bindLines() {
-    const host = document.getElementById('cartLines');
-    if (!host) return;
-
-    host.addEventListener('click', e => {
-      const line = e.target.closest('[data-slug]');
-      if (!line) return;
-      const slug = line.getAttribute('data-slug');
-      const p = KE.findProduct(slug);
-      if (!p) return;
-      const cur = KE.cart.items()[slug] || 0;
-
-      if (e.target.closest('[data-line-minus]')) {
-        KE.cart.setQty(slug, cur - 1);
-        this.render();
-        return;
-      }
-      if (e.target.closest('[data-line-plus]')) {
-        if (cur >= p.stock) { KE.toast(`Only ${p.stock} in stock`, 'warn'); return; }
-        KE.cart.setQty(slug, cur + 1);
-        this.render();
-        return;
-      }
-      if (e.target.closest('[data-line-remove]')) {
-        KE.cart.remove(slug);
-        KE.toast('Removed from cart');
-        this.render();
-        return;
-      }
-    });
-
-    host.addEventListener('change', e => {
-      const input = e.target.closest('[data-line-input]');
-      if (!input) return;
-      const line = input.closest('[data-slug]');
-      const slug = line.getAttribute('data-slug');
-      const p = KE.findProduct(slug);
-      if (!p) return;
-      let n = parseInt(input.value, 10) || 1;
-      n = Math.max(1, Math.min(n, p.stock));
-      KE.cart.setQty(slug, n);
+  selectPackage(lineId, pkgKey) {
+    const slug = lineId.split('::')[0];
+    const res = KE.cart.setPackage(lineId, pkgKey);
+    if (!res.ok) {
+      KE.toast(res.reason || 'Could not select package', 'warn');
+      updateCartBadge();
       this.render();
+      return;
+    }
+    const updatedLine = KE.cart.lines().find(l => l.slug === slug && l.pkgKey === pkgKey);
+    KE.toast(`Package selected${updatedLine ? ': ' + updatedLine.pkgLabel : ''}`, 'good');
+    updateCartBadge();
+    this.render();
+  },
+
+  changeQty(lineId, delta) {
+    const line = KE.cart.lines().find(l => l.id === lineId);
+    if (!line) return;
+    const next = (Number(line.qtyPacks) || 0) + delta;
+    if (next < 1) return;
+    const res = KE.cart.setQtyPacks(lineId, next);
+    if (!res.ok) { KE.toast(res.reason || 'Could not update quantity', 'warn'); return; }
+    updateCartBadge();
+    this.render();
+  },
+
+  removeLine(lineId) {
+    const line = KE.cart.lines().find(l => l.id === lineId);
+    KE.cart.remove(lineId);
+    updateCartBadge();
+    if (line) {
+      const product = KE.findProduct(line.slug);
+      KE.toast(`Removed ${product ? product.name : 'item'}${line.pkgLabel ? ' (' + line.pkgLabel + ')' : ''}`, 'good');
+    }
+    this.render();
+  },
+
+  bindGlobal() {
+    const root = document.getElementById('cartRoot');
+    if (!root) return;
+    root.addEventListener('change', e => {
+      const input = e.target.closest('[data-pkg-select]');
+      if (!input) return;
+      this.selectPackage(input.getAttribute('data-pkg-select'), input.getAttribute('data-pkg-key'));
     });
-  },
+    root.addEventListener('click', e => {
+      const removeBtn = e.target.closest('[data-remove]');
+      if (removeBtn) { this.removeLine(removeBtn.getAttribute('data-remove')); return; }
+      const minus = e.target.closest('[data-qty-minus]');
+      if (minus) { this.changeQty(minus.getAttribute('data-qty-minus'), -1); return; }
+      const plus = e.target.closest('[data-qty-plus]');
+      if (plus) { this.changeQty(plus.getAttribute('data-qty-plus'), +1); return; }
 
-  updateBar(subtotal, count) {
-    const bar = document.getElementById('checkoutBar');
-    if (!bar) return;
-    if (!count) { bar.style.display = 'none'; document.body.classList.remove('has-checkout-bar'); return; }
-    bar.style.display = 'grid';
-    document.body.classList.add('has-checkout-bar');
-    const totalEl = document.getElementById('barTotal');
-    if (totalEl) totalEl.textContent = KE.money(subtotal);
-  },
+      const checkout = e.target.closest('#checkoutBtn');
+      if (checkout) {
+        /* FIX: always validate and give feedback — never silently do nothing */
+        const analysis = this.analyze();
+        if (!analysis.canCheckout) {
+          let msg;
+          if (analysis.pending.length > 0) {
+            msg = analysis.pending.length === 1
+              ? 'Choose a package for this item first'
+              : `Choose a package for ${analysis.pending.length} items first`;
+          } else if (analysis.invalid.length > 0) {
+            msg = analysis.invalid[0].reason || 'Fix cart issues before checkout';
+          } else {
+            msg = 'Your cart is empty';
+          }
+          KE.toast(msg, 'warn');
 
-  hideBar() {
-    const bar = document.getElementById('checkoutBar');
-    if (bar) bar.style.display = 'none';
-    document.body.classList.remove('has-checkout-bar');
+          /* Scroll to the first pending / invalid line so the customer sees what to fix */
+          const targetLine = analysis.pending[0] || analysis.invalid[0]?.line;
+          if (targetLine) {
+            const targetEl = root.querySelector(`[data-line-id="${CSS.escape(targetLine.id)}"]`);
+            if (targetEl) {
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              targetEl.classList.add('cart-item--new');
+              setTimeout(() => targetEl.classList.remove('cart-item--new'), 1600);
+            }
+          }
+          return;
+        }
+        window.location.href = 'checkout.html';
+      }
+    });
+    window.addEventListener('storage', e => {
+      if (e.key === 'kaka:cart:v2' || e.key === 'kaka:cart:v1' || e.key === 'kaka:cart:packages:v1') {
+        updateCartBadge();
+        this.render();
+      }
+    });
+    document.addEventListener('cart:updated', () => updateCartBadge());
   }
 };
 
-/* ============================================================
-   GLOBAL EVENTS
-   ============================================================ */
-document.addEventListener('click', e => {
-  const addBtn = e.target.closest('[data-add]');
-  if (addBtn) {
-    e.preventDefault();
-    e.stopPropagation();
-    const slug = addBtn.getAttribute('data-add');
-    const p = KE.findProduct(slug);
-    if (!p || p.stock <= 0) return;
-    const cur = KE.cart.items()[slug] || 0;
-    if (cur >= p.stock) { KE.toast(`Only ${p.stock} in stock`, 'warn'); return; }
-    KE.cart.add(slug, 1);
-    KE.toast('Added to cart', 'good', { href:'cart.html', label:'View cart →' });
-    CT.render();
-    return;
-  }
-
-  if (e.target.closest('#clearCart')) {
-    if (confirm('Clear all items from your cart?')) {
-      KE.cart.clear();
-      KE.toast('Cart cleared');
-      CT.render();
-    }
-    return;
-  }
-
-  if (e.target.closest('[data-dismiss-notice]')) {
-    const notice = e.target.closest('.notice');
-    if (notice) notice.remove();
-    return;
-  }
-});
-
-/* ============================================================
-   INIT
-   ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   renderHeader();
   renderFooter();
   updateCartBadge();
   bindDrawer();
   bindHeaderSticky();
-  CT.render();
-  document.addEventListener('cart:updated', updateCartBadge);
+  CartPage.init();
 });
 </script>
 </body>
