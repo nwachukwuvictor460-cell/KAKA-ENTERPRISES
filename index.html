@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://www.google.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context": "https://schema.org","@type": "Organization","name": "KAKA ENTERPRISES","url": "https://kakaenterprises.ng/","logo": "https://kakaenterprises.ng/assets/image/kaka-logo.png","slogan": "Power. Connect. Deliver.","address": {"@type": "PostalAddress","streetAddress": "No. 19 St. Michael's Road","addressLocality": "Aba","addressRegion": "Abia State","postalCode": "450211","addressCountry": "NG"},"contactPoint": {"@type": "ContactPoint","telephone": "+2347034652385","contactType": "customer service","areaServed": "NG","availableLanguage": ["en"]},"sameAs": ["https://wa.me/2347034652385"]}
+{"@context": "https://schema.org","@type": "Organization","name": "KAKA ENTERPRISES","url": "https://kakaenterprises.ng/","logo": "https://kakaenterprises.ng/assets/image/kaka%20logo.jpeg","slogan": "Power. Connect. Deliver.","address": {"@type": "PostalAddress","streetAddress": "No. 19 St. Michael's Road","addressLocality": "Aba","addressRegion": "Abia State","postalCode": "450211","addressCountry": "NG"},"contactPoint": {"@type": "ContactPoint","telephone": "+2347034652385","contactType": "customer service","areaServed": "NG","availableLanguage": ["en"]},"sameAs": ["https://wa.me/2347034652385"]}
 </script>
 <script type="application/ld+json">
 {"@context": "https://schema.org","@type": "WebSite","name": "KAKA ENTERPRISES","url": "https://kakaenterprises.ng/","potentialAction": {"@type": "SearchAction","target": "https://kakaenterprises.ng/shop.html?q={search_term_string}","query-input": "required name=search_term_string"}}
@@ -77,11 +77,50 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (max-width:900px){.j-main__inner{grid-template-columns:auto 1fr;gap:14px}}
 .j-brand{display:flex;align-items:center;color:var(--topbar-ink-strong);text-decoration:none;min-width:0}
 .j-brand:hover{color:var(--topbar-ink-strong);text-decoration:none}
-.j-brand__logo{height:58px;width:auto;max-width:100%;object-fit:contain;mix-blend-mode:multiply}
-[data-theme="dark"] .j-brand__logo{mix-blend-mode:normal;background:#FFFFFF;padding:4px 8px;border-radius:8px;height:52px}
-@media (max-width:900px){.j-brand__logo{height:50px}[data-theme="dark"] .j-brand__logo{height:44px}}
-@media (max-width:640px){.j-brand__logo{height:42px}[data-theme="dark"] .j-brand__logo{height:36px;padding:2px 4px}}
-@media (max-width:380px){.j-brand__logo{height:36px}[data-theme="dark"] .j-brand__logo{height:30px;padding:2px 4px}}
+
+/* ============================================================
+   PREMIUM SVG LOGO STYLES (INFINITELY SHARP)
+   ============================================================ */
+.j-brand__logo {
+    height: 68px; /* Perfectly sized for the navbar */
+    width: auto;
+    max-width: 100%;
+    display: block;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+.j-brand:hover .j-brand__logo {
+    transform: scale(1.02);
+}
+[data-theme="dark"] .j-brand__logo {
+    filter: brightness(0) invert(1); /* Makes SVG text white in dark mode */
+}
+[data-theme="dark"] .j-brand__logo text {
+    fill: #FFFFFF !important;
+}
+[data-theme="dark"] .j-brand__logo path[stroke],
+[data-theme="dark"] .j-brand__logo rect[stroke] {
+    stroke: #FFFFFF !important;
+}
+[data-theme="dark"] .j-brand__logo .k-gradient {
+    fill: #4D9FFF; /* Lighter blue for dark mode contrast */
+}
+
+/* Tablet */
+@media (max-width:900px){
+    .j-brand__logo { height: 58px; }
+}
+
+/* Mobile (Phones) */
+@media (max-width:640px){
+    .j-brand__logo { height: 50px; }
+}
+
+/* Very Small Mobile */
+@media (max-width:380px){
+    .j-brand__logo { height: 44px; }
+}
+
 .j-search{display:flex;align-items:stretch;height:46px;background:#FFFFFF;border:1px solid var(--search-border);border-radius:12px;overflow:hidden;min-width:0;transition:border-color .15s ease,box-shadow .15s ease}
 [data-theme="dark"] .j-search{background:#1B1B29}
 .j-search:hover{border-color:#C7DCFF}
@@ -102,7 +141,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .j-cart:active{transform:translateY(0)}
 .j-cart .icon-badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:#FFFFFF;color:var(--brand);font-family:var(--font-mono);font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--brand);box-shadow:0 1px 4px rgba(10,93,255,.25)}
 .j-cart .icon-badge[hidden]{display:none}
-.j-menu-btn{display:none;width:42px;height:42px;border:1px solid var(--search-border);background:#FFFFFF;border-radius:10px;align-items:center;justify-content:center;cursor:pointer;color:var(--nav-ink);transition:border-color .15s ease,color .15s ease,background .15s ease}
+.j-menu-btn{display:none;width:44px;height:44px;border:1px solid var(--search-border);background:#FFFFFF;border-radius:10px;align-items:center;justify-content:center;cursor:pointer;color:var(--nav-ink);transition:border-color .15s ease,color .15s ease,background .15s ease}
 [data-theme="dark"] .j-menu-btn{background:#1B1B29}
 .j-menu-btn:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
 @media (max-width:900px){.j-menu-btn{display:inline-flex}}
@@ -300,9 +339,31 @@ button,input,select,textarea{font:inherit;color:inherit}
 .site-footer a:hover{color:var(--brand)}
 .site-footer a.footer-inline{display:inline;padding:0}
 .site-footer__brand{display:flex;align-items:center;margin-bottom:var(--sp-4)}
-.site-footer__logo{height:70px;width:auto;max-width:100%;object-fit:contain;mix-blend-mode:multiply}
-[data-theme="dark"] .site-footer__logo{mix-blend-mode:normal;background:#FFFFFF;padding:6px 10px;border-radius:8px}
-@media (max-width:760px){.site-footer__logo{height:60px}[data-theme="dark"] .site-footer__logo{height:50px}}
+
+/* Footer SVG Logo */
+.site-footer__logo {
+    height: 80px;
+    width: auto;
+    max-width: 280px;
+    display: block;
+}
+[data-theme="dark"] .site-footer__logo {
+    filter: brightness(0) invert(1);
+}
+[data-theme="dark"] .site-footer__logo text {
+    fill: #FFFFFF !important;
+}
+[data-theme="dark"] .site-footer__logo path[stroke],
+[data-theme="dark"] .site-footer__logo rect[stroke] {
+    stroke: #FFFFFF !important;
+}
+[data-theme="dark"] .site-footer__logo .k-gradient {
+    fill: #4D9FFF;
+}
+@media (max-width:760px){
+    .site-footer__logo { height: 65px; }
+}
+
 .site-footer__bottom{margin-top:var(--sp-10);padding-top:var(--sp-4);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;font-size:var(--fs-12)}
 .site-footer__pay{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .wa-float{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0));z-index:1500;display:inline-flex;align-items:center;gap:10px;padding:12px 20px 12px 12px;background:#25D366;color:#fff;border-radius:var(--radius-pill);text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 14px 32px rgba(37,211,102,.40),0 4px 10px rgba(0,0,0,.10);transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
@@ -453,7 +514,7 @@ KE.CATEGORIES = [
 ];
 KE.BRANDS = [{ slug:'voltix', name:'Voltix', initial:'V' },{ slug:'kord', name:'Kord', initial:'K' },{ slug:'sona', name:'Sona', initial:'S' },{ slug:'peak', name:'Peak', initial:'P' },{ slug:'northloop', name:'Northloop', initial:'N' },{ slug:'arkstore', name:'Arkstore', initial:'A' },{ slug:'oraimo', name:'Oraimo', initial:'O' }];
 KE.PRODUCTS = [
-  { slug:'gan-65w-usb-c-wall-charger', sku:'KE-CHG-001', name:'GaN 65W USB-C Wall Chargller', categoryPath:['phone-accessories','charging-accessories','chargers'], brand:'voltix', price:18500, compare_at_price:22000, tag:'Sale', stock:24, rating:4.8, reviews:246, img:'photo-1583863788434-e58a36330cf0', image_alt:'GaN 65W USB-C wall charger', specs:[['Output','65W']] },
+  { slug:'gan-65w-usb-c-wall-charger', sku:'KE-CHG-001', name:'GaN 65W USB-C Wall Charger', categoryPath:['phone-accessories','charging-accessories','chargers'], brand:'voltix', price:18500, compare_at_price:22000, tag:'Sale', stock:24, rating:4.8, reviews:246, img:'photo-1583863788434-e58a36330cf0', image_alt:'GaN 65W USB-C wall charger', specs:[['Output','65W']] },
   { slug:'magsafe-10000mah-power-bank', sku:'KE-PWB-001', name:'MagSafe 10,000mAh Power Bank', categoryPath:['phone-accessories','charging-accessories','power-banks'], brand:'voltix', price:24900, compare_at_price:null, tag:'New', stock:12, rating:4.7, reviews:132, img:'photo-1609091839311-d5365f9ff1c5', image_alt:'MagSafe wireless power bank', specs:[['Capacity','10,000mAh']] },
   { slug:'usb-c-to-usb-c-2m-cable', sku:'KE-CBL-001', name:'USB-C to USB-C 2m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:4500, compare_at_price:6000, tag:'Sale', stock:60, rating:4.6, reviews:320, img:'photo-1572569511254-d8f925fe2cbb', image_alt:'USB-C to USB-C charging cable', specs:[['Length','2m']] },
   { slug:'lightning-braided-1m-cable', sku:'KE-CBL-002', name:'Lightning Braided 1m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:3800, compare_at_price:null, tag:null, stock:42, rating:4.5, reviews:180, img:'photo-1572569511254-d8f925fe2cbb', image_alt:'Braided Lightning cable', specs:[['Length','1m']] },
@@ -489,7 +550,7 @@ KE.esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;',
 KE.PLACEHOLDER_IMG = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#E8F1FF"/><text x="50%" y="50%" text-anchor="middle" fill="#0A5DFF" font-family="system-ui,sans-serif" font-size="16" font-weight="700" dy=".35em">KAKA</text></svg>');
 KE.img = (id, w = 500) => { if (!id) return KE.PLACEHOLDER_IMG; if (id.startsWith('http') || id.startsWith('data:') || id.startsWith('/') || id.startsWith('assets/')) return id; return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`; };
 KE.imgFallback = function(el){ if (!el || el.dataset.fallbackApplied) return; el.dataset.fallbackApplied = '1'; el.src = KE.PLACEHOLDER_IMG; };
-KE.logoFallback = function(el){ if (!el || el.dataset.logoFallback) return; el.dataset.logoFallback = '1'; el.src = "data:assets/image/kaka logo.jpeg," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80"><rect width="340" height="80" fill="#FFFFFF"/><text x="16" y="56" font-family="Inter,system-ui,sans-serif" font-size="40" font-weight="900" fill="#0A5DFF" letter-spacing="-1.5">KAKA</text><text x="148" y="56" font-family="Inter,system-ui,sans-serif" font-size="14" font-weight="700" fill="#0A5DFF" letter-spacing="2.5">ENTERPRISES</text></svg>'); el.style.mixBlendMode = 'normal'; };
+KE.logoFallback = function(el){ /* Removed since we use SVG */ };
 KE.tierFor = q => KE.CONFIG.wholesale.find(t => q >= t.min && q <= t.max) || KE.CONFIG.wholesale[0];
 KE.unitPrice = (p, q = 1) => Math.round(p.price * (1 - KE.tierFor(q).off));
 KE.findProduct = slug => KE.PRODUCTS.find(p => p.slug === slug) || null;
@@ -503,6 +564,43 @@ KE.onSale = (n = 6) => KE.PRODUCTS.filter(p => p.compare_at_price).slice(0, n);
 KE.cart = (function(){ const KEY = 'kaka:cart:v1'; const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } }; const write = c => { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch {} document.dispatchEvent(new CustomEvent('cart:updated')); }; return { items: () => read(), count: () => Object.values(read()).reduce((a,b) => a+b, 0), add(slug, qty = 1) { const p = KE.findProduct(slug); if (!p) return; const c = read(); c[slug] = Math.min((c[slug] || 0) + qty, p.stock); write(c); }, setQty(slug, qty) { const p = KE.findProduct(slug); if (!p) return; const c = read(); const n = Math.max(0, Math.min(qty, p.stock)); if (n <= 0) delete c[slug]; else c[slug] = n; write(c); }, remove(slug){ const c = read(); delete c[slug]; write(c); }, clear(){ write({}); }, totals() { const c = read(); let subtotal = 0; for (const [slug, qty] of Object.entries(c)) { const p = KE.findProduct(slug); if (!p) continue; subtotal += KE.unitPrice(p, qty) * qty; } const delivery = subtotal === 0 ? 0 : KE.CONFIG.flatDeliveryFee; return { subtotal, delivery, total: subtotal + delivery }; } }; })();
 KE.toast = function(msg, kind = '', action){ const stack = document.getElementById('toastStack'); if (!stack) return; const el = document.createElement('div'); el.className = 'toast' + (kind ? ' toast--' + kind : ''); const span = document.createElement('span'); span.textContent = msg; el.appendChild(span); if (action && action.href && action.label) { const a = document.createElement('a'); a.href = action.href; a.textContent = action.label; el.appendChild(a); } stack.appendChild(el); setTimeout(() => { el.style.transition = 'opacity .2s ease, transform .2s ease'; el.style.opacity = '0'; el.style.transform = 'translateY(6px)'; setTimeout(() => el.remove(), 240); }, 2400); };
 const ICON = {phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',headphones:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 14v3a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg>',laptop:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',speaker:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="14" r="4"/><circle cx="12" cy="6" r="1"/></svg>',watch:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 2M9 2h6M9 22h6"/></svg>',battery:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4"/><path d="M6 10v4M10 10v4"/></svg>',casing:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M9 5h6"/></svg>',search:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',cart:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a2 2 0 0 0 2 1.7h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>',menu:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',close:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6l-12 12"/></svg>',chevron:'<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',chevronSm:'<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',user:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',help:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 1 1 5.3 2c-.8.8-2 1.4-2 2.7v.3"/><circle cx="12.5" cy="17.5" r=".5" fill="currentColor"/></svg>',store:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 4 4h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 22V13h6v9"/></svg>'};
+
+const SVG_LOGO = `
+<svg class="j-brand__logo" viewBox="0 0 480 115" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="KAKA ENTERPRISES Logo">
+  <defs>
+    <linearGradient id="kGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0A5DFF" />
+      <stop offset="100%" stop-color="#4D9FFF" />
+    </linearGradient>
+  </defs>
+  
+  <!-- The K Icon -->
+  <g transform="translate(10, 15)">
+    <!-- Main Stem -->
+    <rect x="0" y="0" width="18" height="80" rx="4" fill="#001F4B" class="k-stem" />
+    <!-- Top Arm -->
+    <path d="M 18 40 L 58 0 L 80 0 L 40 45 Z" fill="url(#kGrad)" class="k-gradient" />
+    <!-- Bottom Arm -->
+    <path d="M 18 40 L 58 80 L 80 80 L 40 35 Z" fill="url(#kGrad)" class="k-gradient" />
+    <!-- Tech Node Accent -->
+    <circle cx="65" cy="12" r="5" fill="#4D9FFF" />
+    <circle cx="65" cy="68" r="5" fill="#4D9FFF" />
+  </g>
+  
+  <!-- Typography -->
+  <g transform="translate(110, 0)">
+    <!-- AKA -->
+    <text x="0" y="58" font-family="'Inter', system-ui, sans-serif" font-size="62" font-weight="900" fill="#001F4B" letter-spacing="-2">AKA</text>
+    
+    <!-- ENTERPRISES -->
+    <text x="0" y="86" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="#0A5DFF" letter-spacing="4.5">ENTERPRISES</text>
+    
+    <!-- POWER CONNECT DELIVER -->
+    <text x="0" y="105" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="600" fill="#5F6579" letter-spacing="1.5">- POWER . CONNECT . DELIVER -</text>
+  </g>
+</svg>
+`;
+
 function buildDrawerNav(){ let html = `<a href="shop.html" class="drawer__link">Shop all products</a><a href="shop.html?tag=Sale" class="drawer__link">Deals</a><a href="shop.html?sort=new" class="drawer__link">New Arrivals</a>`; KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order).forEach(cat => { const subs = (cat.children || []).filter(c => c.published); if (!subs.length) { html += `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}" class="drawer__link">${KE.esc(cat.name)}</a>`; return; } const groupId = 'drawer-group-' + cat.slug; const subLinks = subs.map(sub => { const nested = (sub.children || []).filter(c => c.published); return `<a class="drawer__sub" href="shop.html?type=${encodeURIComponent(sub.slug)}">${KE.esc(sub.name)}</a>${nested.map(n => `<a class="drawer__sub drawer__sub--nested" href="shop.html?type=${encodeURIComponent(n.slug)}">${KE.esc(n.name)}</a>`).join('')}`; }).join(''); html += `<div class="drawer__group"><button type="button" class="drawer__toggle" aria-expanded="false" aria-controls="${groupId}"><span>${KE.esc(cat.name)}</span>${ICON.chevron}</button><div class="drawer__sub-list" id="${groupId}"><div>${subLinks}<a class="drawer__sub drawer__sub--all" href="shop.html?cat=${encodeURIComponent(cat.slug)}">View all ${KE.esc(cat.name)} →</a></div></div></div>`; }); html += `<a href="#store" class="drawer__link">Visit our store</a><a href="track-order.html" class="drawer__link">Track order</a><a href="cart.html" class="drawer__link">Cart</a>`; return html; }
 function renderHeader(){ const host = document.getElementById('siteHeader'); if (!host) return; const topCats = KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order); const catIcons = { phone: ICON.phone, headphones: ICON.headphones, laptop: ICON.laptop, speaker: ICON.speaker, watch: ICON.watch, battery: ICON.battery, casing: ICON.casing }; const catLinks = topCats.map(cat => { const hasSubs = (cat.children || []).some(c => c.published); return `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}">${catIcons[cat.icon] || ICON.laptop}${KE.esc(cat.name)}${hasSubs ? ICON.chevronSm : ''}</a>`; }).join('');
   host.innerHTML = `
@@ -512,7 +610,7 @@ function renderHeader(){ const host = document.getElementById('siteHeader'); if 
     </div></div>
     <div class="j-main"><div class="wrap j-main__inner">
       <a href="index.html" class="j-brand" aria-label="${KE.esc(KE.CONFIG.business.name)} — Home">
-        <img src="assets/image/kaka-logo.png" alt="KAKA ENTERPRISES — Power. Connect. Deliver." class="j-brand__logo" onerror="window.KE && window.KE.logoFallback && window.KE.logoFallback(this)" />
+        ${SVG_LOGO}
       </a>
       <form class="j-search" id="searchForm" role="search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) location.href='shop.html?q='+encodeURIComponent(q);">${ICON.search}<label class="sr" for="q">Search products</label><input id="q" name="q" type="search" placeholder="Search products…" autocomplete="off" /><button type="submit">Search</button></form>
       <div class="j-actions"><button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button><a href="#" class="j-action">${ICON.user} Account</a><a href="#" class="j-action">${ICON.help} Help</a><a href="cart.html" class="j-action j-cart" aria-label="Open cart">${ICON.cart} Cart<span class="icon-badge" id="cartBadge" hidden>0</span></a></div>
@@ -521,7 +619,7 @@ function renderHeader(){ const host = document.getElementById('siteHeader'); if 
     <div class="drawer" id="navDrawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer__scrim" data-close></div><div class="drawer__panel"><button class="drawer__close" data-close aria-label="Close menu">${ICON.close}</button><nav class="drawer__nav" aria-label="Mobile">${buildDrawerNav()}</nav></div></div>
   `;
 }
-function renderFooter(){ const host = document.getElementById('siteFooter'); if (!host) return; host.innerHTML = `<div class="wrap"><div class="site-footer__grid"><div><div class="site-footer__brand"><img src="assets/image/kaka-logo.png" alt="KAKA ENTERPRISES" class="site-footer__logo" onerror="window.KE && window.KE.logoFallback && window.KE.logoFallback(this)" /></div><p style="font-size:13px">Phone &amp; computer accessories for retail and wholesale buyers.</p><p style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.8">${KE.esc(KE.CONFIG.business.address)}<br><a class="footer-inline" href="tel:+2347034652385">${KE.CONFIG.business.phone}</a><br><a class="footer-inline" href="https://wa.me/${KE.CONFIG.business.whatsapp}" target="_blank" rel="noopener">WhatsApp us</a></p></div><div><h5>Shop</h5><a href="shop.html">All products</a><a href="shop.html?tag=Sale">Sale</a><a href="shop.html?sort=new">New arrivals</a></div><div><h5>Help</h5><a href="cart.html">Your cart</a><a href="track-order.html">Track your order</a><a href="delivery.html">Delivery info</a></div><div><h5>About</h5><a href="index.html">Home</a><a href="#store">Visit our store</a><a href="#" data-placeholder title="Page coming soon">Contact us</a></div></div><div class="site-footer__bottom"><span>© <span id="year"></span> ${KE.esc(KE.CONFIG.business.name)}</span><div class="site-footer__pay"><span class="pay-badge">VISA</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Verve</span><span class="pay-badge">Paystack</span><span class="pay-badge">Transfer</span></div></div></div>`; const y = host.querySelector('#year'); if (y) y.textContent = new Date().getFullYear(); }
+function renderFooter(){ const host = document.getElementById('siteFooter'); if (!host) return; host.innerHTML = `<div class="wrap"><div class="site-footer__grid"><div><div class="site-footer__brand">${SVG_LOGO.replace('j-brand__logo', 'site-footer__logo')}</div><p style="font-size:13px">Phone &amp; computer accessories for retail and wholesale buyers.</p><p style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.8">${KE.esc(KE.CONFIG.business.address)}<br><a class="footer-inline" href="tel:+2347034652385">${KE.CONFIG.business.phone}</a><br><a class="footer-inline" href="https://wa.me/${KE.CONFIG.business.whatsapp}" target="_blank" rel="noopener">WhatsApp us</a></p></div><div><h5>Shop</h5><a href="shop.html">All products</a><a href="shop.html?tag=Sale">Sale</a><a href="shop.html?sort=new">New arrivals</a></div><div><h5>Help</h5><a href="cart.html">Your cart</a><a href="track-order.html">Track your order</a><a href="delivery.html">Delivery info</a></div><div><h5>About</h5><a href="index.html">Home</a><a href="#store">Visit our store</a><a href="#" data-placeholder title="Page coming soon">Contact us</a></div></div><div class="site-footer__bottom"><span>© <span id="year"></span> ${KE.esc(KE.CONFIG.business.name)}</span><div class="site-footer__pay"><span class="pay-badge">VISA</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Verve</span><span class="pay-badge">Paystack</span><span class="pay-badge">Transfer</span></div></div></div>`; const y = host.querySelector('#year'); if (y) y.textContent = new Date().getFullYear(); }
 function updateCartBadge(){ const n = KE.cart.count(); const b = document.getElementById('cartBadge'); if (b){ if (n > 0) { b.hidden = false; b.textContent = n > 99 ? '99+' : String(n); } else { b.hidden = true; b.textContent = '0'; } } const link = document.getElementById('topbarCartLink'); const sep = document.getElementById('topbarCartSep'); const cnt = document.getElementById('topbarCartCount'); if (link && cnt && sep){ if (n > 0){ link.style.display = 'inline-flex'; sep.style.display = 'inline-block'; cnt.textContent = n > 99 ? '99+' : String(n); } else { link.style.display = 'none'; sep.style.display = 'none'; } } const cta = document.getElementById('heroCta'); if (cta){ let cartBtn = cta.querySelector('[data-hero-cart]'); if (n > 0){ if (!cartBtn){ cartBtn = document.createElement('a'); cartBtn.setAttribute('data-hero-cart','1'); cta.appendChild(cartBtn); } cartBtn.className = 'btn btn--cart btn--lg'; cartBtn.href = 'cart.html'; cartBtn.innerHTML = `View cart <span class="count">${n > 99 ? '99+' : n}</span>`; } else if (cartBtn){ cartBtn.remove(); } } }
 function bindDrawer(){ const drawer = document.getElementById('navDrawer'); const openBtn = document.getElementById('menuBtn'); if (!drawer || !openBtn) return; let lastFocused = null; const open = () => { lastFocused = document.activeElement; drawer.setAttribute('data-open','true'); openBtn.setAttribute('aria-expanded','true'); document.body.style.overflow = 'hidden'; const closeBtn = drawer.querySelector('.drawer__close'); if (closeBtn) closeBtn.focus(); }; const close = () => { drawer.setAttribute('data-open','false'); openBtn.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus(); }; openBtn.addEventListener('click', open); drawer.addEventListener('click', e => { if (e.target.closest('[data-close]')) close(); }); drawer.querySelectorAll('.drawer__toggle').forEach(btn => { btn.addEventListener('click', () => { const isOpen = btn.getAttribute('aria-expanded') === 'true'; const listId = btn.getAttribute('aria-controls'); const list = listId ? document.getElementById(listId) : null; btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true'); if (list) list.classList.toggle('is-open', !isOpen); }); }); drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close)); document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') close(); }); }
 function bindHeaderSticky(){ const header = document.getElementById('siteHeader'); if (!header) return; const onScroll = () => { if (window.scrollY > 4) header.classList.add('is-stuck'); else header.classList.remove('is-stuck'); }; window.addEventListener('scroll', onScroll, { passive:true }); onScroll(); }
