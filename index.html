@@ -77,50 +77,15 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (max-width:900px){.j-main__inner{grid-template-columns:auto 1fr;gap:14px}}
 .j-brand{display:flex;align-items:center;color:var(--topbar-ink-strong);text-decoration:none;min-width:0}
 .j-brand:hover{color:var(--topbar-ink-strong);text-decoration:none}
-
-/* ============================================================
-   PREMIUM SVG LOGO STYLES (INFINITELY SHARP)
-   ============================================================ */
-.j-brand__logo {
-    height: 68px; /* Perfectly sized for the navbar */
-    width: auto;
-    max-width: 100%;
-    display: block;
-    flex-shrink: 0;
-    transition: transform 0.2s ease;
-}
-.j-brand:hover .j-brand__logo {
-    transform: scale(1.02);
-}
-[data-theme="dark"] .j-brand__logo {
-    filter: brightness(0) invert(1); /* Makes SVG text white in dark mode */
-}
-[data-theme="dark"] .j-brand__logo text {
-    fill: #FFFFFF !important;
-}
-[data-theme="dark"] .j-brand__logo path[stroke],
-[data-theme="dark"] .j-brand__logo rect[stroke] {
-    stroke: #FFFFFF !important;
-}
-[data-theme="dark"] .j-brand__logo .k-gradient {
-    fill: #4D9FFF; /* Lighter blue for dark mode contrast */
-}
-
-/* Tablet */
-@media (max-width:900px){
-    .j-brand__logo { height: 58px; }
-}
-
-/* Mobile (Phones) */
-@media (max-width:640px){
-    .j-brand__logo { height: 50px; }
-}
-
-/* Very Small Mobile */
-@media (max-width:380px){
-    .j-brand__logo { height: 44px; }
-}
-
+.j-brand__logo{height:68px;width:auto;max-width:100%;display:block;flex-shrink:0;transition:transform .2s ease}
+.j-brand:hover .j-brand__logo{transform:scale(1.02)}
+[data-theme="dark"] .j-brand__logo{filter:brightness(0) invert(1)}
+[data-theme="dark"] .j-brand__logo text{fill:#FFFFFF!important}
+[data-theme="dark"] .j-brand__logo path[stroke],[data-theme="dark"] .j-brand__logo rect[stroke]{stroke:#FFFFFF!important}
+[data-theme="dark"] .j-brand__logo .k-gradient{fill:#4D9FFF}
+@media (max-width:900px){.j-brand__logo{height:58px}}
+@media (max-width:640px){.j-brand__logo{height:50px}}
+@media (max-width:380px){.j-brand__logo{height:44px}}
 .j-search{display:flex;align-items:stretch;height:46px;background:#FFFFFF;border:1px solid var(--search-border);border-radius:12px;overflow:hidden;min-width:0;transition:border-color .15s ease,box-shadow .15s ease}
 [data-theme="dark"] .j-search{background:#1B1B29}
 .j-search:hover{border-color:#C7DCFF}
@@ -258,6 +223,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .store-grid{display:grid;grid-template-columns:1fr;gap:var(--sp-5);align-items:stretch}
 @media (min-width:900px){.store-grid{grid-template-columns:1.4fr 1fr;gap:var(--sp-6)}}
 .store-map-card{background:#FFFFFF;border:1px solid var(--line);border-radius:var(--radius-card);overflow:hidden;position:relative}
+.store-map-badge{position:absolute;top:12px;right:12px;z-index:5;background:#FFFFFF;border:1px solid var(--line);border-radius:10px;padding:8px 12px;display:flex;align-items:flex-start;gap:8px;box-shadow:0 4px 12px rgba(10,93,255,.15);font-size:12px;font-weight:700;color:var(--ink);max-width:calc(100% - 24px);pointer-events:none;line-height:1.3}
+.store-map-badge svg{color:var(--brand);flex:0 0 16px;margin-top:1px}
+.store-map-badge small{display:block;font-weight:500;color:var(--muted);font-size:11px;margin-top:2px}
+[data-theme="dark"] .store-map-badge{background:var(--surface);border-color:var(--line)}
+@media (max-width:480px){.store-map-badge{font-size:11px;padding:6px 10px;gap:6px}.store-map-badge small{display:none}}
 .store-map-wrap{position:relative;width:100%;aspect-ratio:4/3;background:var(--surface-2)}
 @media (min-width:640px){.store-map-wrap{aspect-ratio:16/10}}
 @media (min-width:900px){.store-map-wrap{aspect-ratio:auto;height:100%;min-height:400px}}
@@ -339,32 +309,21 @@ button,input,select,textarea{font:inherit;color:inherit}
 .site-footer a:hover{color:var(--brand)}
 .site-footer a.footer-inline{display:inline;padding:0}
 .site-footer__brand{display:flex;align-items:center;margin-bottom:var(--sp-4)}
-
-/* Footer SVG Logo */
-.site-footer__logo {
-    height: 80px;
-    width: auto;
-    max-width: 280px;
-    display: block;
-}
-[data-theme="dark"] .site-footer__logo {
-    filter: brightness(0) invert(1);
-}
-[data-theme="dark"] .site-footer__logo text {
-    fill: #FFFFFF !important;
-}
-[data-theme="dark"] .site-footer__logo path[stroke],
-[data-theme="dark"] .site-footer__logo rect[stroke] {
-    stroke: #FFFFFF !important;
-}
-[data-theme="dark"] .site-footer__logo .k-gradient {
-    fill: #4D9FFF;
-}
-@media (max-width:760px){
-    .site-footer__logo { height: 65px; }
-}
-
-.site-footer__bottom{margin-top:var(--sp-10);padding-top:var(--sp-4);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;font-size:var(--fs-12)}
+.site-footer__brand-col{min-width:0}
+.site-footer__tagline{font-size:var(--fs-13);color:var(--muted);margin:0 0 var(--sp-4);line-height:1.55;max-width:38ch}
+.site-footer__contact{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.site-footer__contact li{display:flex;align-items:flex-start;gap:10px;font-size:var(--fs-13);color:var(--muted);line-height:1.5}
+.site-footer__contact li > svg{flex:0 0 14px;margin-top:3px;color:var(--brand);opacity:.85}
+.site-footer__contact li > span,
+.site-footer__contact li > a{display:inline;padding:0;color:var(--ink-2);font-weight:600;font-size:var(--fs-13);line-height:1.5}
+.site-footer__contact li > a:hover{color:var(--brand)}
+.site-footer__logo{height:80px;width:auto;max-width:280px;display:block}
+[data-theme="dark"] .site-footer__logo{filter:brightness(0) invert(1)}
+[data-theme="dark"] .site-footer__logo text{fill:#FFFFFF!important}
+[data-theme="dark"] .site-footer__logo path[stroke],[data-theme="dark"] .site-footer__logo rect[stroke]{stroke:#FFFFFF!important}
+[data-theme="dark"] .site-footer__logo .k-gradient{fill:#4D9FFF}
+@media (max-width:760px){.site-footer__logo{height:65px}}
+.site-footer__bottom{margin-top:var(--sp-10);padding-top:var(--sp-4);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;align-items:center;font-size:var(--fs-12)}
 .site-footer__pay{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .wa-float{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0));z-index:1500;display:inline-flex;align-items:center;gap:10px;padding:12px 20px 12px 12px;background:#25D366;color:#fff;border-radius:var(--radius-pill);text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 14px 32px rgba(37,211,102,.40),0 4px 10px rgba(0,0,0,.10);transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
 .wa-float:hover{transform:translateY(-2px) scale(1.02);background:#1EBE5D;box-shadow:0 20px 42px rgba(37,211,102,.5),0 6px 14px rgba(0,0,0,.15);color:#fff}
@@ -426,14 +385,33 @@ button,input,select,textarea{font:inherit;color:inherit}
 <section class="wrap store-section" id="store" aria-label="Visit our store">
   <div class="section__head"><h2>Visit our store in Aba</h2><a class="section__link" href="store-location.html">Full store page →</a></div>
   <div class="store-grid">
-    <div class="store-map-card"><div class="store-map-wrap" id="storeMapWrap"><iframe id="storeMap" title="KAKA ENTERPRISES store location map" src="https://www.google.com/maps?q=19+St+Michael's+Road,+Aba,+Abia+State,+Nigeria&output=embed&z=17" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen aria-label="Map showing KAKA ENTERPRISES at No. 19 St. Michael's Road, Aba"></iframe><div class="store-map-fallback" id="storeMapFallback">We couldn't load the map. <a href="https://www.google.com/maps/search/?api=1&query=19%20St%20Michael%27s%20Road%2C%20Aba%2C%20Abia%20State%2C%20Nigeria" target="_blank" rel="noopener noreferrer">Open in Google Maps</a></div></div></div>
+    <div class="store-map-card">
+      <div class="store-map-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>KAKA ENTERPRISES<small>No. 19 St. Michael's Road, Aba</small></span>
+      </div>
+      <div class="store-map-wrap" id="storeMapWrap">
+        <iframe
+          id="storeMap"
+          title="KAKA ENTERPRISES store location — No. 19 St. Michael's Road, Aba"
+          src="https://www.google.com/maps?q=KAKA+ENTERPRISES%2C+No.+19+St+Michael%27s+Road%2C+Aba%2C+Abia+State%2C+Nigeria&t=m&z=17&output=embed&iwloc=near"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          aria-label="Map showing KAKA ENTERPRISES at No. 19 St. Michael's Road, Aba"></iframe>
+        <div class="store-map-fallback" id="storeMapFallback">
+          We couldn't load the map.
+          <a href="https://www.google.com/maps/search/?api=1&query=KAKA%20ENTERPRISES%2C%20No.%2019%20St%20Michael%27s%20Road%2C%20Aba%2C%20Abia%20State%2C%20Nigeria" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+        </div>
+      </div>
+    </div>
     <aside class="store-info">
       <div><h3>KAKA ENTERPRISES</h3><p>Walk in for retail, buy in bulk for wholesale. Our team is on hand to help you pick the right accessory.</p></div>
       <div class="store-info__block"><span class="store-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><div class="store-info__body"><p class="store-info__label">Address</p><p class="store-info__value">No. 19 St. Michael's Road,<br>Aba, Abia State, Nigeria</p><div class="store-address-row"><span id="storeAddressRaw">No. 19 St. Michael's Road, Aba, Abia State, Nigeria</span><button class="store-copy-btn" type="button" id="copyAddress" aria-label="Copy address" title="Copy address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></div></div>
       <div class="store-info__block"><span class="store-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div class="store-info__body"><p class="store-info__label">Opening hours</p><p class="store-info__value">Mon – Sat · 8:00 AM – 6:00 PM</p></div></div>
       <div class="store-info__block"><span class="store-info__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></span><div class="store-info__body"><p class="store-info__label">Contact</p><p class="store-info__value"><a href="tel:+2347034652385">0703 465 2385</a></p></div></div>
       <div class="store-actions">
-        <a class="btn-directions" href="https://www.google.com/maps/dir/?api=1&destination=19+St+Michael's+Road,+Aba,+Abia+State,+Nigeria" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13 6-3m-6 3V7m6 10 4.553 2.276A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>Get directions</a>
+        <a class="btn-directions" href="https://www.google.com/maps/dir/?api=1&destination=No.%2019%20St%20Michael%27s%20Road%2C%20Aba%2C%20Abia%20State%2C%20Nigeria" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13 6-3m-6 3V7m6 10 4.553 2.276A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>Get directions</a>
         <a class="btn-outline" href="https://wa.me/2347034652385?text=Hi%20KAKA%2C%20I%27d%20like%20to%20visit%20your%20shop.%20Are%20you%20open%3F" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C12.831-3.984.106 1.407.101 11.893c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c7.691 0 14.525-6.242 14.527-13.91.001-3.715-1.443-7.21-4.065-9.835zm-8.516 21.19h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z"/></svg>Ask on WhatsApp</a>
       </div>
     </aside>
@@ -502,7 +480,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
 <script>
 window.KE = window.KE || {};
-KE.CONFIG = {flatDeliveryFee: 2500,wholesale: [{ min:1, max:9, off:0 },{ min:10, max:49, off:0.09 },{ min:50, max:Infinity, off:0.15 }],business: {name: 'KAKA ENTERPRISES',tagline: 'Power. Connect. Deliver.',address: "No. 19 St. Michael's Road, Aba, Abia State, Nigeria",phone: '07034652385',whatsapp: '2347034652385',mapQuery: "19 St Michael's Road, Aba, Abia State, Nigeria"}};
+KE.CONFIG = {flatDeliveryFee: 2500,wholesale: [{ min:1, max:9, off:0 },{ min:10, max:49, off:0.09 },{ min:50, max:Infinity, off:0.15 }],business: {name: 'KAKA ENTERPRISES',tagline: 'Power. Connect. Deliver.',address: "No. 19 St. Michael's Road, Aba, Abia State, Nigeria",phone: '07034652385',phonePretty: '0703 465 2385',whatsapp: '2347034652385',mapQuery: "KAKA ENTERPRISES, No. 19 St. Michael's Road, Aba, Abia State, Nigeria"}};
 KE.CATEGORIES = [
   { slug:'phones-tablets', name:'Phones & Tablets', icon:'phone', order:1, published:true, children:[{ slug:'smartphones', name:'Smartphones', order:1, published:true, children:[] },{ slug:'tablets', name:'Tablets', order:2, published:true, children:[] },{ slug:'feature-phones', name:'Feature Phones', order:3, published:true, children:[] }]},
   { slug:'phone-accessories', name:'Phone Accessories', icon:'headphones', order:2, published:true, children:[{ slug:'charging-accessories', name:'Charging Accessories', order:1, published:true, children:[{ slug:'chargers', name:'Chargers', order:1, published:true, children:[] },{ slug:'power-banks', name:'Power Banks', order:2, published:true, children:[] },{ slug:'charging-cables', name:'Charging Cables', order:3, published:true, children:[] },{ slug:'wireless-chargers', name:'Wireless Chargers', order:4, published:true, children:[] }]},{ slug:'audio-accessories', name:'Audio Accessories', order:2, published:true, children:[{ slug:'earbuds', name:'Earbuds', order:1, published:true, children:[] },{ slug:'headphones', name:'Headphones', order:2, published:true, children:[] },{ slug:'speakers', name:'Speakers', order:3, published:true, children:[] }]},{ slug:'screen-protectors', name:'Screen Protectors', order:3, published:true, children:[] }]},
@@ -563,7 +541,7 @@ KE.bestSellers = (n = 6) => KE.sortProducts(KE.PRODUCTS, 'popular').slice(0, n);
 KE.onSale = (n = 6) => KE.PRODUCTS.filter(p => p.compare_at_price).slice(0, n);
 KE.cart = (function(){ const KEY = 'kaka:cart:v1'; const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } }; const write = c => { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch {} document.dispatchEvent(new CustomEvent('cart:updated')); }; return { items: () => read(), count: () => Object.values(read()).reduce((a,b) => a+b, 0), add(slug, qty = 1) { const p = KE.findProduct(slug); if (!p) return; const c = read(); c[slug] = Math.min((c[slug] || 0) + qty, p.stock); write(c); }, setQty(slug, qty) { const p = KE.findProduct(slug); if (!p) return; const c = read(); const n = Math.max(0, Math.min(qty, p.stock)); if (n <= 0) delete c[slug]; else c[slug] = n; write(c); }, remove(slug){ const c = read(); delete c[slug]; write(c); }, clear(){ write({}); }, totals() { const c = read(); let subtotal = 0; for (const [slug, qty] of Object.entries(c)) { const p = KE.findProduct(slug); if (!p) continue; subtotal += KE.unitPrice(p, qty) * qty; } const delivery = subtotal === 0 ? 0 : KE.CONFIG.flatDeliveryFee; return { subtotal, delivery, total: subtotal + delivery }; } }; })();
 KE.toast = function(msg, kind = '', action){ const stack = document.getElementById('toastStack'); if (!stack) return; const el = document.createElement('div'); el.className = 'toast' + (kind ? ' toast--' + kind : ''); const span = document.createElement('span'); span.textContent = msg; el.appendChild(span); if (action && action.href && action.label) { const a = document.createElement('a'); a.href = action.href; a.textContent = action.label; el.appendChild(a); } stack.appendChild(el); setTimeout(() => { el.style.transition = 'opacity .2s ease, transform .2s ease'; el.style.opacity = '0'; el.style.transform = 'translateY(6px)'; setTimeout(() => el.remove(), 240); }, 2400); };
-const ICON = {phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',headphones:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 14v3a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg>',laptop:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',speaker:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="14" r="4"/><circle cx="12" cy="6" r="1"/></svg>',watch:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 2M9 2h6M9 22h6"/></svg>',battery:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4"/><path d="M6 10v4M10 10v4"/></svg>',casing:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M9 5h6"/></svg>',search:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',cart:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a2 2 0 0 0 2 1.7h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>',menu:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',close:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6l-12 12"/></svg>',chevron:'<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',chevronSm:'<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',user:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',help:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 1 1 5.3 2c-.8.8-2 1.4-2 2.7v.3"/><circle cx="12.5" cy="17.5" r=".5" fill="currentColor"/></svg>',store:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 4 4h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 22V13h6v9"/></svg>'};
+const ICON = {phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',headphones:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 14v3a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg>',laptop:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',speaker:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="14" r="4"/><circle cx="12" cy="6" r="1"/></svg>',watch:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 2M9 2h6M9 22h6"/></svg>',battery:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4"/><path d="M6 10v4M10 10v4"/></svg>',casing:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M9 5h6"/></svg>',search:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',cart:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a2 2 0 0 0 2 1.7h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>',menu:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',close:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6l-12 12"/></svg>',chevron:'<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',chevronSm:'<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',user:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',help:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 1 1 5.3 2c-.8.8-2 1.4-2 2.7v.3"/><circle cx="12.5" cy="17.5" r=".5" fill="currentColor"/></svg>',store:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 4 4h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 22V13h6v9"/></svg>',pin:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',phoneSm:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>',whatsappSm:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C12.831-3.984.106 1.407.101 11.893c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c7.691 0 14.525-6.242 14.527-13.91.001-3.715-1.443-7.21-4.065-9.835zm-8.516 21.19h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z"/></svg>'};
 
 const SVG_LOGO = `
 <svg class="j-brand__logo" viewBox="0 0 480 115" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="KAKA ENTERPRISES Logo">
@@ -601,12 +579,12 @@ const SVG_LOGO = `
 </svg>
 `;
 
-function buildDrawerNav(){ let html = `<a href="shop.html" class="drawer__link">Shop all products</a><a href="shop.html?tag=Sale" class="drawer__link">Deals</a><a href="shop.html?sort=new" class="drawer__link">New Arrivals</a>`; KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order).forEach(cat => { const subs = (cat.children || []).filter(c => c.published); if (!subs.length) { html += `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}" class="drawer__link">${KE.esc(cat.name)}</a>`; return; } const groupId = 'drawer-group-' + cat.slug; const subLinks = subs.map(sub => { const nested = (sub.children || []).filter(c => c.published); return `<a class="drawer__sub" href="shop.html?type=${encodeURIComponent(sub.slug)}">${KE.esc(sub.name)}</a>${nested.map(n => `<a class="drawer__sub drawer__sub--nested" href="shop.html?type=${encodeURIComponent(n.slug)}">${KE.esc(n.name)}</a>`).join('')}`; }).join(''); html += `<div class="drawer__group"><button type="button" class="drawer__toggle" aria-expanded="false" aria-controls="${groupId}"><span>${KE.esc(cat.name)}</span>${ICON.chevron}</button><div class="drawer__sub-list" id="${groupId}"><div>${subLinks}<a class="drawer__sub drawer__sub--all" href="shop.html?cat=${encodeURIComponent(cat.slug)}">View all ${KE.esc(cat.name)} →</a></div></div></div>`; }); html += `<a href="#store" class="drawer__link">Visit our store</a><a href="track-order.html" class="drawer__link">Track order</a><a href="cart.html" class="drawer__link">Cart</a>`; return html; }
+function buildDrawerNav(){ let html = `<a href="shop.html" class="drawer__link">Shop all products</a><a href="shop.html?tag=Sale" class="drawer__link">Deals</a><a href="shop.html?sort=new" class="drawer__link">New Arrivals</a>`; KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order).forEach(cat => { const subs = (cat.children || []).filter(c => c.published); if (!subs.length) { html += `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}" class="drawer__link">${KE.esc(cat.name)}</a>`; return; } const groupId = 'drawer-group-' + cat.slug; const subLinks = subs.map(sub => { const nested = (sub.children || []).filter(c => c.published); return `<a class="drawer__sub" href="shop.html?type=${encodeURIComponent(sub.slug)}">${KE.esc(sub.name)}</a>${nested.map(n => `<a class="drawer__sub drawer__sub--nested" href="shop.html?type=${encodeURIComponent(n.slug)}">${KE.esc(n.name)}</a>`).join('')}`; }).join(''); html += `<div class="drawer__group"><button type="button" class="drawer__toggle" aria-expanded="false" aria-controls="${groupId}"><span>${KE.esc(cat.name)}</span>${ICON.chevron}</button><div class="drawer__sub-list" id="${groupId}"><div>${subLinks}<a class="drawer__sub drawer__sub--all" href="shop.html?cat=${encodeURIComponent(cat.slug)}">View all ${KE.esc(cat.name)} →</a></div></div></div>`; }); html += `<a href="store-location.html" class="drawer__link">Visit our store</a><a href="track-order.html" class="drawer__link">Track order</a><a href="cart.html" class="drawer__link">Cart</a>`; return html; }
 function renderHeader(){ const host = document.getElementById('siteHeader'); if (!host) return; const topCats = KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order); const catIcons = { phone: ICON.phone, headphones: ICON.headphones, laptop: ICON.laptop, speaker: ICON.speaker, watch: ICON.watch, battery: ICON.battery, casing: ICON.casing }; const catLinks = topCats.map(cat => { const hasSubs = (cat.children || []).some(c => c.published); return `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}">${catIcons[cat.icon] || ICON.laptop}${KE.esc(cat.name)}${hasSubs ? ICON.chevronSm : ''}</a>`; }).join('');
   host.innerHTML = `
     <div class="j-topbar"><div class="wrap j-topbar__inner">
-      <nav class="j-topbar__links" aria-label="Information"><a href="#store">Visit our store</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="delivery.html">Delivery</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="warranty.html">Warranty</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="return.html">Returns</a></nav>
-      <div class="j-topbar__right"><a href="track-order.html">Track order</a><span class="j-topbar__sep" aria-hidden="true" id="topbarCartSep" style="display:none"></span><a href="cart.html" class="j-topbar__cart" id="topbarCartLink" style="display:none" aria-label="View cart">Cart · <span class="count" id="topbarCartCount">0</span></a><span class="j-topbar__sep" aria-hidden="true"></span><a href="tel:+2347034652385">${KE.CONFIG.business.phone}</a></div>
+      <nav class="j-topbar__links" aria-label="Information"><a href="store-location.html">Visit our store</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="delivery.html">Delivery</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="warranty.html">Warranty</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="return.html">Returns</a></nav>
+      <div class="j-topbar__right"><a href="track-order.html">Track order</a><span class="j-topbar__sep" aria-hidden="true" id="topbarCartSep" style="display:none"></span><a href="cart.html" class="j-topbar__cart" id="topbarCartLink" style="display:none" aria-label="View cart">Cart · <span class="count" id="topbarCartCount">0</span></a><span class="j-topbar__sep" aria-hidden="true"></span><a href="tel:+2347034652385">${KE.CONFIG.business.phonePretty || KE.CONFIG.business.phone}</a></div>
     </div></div>
     <div class="j-main"><div class="wrap j-main__inner">
       <a href="index.html" class="j-brand" aria-label="${KE.esc(KE.CONFIG.business.name)} — Home">
@@ -619,7 +597,63 @@ function renderHeader(){ const host = document.getElementById('siteHeader'); if 
     <div class="drawer" id="navDrawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer__scrim" data-close></div><div class="drawer__panel"><button class="drawer__close" data-close aria-label="Close menu">${ICON.close}</button><nav class="drawer__nav" aria-label="Mobile">${buildDrawerNav()}</nav></div></div>
   `;
 }
-function renderFooter(){ const host = document.getElementById('siteFooter'); if (!host) return; host.innerHTML = `<div class="wrap"><div class="site-footer__grid"><div><div class="site-footer__brand">${SVG_LOGO.replace('j-brand__logo', 'site-footer__logo')}</div><p style="font-size:13px">Phone &amp; computer accessories for retail and wholesale buyers.</p><p style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.8">${KE.esc(KE.CONFIG.business.address)}<br><a class="footer-inline" href="tel:+2347034652385">${KE.CONFIG.business.phone}</a><br><a class="footer-inline" href="https://wa.me/${KE.CONFIG.business.whatsapp}" target="_blank" rel="noopener">WhatsApp us</a></p></div><div><h5>Shop</h5><a href="shop.html">All products</a><a href="shop.html?tag=Sale">Sale</a><a href="shop.html?sort=new">New arrivals</a></div><div><h5>Help</h5><a href="cart.html">Your cart</a><a href="track-order.html">Track your order</a><a href="delivery.html">Delivery info</a></div><div><h5>About</h5><a href="index.html">Home</a><a href="#store">Visit our store</a><a href="#" data-placeholder title="Page coming soon">Contact us</a></div></div><div class="site-footer__bottom"><span>© <span id="year"></span> ${KE.esc(KE.CONFIG.business.name)}</span><div class="site-footer__pay"><span class="pay-badge">VISA</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Verve</span><span class="pay-badge">Paystack</span><span class="pay-badge">Transfer</span></div></div></div>`; const y = host.querySelector('#year'); if (y) y.textContent = new Date().getFullYear(); }
+function renderFooter(){
+  const host = document.getElementById('siteFooter'); if (!host) return;
+  const biz = KE.CONFIG.business;
+  const phonePretty = biz.phonePretty || biz.phone;
+  host.innerHTML = `
+    <div class="wrap">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand-col">
+          <div class="site-footer__brand">${SVG_LOGO.replace('j-brand__logo', 'site-footer__logo')}</div>
+          <p class="site-footer__tagline">Phone &amp; computer accessories for retail and wholesale buyers.</p>
+          <ul class="site-footer__contact">
+            <li>
+              ${ICON.pin}
+              <span>${KE.esc(biz.address)}</span>
+            </li>
+            <li>
+              ${ICON.phoneSm}
+              <a href="tel:+2347034652385">${KE.esc(phonePretty)}</a>
+            </li>
+            <li>
+              ${ICON.whatsappSm}
+              <a href="https://wa.me/${biz.whatsapp}" target="_blank" rel="noopener">WhatsApp us</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h5>Shop</h5>
+          <a href="shop.html">All products</a>
+          <a href="shop.html?tag=Sale">Sale</a>
+          <a href="shop.html?sort=new">New arrivals</a>
+        </div>
+        <div>
+          <h5>Help</h5>
+          <a href="cart.html">Your cart</a>
+          <a href="track-order.html">Track your order</a>
+          <a href="delivery.html">Delivery info</a>
+        </div>
+        <div>
+          <h5>About Us</h5>
+          <a href="index.html"></a>
+          <a href="store-location.html">Visit our store/</a>
+          <a href="store-location.html">Contact us</a>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>© <span id="year"></span> ${KE.esc(biz.name)}</span>
+        <div class="site-footer__pay">
+          <span class="pay-badge">VISA</span>
+          <span class="pay-badge">Mastercard</span>
+          <span class="pay-badge">Verve</span>
+          <span class="pay-badge">Paystack</span>
+          <span class="pay-badge">Transfer</span>
+        </div>
+      </div>
+    </div>`;
+  const y = host.querySelector('#year'); if (y) y.textContent = new Date().getFullYear();
+}
 function updateCartBadge(){ const n = KE.cart.count(); const b = document.getElementById('cartBadge'); if (b){ if (n > 0) { b.hidden = false; b.textContent = n > 99 ? '99+' : String(n); } else { b.hidden = true; b.textContent = '0'; } } const link = document.getElementById('topbarCartLink'); const sep = document.getElementById('topbarCartSep'); const cnt = document.getElementById('topbarCartCount'); if (link && cnt && sep){ if (n > 0){ link.style.display = 'inline-flex'; sep.style.display = 'inline-block'; cnt.textContent = n > 99 ? '99+' : String(n); } else { link.style.display = 'none'; sep.style.display = 'none'; } } const cta = document.getElementById('heroCta'); if (cta){ let cartBtn = cta.querySelector('[data-hero-cart]'); if (n > 0){ if (!cartBtn){ cartBtn = document.createElement('a'); cartBtn.setAttribute('data-hero-cart','1'); cta.appendChild(cartBtn); } cartBtn.className = 'btn btn--cart btn--lg'; cartBtn.href = 'cart.html'; cartBtn.innerHTML = `View cart <span class="count">${n > 99 ? '99+' : n}</span>`; } else if (cartBtn){ cartBtn.remove(); } } }
 function bindDrawer(){ const drawer = document.getElementById('navDrawer'); const openBtn = document.getElementById('menuBtn'); if (!drawer || !openBtn) return; let lastFocused = null; const open = () => { lastFocused = document.activeElement; drawer.setAttribute('data-open','true'); openBtn.setAttribute('aria-expanded','true'); document.body.style.overflow = 'hidden'; const closeBtn = drawer.querySelector('.drawer__close'); if (closeBtn) closeBtn.focus(); }; const close = () => { drawer.setAttribute('data-open','false'); openBtn.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus(); }; openBtn.addEventListener('click', open); drawer.addEventListener('click', e => { if (e.target.closest('[data-close]')) close(); }); drawer.querySelectorAll('.drawer__toggle').forEach(btn => { btn.addEventListener('click', () => { const isOpen = btn.getAttribute('aria-expanded') === 'true'; const listId = btn.getAttribute('aria-controls'); const list = listId ? document.getElementById(listId) : null; btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true'); if (list) list.classList.toggle('is-open', !isOpen); }); }); drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close)); document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') close(); }); }
 function bindHeaderSticky(){ const header = document.getElementById('siteHeader'); if (!header) return; const onScroll = () => { if (window.scrollY > 4) header.classList.add('is-stuck'); else header.classList.remove('is-stuck'); }; window.addEventListener('scroll', onScroll, { passive:true }); onScroll(); }
