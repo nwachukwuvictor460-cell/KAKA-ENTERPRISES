@@ -115,7 +115,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .drawer__nav{display:flex;flex-direction:column;gap:2px;margin-top:var(--sp-3)}
 .drawer__link{display:flex;align-items:center;padding:12px;border-radius:10px;color:var(--nav-ink);font-weight:600;font-size:15px;transition:color .15s ease,background .15s ease}
 .drawer__link:hover{background:var(--brand-soft);color:var(--brand)}
-.drawer__link[aria-current="page"]{background:var(--brand-soft);color:var(--brand)}
 .drawer__group{display:flex;flex-direction:column}
 .drawer__toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px;border-radius:10px;color:var(--nav-ink);font-weight:600;font-size:15px;background:transparent;border:0;cursor:pointer;text-align:left;width:100%;font-family:var(--font-body);transition:color .15s ease,background .15s ease}
 .drawer__toggle:hover{background:var(--brand-soft);color:var(--brand)}
@@ -132,7 +131,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (max-width:900px){.j-main__inner{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand actions" "search search";gap:10px 12px;align-items:center}.j-brand{grid-area:brand;min-width:0}.j-search{grid-area:search;height:44px}.j-actions{grid-area:actions;grid-column:auto;justify-content:flex-end;gap:4px;margin-top:0;min-width:0}}
 @media (max-width:640px){.j-actions .j-action:not(.j-cart){display:none}}
 
-/* ============ BUTTONS ============ */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);min-height:44px;padding:11px 22px;border-radius:var(--radius-ctrl);border:1px solid transparent;background:var(--surface);color:var(--ink);font-family:var(--font-body);font-weight:600;font-size:var(--fs-14);line-height:1;cursor:pointer;text-decoration:none;transition:transform .08s ease,background .15s ease,border-color .15s ease,box-shadow .15s ease;-webkit-tap-highlight-color:transparent;white-space:nowrap}
 .btn:active{transform:translateY(1px)}
 .btn--primary{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(10,93,255,.22)}
@@ -143,7 +141,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .btn--lg{min-height:52px;padding:14px 28px;font-size:var(--fs-16);border-radius:14px}
 .btn[disabled]{opacity:.55;cursor:not-allowed}
 
-/* ============ FOOTER — identical to index.html ============ */
 .site-footer{margin-top:var(--sp-12);background:var(--bg-2);border-top:1px solid var(--line);padding-block:var(--sp-12) var(--sp-6);padding-bottom:calc(var(--sp-6) + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:var(--fs-14)}
 .site-footer__grid{display:grid;gap:var(--sp-8);grid-template-columns:1fr}
 @media (min-width:760px){.site-footer__grid{grid-template-columns:1.6fr 1fr 1fr 1fr}}
@@ -169,7 +166,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .site-footer__pay{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .pay-badge{padding:6px 12px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);font-size:11px;font-weight:700;color:var(--ink);letter-spacing:0.02em}
 
-/* ============ WHATSAPP FLOAT ============ */
 .wa-float{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0));z-index:1500;display:inline-flex;align-items:center;gap:10px;padding:12px 20px 12px 12px;background:#25D366;color:#fff;border-radius:var(--radius-pill);text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 14px 32px rgba(37,211,102,.40),0 4px 10px rgba(0,0,0,.10);transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
 .wa-float:hover{transform:translateY(-2px) scale(1.02);background:#1EBE5D;box-shadow:0 20px 42px rgba(37,211,102,.5),0 6px 14px rgba(0,0,0,.15);color:#fff}
 .wa-float__icon{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;flex:0 0 36px}
@@ -177,7 +173,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .wa-float__text{white-space:nowrap;font-weight:700;font-size:14px}
 @media (max-width:600px){.wa-float{padding:0;width:56px;height:56px;justify-content:center;border-radius:50%}.wa-float__icon{background:transparent;width:auto;height:auto;flex:0 0 auto}.wa-float__icon svg{width:32px;height:32px}.wa-float__text{display:none}}
 
-/* ============ TOAST ============ */
 .toast-stack{position:fixed;left:50%;bottom:max(16px,calc(16px + env(safe-area-inset-bottom,0px)));transform:translateX(-50%);z-index:3000;display:flex;flex-direction:column;gap:8px;width:min(92vw,380px);pointer-events:none}
 .toast{background:var(--ink);color:#fff;padding:12px 16px;border-radius:var(--radius-ctrl);font-size:var(--fs-14);font-weight:500;box-shadow:var(--shadow-lg);animation:toast-in .18s ease;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .toast--good{background:var(--good);color:#fff}
@@ -185,7 +180,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .toast a{color:#fff;font-weight:700;text-decoration:underline;font-size:var(--fs-13);pointer-events:auto}
 @keyframes toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* ============ CHECKOUT ============ */
 .checkout-page{padding-block:var(--sp-5) var(--sp-12)}
 .crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:var(--fs-13);color:var(--muted);margin-bottom:var(--sp-4)}
 .crumbs a{color:var(--muted)}
@@ -256,6 +250,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .checkout-empty__icon{width:72px;height:72px;margin:0 auto var(--sp-4);border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
 .checkout-empty h2{margin:0 0 6px;font-size:var(--fs-18)}
 .checkout-empty p{color:var(--muted);margin:0 0 var(--sp-4);font-size:var(--fs-14)}
+.checkout-empty p + p{margin-top:calc(-1 * var(--sp-2));font-size:var(--fs-12)}
 .checkout-empty__actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .trust-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:var(--sp-4)}
 @media (min-width:760px){.trust-strip{grid-template-columns:repeat(4,1fr)}}
@@ -286,7 +281,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 
     <div id="checkoutContent">
       <div class="checkout-grid" id="checkoutGrid" hidden>
-        <!-- LEFT: Forms -->
         <div class="checkout-main">
 
           <section class="checkout-card" aria-labelledby="contactTitle">
@@ -405,7 +399,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 
         </div>
 
-        <!-- RIGHT: Order summary -->
         <aside class="checkout-aside" aria-label="Order summary">
           <div class="order-summary">
             <h2>Order summary</h2>
@@ -435,16 +428,16 @@ button,input,select,textarea{font:inherit;color:inherit}
         </aside>
       </div>
 
-      <!-- EMPTY CART STATE -->
       <div class="checkout-empty" id="checkoutEmpty" hidden>
         <div class="checkout-empty__icon">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a2 2 0 0 0 2 1.7h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>
         </div>
         <h2>Your cart is empty</h2>
         <p>Add some products to your cart before checking out.</p>
+        <p>If you recently added items, open your cart to select packages first.</p>
         <div class="checkout-empty__actions">
           <a class="btn btn--primary" href="shop.html">Browse products</a>
-          <a class="btn btn--outline" href="index.html">Back to home</a>
+          <a class="btn btn--outline" href="cart.html">Go to cart</a>
         </div>
       </div>
     </div>
@@ -518,26 +511,88 @@ KE.findBrand = slug => KE.BRANDS.find(b => b.slug === slug) || null;
 KE.brandName = slug => KE.findBrand(slug)?.name || slug;
 KE.findCategory = function(slug, list = KE.CATEGORIES){ for (const c of list) { if (c.slug === slug) return c; if (c.children?.length) { const f = KE.findCategory(slug, c.children); if (f) return f; } } return null; };
 
+/* ============================================================
+   CART — reads the SAME storage key that cart.html writes (kaka:cart:v2)
+   Provides the same public API the rest of checkout.html expects:
+     items()           → { slug: totalUnits }
+     count()           → total units across all lines
+     lineTotal(slug)   → exact total for that slug (Σ qtyPacks × pricePerPackage)
+     unitPriceFor(...) → effective per-unit price
+     totals(override)  → { subtotal, delivery, total }
+     remove(slug), clear()
+   ============================================================ */
 KE.cart = (function(){
-  const KEY = 'kaka:cart:v1'; const PKG_KEY = 'kaka:cart:packages:v1';
-  const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
-  const readPkg = () => { try { return JSON.parse(localStorage.getItem(PKG_KEY)) || {}; } catch { return {}; } };
-  const write = c => { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch {} document.dispatchEvent(new CustomEvent('cart:updated')); };
+  const KEY = 'kaka:cart:v2';         // matches cart.html
+  const LEGACY_KEY = 'kaka:cart:v1';  // pre-migration key — never read as source of truth
+  const LEGACY_PKG = 'kaka:cart:packages:v1';
+
+  const read = () => {
+    try {
+      const raw = JSON.parse(localStorage.getItem(KEY)) || {};
+      return Array.isArray(raw.lines) ? raw : { lines: [] };
+    } catch { return { lines: [] }; }
+  };
+  const write = data => {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch {}
+    document.dispatchEvent(new CustomEvent('cart:updated'));
+  };
+  const unitsInLine  = l => (Number(l.qtyPacks) || 0) * (Number(l.unitsPerPackage) || 0);
+  const lineTotalVal = l => (Number(l.qtyPacks) || 0) * (Number(l.pricePerPackage) || 0);
+
   return {
-    items: () => read(),
-    packages: () => readPkg(),
-    count: () => Object.values(read()).reduce((a,b) => a + (Number(b) || 0), 0),
+    lines: () => read().lines.filter(l => l.pkgKey),
+
+    /* { slug: totalUnits } — aggregated for backward-compatible callers */
+    items: () => {
+      const out = {};
+      for (const line of read().lines) {
+        if (!line.pkgKey) continue;
+        out[line.slug] = (out[line.slug] || 0) + unitsInLine(line);
+      }
+      return out;
+    },
+
+    /* Total units across all selected lines (badge count) */
+    count: () => read().lines.reduce((s, l) => {
+      if (!l.pkgKey) return s;
+      const u = unitsInLine(l);
+      return s + (u > 0 ? u : 0);
+    }, 0),
+
+    /* Exact total for one slug (used by summary & saved order) */
+    lineTotal(slug) {
+      return read().lines
+        .filter(l => l.slug === slug && l.pkgKey)
+        .reduce((s, l) => s + lineTotalVal(l), 0);
+    },
+
+    /* Effective per-unit price (rounded, for display) */
     unitPriceFor(slug, qty) {
       const p = KE.findProduct(slug); if (!p) return 0;
-      const pkgs = readPkg(); const hint = pkgs[slug];
-      if (hint && hint.unitPrice && hint.unitsPerPackage && qty >= hint.unitsPerPackage) return hint.unitPrice;
+      const total = this.lineTotal(slug);
+      if (total > 0 && qty > 0) return Math.round(total / qty);
       return KE.unitPrice(p, qty);
     },
-    remove(slug) { const c = read(); delete c[slug]; try { localStorage.setItem(KEY, JSON.stringify(c)); } catch {} const p = readPkg(); if (p[slug]) { delete p[slug]; try { localStorage.setItem(PKG_KEY, JSON.stringify(p)); } catch {} } document.dispatchEvent(new CustomEvent('cart:updated')); },
-    clear() { try { localStorage.setItem(KEY, '{}'); localStorage.setItem(PKG_KEY, '{}'); } catch {} document.dispatchEvent(new CustomEvent('cart:updated')); },
+
+    remove(slug) {
+      const data = read();
+      data.lines = data.lines.filter(l => l.slug !== slug);
+      write(data);
+    },
+
+    clear() {
+      /* Write empty cart; don't fire cart:updated — we're navigating to order-confirmation right after. */
+      try { localStorage.setItem(KEY, JSON.stringify({ lines: [] })); } catch {}
+      try { localStorage.removeItem(LEGACY_KEY); localStorage.removeItem(LEGACY_PKG); } catch {}
+    },
+
     totals(deliveryFeeOverride) {
-      const c = read(); let subtotal = 0;
-      for (const [slug, qty] of Object.entries(c)) { const p = KE.findProduct(slug); if (!p) continue; subtotal += this.unitPriceFor(slug, qty) * qty; }
+      const data = read();
+      let subtotal = 0;
+      for (const line of data.lines) {
+        if (!line.pkgKey) continue;
+        subtotal += lineTotalVal(line);
+      }
       const freeFrom = KE.CONFIG.freeDeliveryFrom || 50000;
       let delivery = 0;
       if (subtotal > 0) {
@@ -548,6 +603,7 @@ KE.cart = (function(){
     }
   };
 })();
+
 KE.toast = function(msg, kind = '', action){
   const stack = document.getElementById('toastStack'); if (!stack) return;
   const el = document.createElement('div'); el.className = 'toast' + (kind ? ' toast--' + kind : '');
@@ -631,34 +687,13 @@ function renderFooter(){
             <li>${ICON.whatsappSm}<a href="https://wa.me/${biz.whatsapp}" target="_blank" rel="noopener">WhatsApp us</a></li>
           </ul>
         </div>
-        <div>
-          <h5>Shop</h5>
-          <a href="shop.html">All products</a>
-          <a href="shop.html?tag=Sale">Sale</a>
-          <a href="shop.html?sort=new">New arrivals</a>
-        </div>
-        <div>
-          <h5>Help</h5>
-          <a href="cart.html">Your cart</a>
-          <a href="track-order.html">Track your order</a>
-          <a href="delivery.html">Delivery info</a>
-        </div>
-        <div>
-          <h5>About Us</h5>
-          <a href="index.html"></a>
-          <a href="store-location.html">Visit our store/ </a>
-          <a href="store-location.html">Contact us</a>
-        </div>
+        <div><h5>Shop</h5><a href="shop.html">All products</a><a href="shop.html?tag=Sale">Sale</a><a href="shop.html?sort=new">New arrivals</a></div>
+        <div><h5>Help</h5><a href="cart.html">Your cart</a><a href="track-order.html">Track your order</a><a href="delivery.html">Delivery info</a></div>
+        <div><h5>About Us</h5><a href="index.html"></a><a href="store-location.html">Visit our store/ </a><a href="store-location.html">Contact us</a></div>
       </div>
       <div class="site-footer__bottom">
         <span>© <span id="year"></span> ${KE.esc(biz.name)}</span>
-        <div class="site-footer__pay">
-          <span class="pay-badge">VISA</span>
-          <span class="pay-badge">Mastercard</span>
-          <span class="pay-badge">Verve</span>
-          <span class="pay-badge">Paystack</span>
-          <span class="pay-badge">Transfer</span>
-        </div>
+        <div class="site-footer__pay"><span class="pay-badge">VISA</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Verve</span><span class="pay-badge">Paystack</span><span class="pay-badge">Transfer</span></div>
       </div>
     </div>`;
   const y = host.querySelector('#year'); if (y) y.textContent = new Date().getFullYear();
@@ -687,7 +722,6 @@ function bindHeaderSticky(){
   window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
 }
 
-/* ============ CHECKOUT LOGIC ============ */
 const Checkout = {
   deliveryMethod: 'standard',
   paymentMethod: 'paystack',
@@ -718,8 +752,8 @@ const Checkout = {
     if (!entries.length) { host.innerHTML = ''; return; }
     host.innerHTML = entries.map(([slug, qty]) => {
       const p = KE.findProduct(slug); if (!p) return '';
-      const unit = KE.cart.unitPriceFor(slug, qty);
-      const lineTotal = unit * qty;
+      /* Use exact line total (not qty × rounded unit price) so the summary and saved order match the invoice */
+      const lineTotal = KE.cart.lineTotal(slug);
       const tint = (p.name.length % 5) + 1;
       return `<div class="summary-item">
         <div class="summary-item__media" style="background:var(--t${tint});">
@@ -742,9 +776,7 @@ const Checkout = {
 
     if (this.deliveryMethod === 'pickup') deliveryOverride = 0;
     else if (fees) {
-      const base = fees.standard;
-      const express = fees.express;
-      deliveryOverride = this.deliveryMethod === 'express' ? express : base;
+      deliveryOverride = this.deliveryMethod === 'express' ? fees.express : fees.standard;
     }
 
     const totals = KE.cart.totals(deliveryOverride);
@@ -822,7 +854,8 @@ const Checkout = {
       this.checkEmpty();
     });
     window.addEventListener('storage', e => {
-      if (e.key === 'kaka:cart:v1' || e.key === 'kaka:cart:packages:v1') {
+      /* React to v2 (the real cart) as well as the legacy keys for cross-tab sync */
+      if (e.key === 'kaka:cart:v2' || e.key === 'kaka:cart:v1' || e.key === 'kaka:cart:packages:v1') {
         this.renderSummary(); this.recalcTotals(); updateCartBadge(); this.checkEmpty();
       }
     });
@@ -908,8 +941,10 @@ const Checkout = {
       paymentMethod: this.paymentMethod,
       items: Object.entries(items).filter(([s,q]) => Number(q) > 0 && KE.findProduct(s)).map(([slug, qty]) => {
         const p = KE.findProduct(slug);
-        const unit = KE.cart.unitPriceFor(slug, qty);
-        return { slug, sku: p.sku, name: p.name, qty, unitPrice: unit, lineTotal: unit * qty };
+        /* lineTotal is the source of truth (exact Σ of qtyPacks × pricePerPackage); unitPrice is derived */
+        const lineTotal = KE.cart.lineTotal(slug);
+        const unitPrice = qty > 0 ? Math.round(lineTotal / qty) : 0;
+        return { slug, sku: p.sku, name: p.name, qty, unitPrice, lineTotal };
       }),
       totals: KE.cart.totals(this.deliveryMethod === 'pickup' ? 0 : (this.stateFees[(document.getElementById('stateSelect').value || '').toLowerCase()] || this.stateFees.other)[this.deliveryMethod === 'express' ? 'express' : 'standard'])
     };
