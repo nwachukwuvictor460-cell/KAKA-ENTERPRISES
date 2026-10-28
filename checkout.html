@@ -84,6 +84,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .j-action{display:inline-flex;align-items:center;gap:8px;color:var(--nav-ink);font-weight:600;font-size:13.5px;padding:9px 12px;border-radius:10px;transition:color .15s ease,background .15s ease;position:relative}
 .j-action:hover{color:var(--brand);background:var(--brand-soft);text-decoration:none}
 .j-action svg{flex:0 0 20px;color:currentColor}
+.j-action.is-signed-in{color:var(--brand);background:var(--brand-soft)}
+.j-action.is-signed-in:hover{background:var(--brand-soft-2)}
 .j-cart{position:relative;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:10px;box-shadow:0 2px 8px rgba(10,93,255,.22);transition:background .15s ease,transform .1s ease,box-shadow .15s ease}
 .j-cart:hover{background:#0A5DFF;color:#fff!important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(10,93,255,.32)}
 .j-cart:active{transform:translateY(0)}
@@ -511,15 +513,28 @@ KE.findBrand = slug => KE.BRANDS.find(b => b.slug === slug) || null;
 KE.brandName = slug => KE.findBrand(slug)?.name || slug;
 KE.findCategory = function(slug, list = KE.CATEGORIES){ for (const c of list) { if (c.slug === slug) return c; if (c.children?.length) { const f = KE.findCategory(slug, c.children); if (f) return f; } } return null; };
 
+/* ---------------------------------------------------------------
+   AUTH STUB — read-only, matches index.html / account.html shape.
+   account.html handles register/login/logout. Here we only need to
+   *read* the session so the navbar Account pill and "save order to
+   account" logic work.
+   --------------------------------------------------------------- */
+KE.auth = KE.auth || {
+  current: function(){
+    try {
+      var s = JSON.parse(localStorage.getItem('kaka:session:v1'));
+      if (!s || !s.email) return null;
+      if (s.expiresAt && s.expiresAt < Date.now()) return null;
+      var users = JSON.parse(localStorage.getItem('kaka:users:v1')) || {};
+      var u = users[s.email];
+      if (!u) return null;
+      return { id: u.id, name: u.name, email: u.email, phone: u.phone, orders: u.orders || [], addresses: u.addresses || [], cart: u.cart || {}, createdAt: u.createdAt };
+    } catch (e) { return null; }
+  }
+};
+
 /* ============================================================
    CART — reads the SAME storage key that cart.html writes (kaka:cart:v2)
-   Provides the same public API the rest of checkout.html expects:
-     items()           → { slug: totalUnits }
-     count()           → total units across all lines
-     lineTotal(slug)   → exact total for that slug (Σ qtyPacks × pricePerPackage)
-     unitPriceFor(...) → effective per-unit price
-     totals(override)  → { subtotal, delivery, total }
-     remove(slug), clear()
    ============================================================ */
 KE.cart = (function(){
   const KEY = 'kaka:cart:v2';         // matches cart.html
@@ -542,7 +557,6 @@ KE.cart = (function(){
   return {
     lines: () => read().lines.filter(l => l.pkgKey),
 
-    /* { slug: totalUnits } — aggregated for backward-compatible callers */
     items: () => {
       const out = {};
       for (const line of read().lines) {
@@ -552,21 +566,18 @@ KE.cart = (function(){
       return out;
     },
 
-    /* Total units across all selected lines (badge count) */
     count: () => read().lines.reduce((s, l) => {
       if (!l.pkgKey) return s;
       const u = unitsInLine(l);
       return s + (u > 0 ? u : 0);
     }, 0),
 
-    /* Exact total for one slug (used by summary & saved order) */
     lineTotal(slug) {
       return read().lines
         .filter(l => l.slug === slug && l.pkgKey)
         .reduce((s, l) => s + lineTotalVal(l), 0);
     },
 
-    /* Effective per-unit price (rounded, for display) */
     unitPriceFor(slug, qty) {
       const p = KE.findProduct(slug); if (!p) return 0;
       const total = this.lineTotal(slug);
@@ -581,7 +592,6 @@ KE.cart = (function(){
     },
 
     clear() {
-      /* Write empty cart; don't fire cart:updated — we're navigating to order-confirmation right after. */
       try { localStorage.setItem(KEY, JSON.stringify({ lines: [] })); } catch {}
       try { localStorage.removeItem(LEGACY_KEY); localStorage.removeItem(LEGACY_PKG); } catch {}
     },
@@ -612,6 +622,7 @@ KE.toast = function(msg, kind = '', action){
   stack.appendChild(el);
   setTimeout(() => { el.style.transition = 'opacity .2s ease, transform .2s ease'; el.style.opacity = '0'; el.style.transform = 'translateY(6px)'; setTimeout(() => el.remove(), 240); }, 2600);
 };
+
 const ICON = {
   phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
   headphones:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 14v3a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg>',
@@ -649,7 +660,8 @@ function buildDrawerNav(){
     const subLinks = subs.map(sub => { const nested = (sub.children || []).filter(c => c.published); return `<a class="drawer__sub" href="shop.html?type=${encodeURIComponent(sub.slug)}">${KE.esc(sub.name)}</a>${nested.map(n => `<a class="drawer__sub drawer__sub--nested" href="shop.html?type=${encodeURIComponent(n.slug)}">${KE.esc(n.name)}</a>`).join('')}`; }).join('');
     html += `<div class="drawer__group"><button type="button" class="drawer__toggle" aria-expanded="false" aria-controls="${groupId}"><span>${KE.esc(cat.name)}</span>${ICON.chevron}</button><div class="drawer__sub-list" id="${groupId}"><div>${subLinks}<a class="drawer__sub drawer__sub--all" href="shop.html?cat=${encodeURIComponent(cat.slug)}">View all ${KE.esc(cat.name)} →</a></div></div></div>`;
   });
-  html += `<a href="store-location.html" class="drawer__link">Visit our store</a><a href="track-order.html" class="drawer__link">Track order</a><a href="warranty.html" class="drawer__link">Warranty &amp; claims</a><a href="return.html" class="drawer__link">Returns &amp; refunds</a><a href="cart.html" class="drawer__link">Cart</a>`;
+  /* FIX: added "My account" so mobile users can reach the account page */
+  html += `<a href="account.html" class="drawer__link">My account</a><a href="store-location.html" class="drawer__link">Visit our store</a><a href="track-order.html" class="drawer__link">Track order</a><a href="warranty.html" class="drawer__link">Warranty &amp; claims</a><a href="return.html" class="drawer__link">Returns &amp; refunds</a><a href="cart.html" class="drawer__link">Cart</a>`;
   return html;
 }
 function renderHeader(){
@@ -657,6 +669,21 @@ function renderHeader(){
   const topCats = KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order);
   const catIcons = { phone: ICON.phone, headphones: ICON.headphones, laptop: ICON.laptop, speaker: ICON.speaker, watch: ICON.watch, battery: ICON.battery, casing: ICON.casing };
   const catLinks = topCats.map(cat => { const hasSubs = (cat.children || []).some(c => c.published); return `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}">${catIcons[cat.icon] || ICON.laptop}${KE.esc(cat.name)}${hasSubs ? ICON.chevronSm : ''}</a>`; }).join('');
+
+  /* FIX: Account link — always points to account.html. Shows user's first name when logged in. */
+  let accountLink;
+  try {
+    const u = (window.KE && KE.auth && KE.auth.current) ? KE.auth.current() : null;
+    if (u) {
+      const first = String(u.name || u.email || 'Account').split(' ')[0];
+      accountLink = '<a href="account.html" class="j-action is-signed-in" aria-label="My account">' + ICON.user + ' ' + KE.esc(first) + '</a>';
+    } else {
+      accountLink = '<a href="account.html" class="j-action" aria-label="My account">' + ICON.user + ' Account</a>';
+    }
+  } catch (e) {
+    accountLink = '<a href="account.html" class="j-action" aria-label="My account">' + ICON.user + ' Account</a>';
+  }
+
   host.innerHTML = `
     <div class="j-topbar"><div class="wrap j-topbar__inner">
       <nav class="j-topbar__links" aria-label="Information"><a href="store-location.html">Visit our store</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="delivery.html">Delivery</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="warranty.html">Warranty</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="return.html">Returns</a></nav>
@@ -665,7 +692,7 @@ function renderHeader(){
     <div class="j-main"><div class="wrap j-main__inner">
       <a href="index.html" class="j-brand" aria-label="${KE.esc(KE.CONFIG.business.name)} — Home">${SVG_LOGO}</a>
       <form class="j-search" id="searchForm" role="search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) location.href='shop.html?q='+encodeURIComponent(q);">${ICON.search}<label class="sr" for="q">Search products</label><input id="q" name="q" type="search" placeholder="Search products…" autocomplete="off" /><button type="submit">Search</button></form>
-      <div class="j-actions"><button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button><a href="#" class="j-action">${ICON.user} Account</a><a href="warranty.html" class="j-action">${ICON.help} Help</a><a href="cart.html" class="j-action j-cart" aria-label="Open cart">${ICON.cart} Cart<span class="icon-badge" id="cartBadge" hidden>0</span></a></div>
+      <div class="j-actions"><button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button>${accountLink}<a href="warranty.html" class="j-action">${ICON.help} Help</a><a href="cart.html" class="j-action j-cart" aria-label="Open cart">${ICON.cart} Cart<span class="icon-badge" id="cartBadge" hidden>0</span></a></div>
     </div></div>
     <nav class="j-cats" aria-label="Shop by category"><div class="wrap j-cats__scroll"><a href="shop.html">${ICON.store} All products</a>${catLinks}</div></nav>
     <div class="drawer" id="navDrawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer__scrim" data-close></div><div class="drawer__panel"><button class="drawer__close" data-close aria-label="Close menu">${ICON.close}</button><nav class="drawer__nav" aria-label="Mobile">${buildDrawerNav()}</nav></div></div>
@@ -688,8 +715,15 @@ function renderFooter(){
           </ul>
         </div>
         <div><h5>Shop</h5><a href="shop.html">All products</a><a href="shop.html?tag=Sale">Sale</a><a href="shop.html?sort=new">New arrivals</a></div>
-        <div><h5>Help</h5><a href="cart.html">Your cart</a><a href="track-order.html">Track your order</a><a href="delivery.html">Delivery info</a></div>
-        <div><h5>About Us</h5><a href="index.html"></a><a href="store-location.html">Visit our store/ </a><a href="store-location.html">Contact us</a></div>
+        <div>
+          <h5>Help</h5>
+          <!-- FIX: My account added to footer -->
+          <a href="account.html">My account</a>
+          <a href="cart.html">Your cart</a>
+          <a href="track-order.html">Track your order</a>
+          <a href="delivery.html">Delivery info</a>
+        </div>
+        <div><h5>About Us</h5><a href="index.html">Home</a><a href="store-location.html">Visit our store</a><a href="store-location.html">Contact us</a></div>
       </div>
       <div class="site-footer__bottom">
         <span>© <span id="year"></span> ${KE.esc(biz.name)}</span>
@@ -722,6 +756,17 @@ function bindHeaderSticky(){
   window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
 }
 
+/* ---------------------------------------------------------------
+   CONFIRM-ORDER BRIDGE — record the just-placed order so the
+   confirmation page can pick it up. Also writes the fallback key.
+   --------------------------------------------------------------- */
+KE.checkout = KE.checkout || {};
+KE.checkout.recordLastOrder = function(order){
+  if (!order || !order.id) return null;
+  try { localStorage.setItem('kaka:last-order:v1', JSON.stringify(order)); } catch(e){}
+  return order;
+};
+
 const Checkout = {
   deliveryMethod: 'standard',
   paymentMethod: 'paystack',
@@ -752,7 +797,6 @@ const Checkout = {
     if (!entries.length) { host.innerHTML = ''; return; }
     host.innerHTML = entries.map(([slug, qty]) => {
       const p = KE.findProduct(slug); if (!p) return '';
-      /* Use exact line total (not qty × rounded unit price) so the summary and saved order match the invoice */
       const lineTotal = KE.cart.lineTotal(slug);
       const tint = (p.name.length % 5) + 1;
       return `<div class="summary-item">
@@ -854,7 +898,6 @@ const Checkout = {
       this.checkEmpty();
     });
     window.addEventListener('storage', e => {
-      /* React to v2 (the real cart) as well as the legacy keys for cross-tab sync */
       if (e.key === 'kaka:cart:v2' || e.key === 'kaka:cart:v1' || e.key === 'kaka:cart:packages:v1') {
         this.renderSummary(); this.recalcTotals(); updateCartBadge(); this.checkEmpty();
       }
@@ -911,46 +954,153 @@ const Checkout = {
     return true;
   },
 
+  /* Human-friendly pack labels for the order record */
+  packLabelFor(line) {
+    if (!line) return '';
+    if (line.pkgLabel) return String(line.pkgLabel);
+    if (line.label) return String(line.label);
+    const key = String(line.pkgKey || '').toLowerCase();
+    if (key === 'single' || key === 'unit') return 'Single Unit';
+    if (key === 'half') return 'Half Pack';
+    if (key === 'full') return 'Full Pack';
+    return line.pkgKey || '';
+  },
+
+  /* Compute ISO ETA from the state's "days" string or store pickup */
+  etaFor(deliveryMethod, stateKey) {
+    try {
+      if (deliveryMethod === 'pickup') {
+        const d = new Date(); d.setDate(d.getDate() + 1);
+        return d.toISOString();
+      }
+      const info = this.stateFees[stateKey] || this.stateFees.other;
+      const m = String(info.days || '').match(/(\d+)[–-](\d+)/);
+      if (!m) return null;
+      const maxDays = parseInt(m[2], 10);
+      const d = new Date(); d.setDate(d.getDate() + maxDays);
+      return d.toISOString();
+    } catch (e) { return null; }
+  },
+
   placeOrder() {
     if (!this.validate()) return;
 
-    const items = KE.cart.items();
-    const count = Object.values(items).reduce((a,b) => a + Number(b || 0), 0);
-    if (count === 0) { KE.toast('Your cart is empty', 'warn'); return; }
+    const lines = KE.cart.lines().filter(l => l.pkgKey && Number(l.qtyPacks) > 0);
+    if (!lines.length) { KE.toast('Your cart is empty', 'warn'); return; }
 
     const btn = document.getElementById('placeOrderBtn');
     const original = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = 'Placing your order…';
 
+    /* ---- compute totals once (matches what the user sees) ---- */
+    const stateKey = (document.getElementById('stateSelect').value || '').toLowerCase();
+    const stateInfo = this.stateFees[stateKey] || this.stateFees.other;
+    const deliveryOverride = this.deliveryMethod === 'pickup'
+      ? 0
+      : stateInfo[this.deliveryMethod === 'express' ? 'express' : 'standard'];
+    const cartTotals = KE.cart.totals(deliveryOverride);
+
+    /* ---- capture customer input ---- */
+    const customerName  = document.getElementById('fullName').value.trim();
+    const customerPhone = document.getElementById('phone').value.trim();
+    const customerEmail = document.getElementById('email').value.trim();
+    const addressLine   = document.getElementById('address').value.trim();
+    const city          = document.getElementById('city').value.trim();
+    const stateVal      = document.getElementById('stateSelect').value;
+    const deliveryNotes = document.getElementById('deliveryNotes').value.trim();
+
+    /* ---- derive labels + statuses ---- */
+    const paymentStatus = this.paymentMethod === 'paystack' ? 'pending'
+      : this.paymentMethod === 'transfer' ? 'awaiting'
+      : 'pending';  /* cod */
+
+    const paymentMethodLabel = this.paymentMethod === 'paystack' ? 'Card — Paystack'
+      : this.paymentMethod === 'transfer' ? 'Bank transfer'
+      : 'Pay on delivery';
+
+    const deliveryMethodLabel = this.deliveryMethod === 'standard' ? 'Standard delivery'
+      : this.deliveryMethod === 'express' ? 'Express delivery'
+      : 'Store pickup — Aba';
+
+    /* ---- build order in confirm-order.html's expected shape ---- */
+    const orderId = 'KE-' + Date.now().toString(36).toUpperCase().slice(-6);
+    const items = lines.map(l => {
+      const p = KE.findProduct(l.slug);
+      const qtyPacks   = Number(l.qtyPacks) || 0;
+      const unitsPerPack = Number(l.unitsPerPackage) || 1;
+      const pricePerPack = Number(l.pricePerPackage) || 0;
+      const totalUnits = qtyPacks * unitsPerPack;
+      const lineTotal  = qtyPacks * pricePerPack;
+      return {
+        slug: l.slug,
+        name: p ? p.name : l.slug,
+        qty: totalUnits,
+        price: totalUnits > 0 ? Math.round(lineTotal / totalUnits) : pricePerPack,
+        pack: this.packLabelFor(l),
+        lineTotal: lineTotal
+      };
+    });
+
     const order = {
-      id: 'KE-' + Date.now().toString(36).toUpperCase().slice(-6),
+      id: orderId,
       createdAt: new Date().toISOString(),
-      customer: {
-        fullName: document.getElementById('fullName').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        email: document.getElementById('email').value.trim()
+      status: 'placed',
+      paymentStatus: paymentStatus,
+      paymentMethod: paymentMethodLabel,
+      deliveryMethod: deliveryMethodLabel,
+      customerName: customerName,
+      customerEmail: customerEmail,
+      customerPhone: customerPhone,
+      address: {
+        name: customerName,
+        email: customerEmail,
+        phone: customerPhone,
+        line1: addressLine,
+        city: city,
+        state: stateVal
       },
-      shipping: {
-        address: document.getElementById('address').value.trim(),
-        city: document.getElementById('city').value.trim(),
-        state: document.getElementById('stateSelect').value,
-        notes: document.getElementById('deliveryNotes').value.trim()
-      },
-      deliveryMethod: this.deliveryMethod,
-      paymentMethod: this.paymentMethod,
-      items: Object.entries(items).filter(([s,q]) => Number(q) > 0 && KE.findProduct(s)).map(([slug, qty]) => {
-        const p = KE.findProduct(slug);
-        /* lineTotal is the source of truth (exact Σ of qtyPacks × pricePerPackage); unitPrice is derived */
-        const lineTotal = KE.cart.lineTotal(slug);
-        const unitPrice = qty > 0 ? Math.round(lineTotal / qty) : 0;
-        return { slug, sku: p.sku, name: p.name, qty, unitPrice, lineTotal };
-      }),
-      totals: KE.cart.totals(this.deliveryMethod === 'pickup' ? 0 : (this.stateFees[(document.getElementById('stateSelect').value || '').toLowerCase()] || this.stateFees.other)[this.deliveryMethod === 'express' ? 'express' : 'standard'])
+      deliveryNotes: deliveryNotes || '',
+      items: items,
+      subtotal: cartTotals.subtotal,
+      delivery: cartTotals.delivery,
+      discount: 0,
+      total: cartTotals.total,
+      estimatedDelivery: this.etaFor(this.deliveryMethod, stateKey),
+      tracking: [
+        { state: 'placed', title: 'Order placed', time: new Date().toISOString() }
+      ]
     };
 
-    try { sessionStorage.setItem('kaka:lastOrder', JSON.stringify(order)); } catch {}
+    /* ---- persist via the shared bridge (writes kaka:last-order:v1) ---- */
+    try {
+      if (typeof KE.checkout.recordLastOrder === 'function') {
+        KE.checkout.recordLastOrder(order);
+      } else {
+        localStorage.setItem('kaka:last-order:v1', JSON.stringify(order));
+      }
+    } catch (e) {
+      try { localStorage.setItem('kaka:last-order:v1', JSON.stringify(order)); } catch (e2) {}
+    }
 
+    /* ---- if signed in, also push to the user's orders[] ---- */
+    try {
+      if (window.KE && KE.auth && typeof KE.auth.current === 'function') {
+        const cur = KE.auth.current();
+        if (cur && cur.email) {
+          const users = JSON.parse(localStorage.getItem('kaka:users:v1')) || {};
+          const u = users[cur.email];
+          if (u) {
+            u.orders = u.orders || [];
+            u.orders.push(order);
+            users[cur.email] = u;
+            localStorage.setItem('kaka:users:v1', JSON.stringify(users));
+          }
+        }
+      }
+    } catch (e) {}
+
+    /* ---- post-order UX: clear cart, toast, redirect ---- */
     setTimeout(() => {
       KE.cart.clear();
       const methodText = this.paymentMethod === 'paystack' ? 'Redirecting to payment…'
@@ -958,7 +1108,7 @@ const Checkout = {
         : 'Order placed — pay on delivery.';
       KE.toast(`Order ${order.id} received! ${methodText}`, 'good');
       setTimeout(() => {
-        window.location.href = 'order-confirmation.html?id=' + encodeURIComponent(order.id);
+        window.location.href = 'confirm-order.html?order=' + encodeURIComponent(order.id);
       }, 900);
       btn.disabled = false; btn.innerHTML = original;
     }, 900);

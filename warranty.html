@@ -1279,7 +1279,7 @@ function renderHeader(){
       <form class="j-search" id="searchForm" role="search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) location.href='shop.html?q='+encodeURIComponent(q);">${ICON.search}<label class="sr" for="q">Search products</label><input id="q" name="q" type="search" placeholder="Search products…" autocomplete="off" /><button type="submit">Search</button></form>
       <div class="j-actions">
         <button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button>
-        <a href="#" class="j-action">${ICON.user} Account</a>
+        <a href="account.html" class="j-action">${ICON.user} Account</a>
         <a href="warranty.html" class="j-action" aria-current="page">${ICON.help} Help</a>
         <a href="cart.html" class="j-action j-cart" aria-label="Open cart">${ICON.cart} Cart<span class="icon-badge" id="cartBadge" hidden>0</span></a>
       </div>

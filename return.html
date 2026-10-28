@@ -141,6 +141,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .j-action{display:inline-flex;align-items:center;gap:8px;color:var(--nav-ink);font-weight:600;font-size:13.5px;padding:9px 12px;border-radius:10px;transition:color .15s ease,background .15s ease;position:relative}
 .j-action:hover{color:var(--brand);background:var(--brand-soft);text-decoration:none}
 .j-action svg{flex:0 0 20px;color:currentColor}
+.j-action.is-signed-in{color:var(--brand);background:var(--brand-soft)}
+.j-action.is-signed-in:hover{background:var(--brand-soft-2)}
 .j-cart{position:relative;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:10px;box-shadow:0 2px 8px rgba(10,93,255,.22);transition:background .15s ease,transform .1s ease,box-shadow .15s ease}
 .j-cart:hover{background:#0A5DFF;color:#fff!important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(10,93,255,.32)}
 .j-cart:active{transform:translateY(0)}
@@ -1239,6 +1241,22 @@ KE.toast = function(msg, kind = '', action){
   }, 2600);
 };
 
+/* Read-only auth reader — so the navbar Account link can show the user's name.
+   Full register/login logic lives in account.html. */
+KE.auth = KE.auth || {
+  current: function(){
+    try {
+      var s = JSON.parse(localStorage.getItem('kaka:session:v1'));
+      if (!s || !s.email) return null;
+      if (s.expiresAt && s.expiresAt < Date.now()) return null;
+      var users = JSON.parse(localStorage.getItem('kaka:users:v1')) || {};
+      var u = users[s.email];
+      if (!u) return null;
+      return { id: u.id, name: u.name, email: u.email, phone: u.phone };
+    } catch (e) { return null; }
+  }
+};
+
 const ICON = {
   phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
   headphones:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 14v3a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg>',
@@ -1290,6 +1308,7 @@ function buildDrawerNav(){
   });
 
   html += `
+    <a href="account.html" class="drawer__link">My account</a>
     <a href="store-location.html" class="drawer__link">Visit our store</a>
     <a href="track-order.html" class="drawer__link">Track order</a>
     <a href="warranty.html" class="drawer__link">Warranty &amp; claims</a>
@@ -1309,6 +1328,19 @@ function renderHeader(){
     const hasSubs = (cat.children || []).some(c => c.published);
     return `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}">${catIcons[cat.icon] || ICON.laptop}${KE.esc(cat.name)}${hasSubs ? ICON.chevronSm : ''}</a>`;
   }).join('');
+
+  let accountLink;
+  try {
+    const u = (window.KE && KE.auth && KE.auth.current) ? KE.auth.current() : null;
+    if (u) {
+      const first = String(u.name || u.email || 'Account').split(' ')[0];
+      accountLink = '<a href="account.html" class="j-action is-signed-in" aria-label="My account">' + ICON.user + ' ' + KE.esc(first) + '</a>';
+    } else {
+      accountLink = '<a href="account.html" class="j-action" aria-label="My account">' + ICON.user + ' Account</a>';
+    }
+  } catch (e) {
+    accountLink = '<a href="account.html" class="j-action" aria-label="My account">' + ICON.user + ' Account</a>';
+  }
 
   host.innerHTML = `
     <div class="j-topbar"><div class="wrap j-topbar__inner">
@@ -1334,7 +1366,7 @@ function renderHeader(){
       <form class="j-search" id="searchForm" role="search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) location.href='shop.html?q='+encodeURIComponent(q);">${ICON.search}<label class="sr" for="q">Search products</label><input id="q" name="q" type="search" placeholder="Search products…" autocomplete="off" /><button type="submit">Search</button></form>
       <div class="j-actions">
         <button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button>
-        <a href="#" class="j-action">${ICON.user} Account</a>
+        ${accountLink}
         <a href="#" class="j-action">${ICON.help} Help</a>
         <a href="cart.html" class="j-action j-cart" aria-label="Open cart">${ICON.cart} Cart<span class="icon-badge" id="cartBadge" hidden>0</span></a>
       </div>
@@ -1369,6 +1401,7 @@ function renderFooter(){
         </div>
         <div>
           <h5>Help</h5>
+          <a href="account.html">My account</a>
           <a href="cart.html">Your cart</a>
           <a href="track-order.html">Track your order</a>
           <a href="delivery.html">Delivery info</a>
