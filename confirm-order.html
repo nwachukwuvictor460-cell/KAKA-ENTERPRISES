@@ -35,7 +35,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .muted{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}}
 
-/* ============ HEADER (matches index.html) ============ */
+/* ============ HEADER (identical to index.html) ============ */
 #siteHeader{position:sticky;position:-webkit-sticky;top:0;z-index:9999;background:#FFFFFF;transition:box-shadow .2s ease}
 [data-theme="dark"] #siteHeader{background:#0F0F1A}
 #siteHeader:not(.is-stuck){box-shadow:0 1px 0 var(--topbar-line)}
@@ -83,6 +83,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .j-action{display:inline-flex;align-items:center;gap:8px;color:var(--nav-ink);font-weight:600;font-size:13.5px;padding:9px 12px;border-radius:10px;transition:color .15s ease,background .15s ease;position:relative}
 .j-action:hover{color:var(--brand);background:var(--brand-soft);text-decoration:none}
 .j-action svg{flex:0 0 20px;color:currentColor}
+.j-action.is-signed-in{color:var(--brand);background:var(--brand-soft)}
+.j-action.is-signed-in:hover{background:var(--brand-soft-2)}
 .j-cart{position:relative;background:var(--brand);color:#fff!important;padding:10px 16px;border-radius:10px;box-shadow:0 2px 8px rgba(10,93,255,.22);transition:background .15s ease,transform .1s ease,box-shadow .15s ease}
 .j-cart:hover{background:#0A5DFF;color:#fff!important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(10,93,255,.32)}
 .j-cart:active{transform:translateY(0)}
@@ -232,7 +234,7 @@ button,input,select,textarea{font:inherit;color:inherit}
   .invoice__table th{background:#000!important;color:#fff!important}
 }
 
-/* ============ FOOTER (matches index.html) ============ */
+/* ============ FOOTER (identical to index.html) ============ */
 .site-footer{margin-top:var(--sp-12);background:var(--bg-2);border-top:1px solid var(--line);padding-block:var(--sp-12) var(--sp-6);padding-bottom:calc(var(--sp-6) + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:var(--fs-14)}
 .site-footer__grid{display:grid;gap:var(--sp-8);grid-template-columns:1fr}
 @media (min-width:760px){.site-footer__grid{grid-template-columns:1.6fr 1fr 1fr 1fr}}
@@ -331,6 +333,20 @@ KE.toast = function(msg, kind = ''){
   }, 2400);
 };
 
+KE.auth = KE.auth || {
+  current: function(){
+    try {
+      var s = JSON.parse(localStorage.getItem('kaka:session:v1'));
+      if (!s || !s.email) return null;
+      if (s.expiresAt && s.expiresAt < Date.now()) return null;
+      var users = JSON.parse(localStorage.getItem('kaka:users:v1')) || {};
+      var u = users[s.email];
+      if (!u) return null;
+      return { id: u.id, name: u.name, email: u.email, phone: u.phone };
+    } catch (e) { return null; }
+  }
+};
+
 const ICON = {
   phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
   headphones:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 14v3a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg>',
@@ -358,6 +374,7 @@ const ICON = {
   wa:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C12.831-3.984.106 1.407.101 11.893c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c7.691 0 14.525-6.242 14.527-13.91.001-3.715-1.443-7.21-4.065-9.835zm-8.516 21.19h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z"/></svg>'
 };
 
+/* ===== SVG logo — identical to index.html ===== */
 const SVG_LOGO = `
 <svg class="j-brand__logo" viewBox="0 0 480 115" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="KAKA ENTERPRISES Logo">
   <defs>
@@ -381,7 +398,6 @@ const SVG_LOGO = `
 </svg>
 `;
 
-/* Small monogram for invoice brand mark */
 const INVOICE_MARK = `
 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <rect x="10" y="14" width="14" height="72" rx="3" fill="#FFFFFF"/>
@@ -391,6 +407,7 @@ const INVOICE_MARK = `
   <circle cx="66" cy="78" r="4" fill="#4D9FFF"/>
 </svg>`;
 
+/* ===== Drawer nav — identical to index.html ===== */
 function buildDrawerNav(){
   let html = `<a href="shop.html" class="drawer__link">Shop all products</a><a href="shop.html?tag=Sale" class="drawer__link">Deals</a><a href="shop.html?sort=new" class="drawer__link">New Arrivals</a>`;
   KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order).forEach(cat => {
@@ -400,30 +417,44 @@ function buildDrawerNav(){
     const subLinks = subs.map(sub => { const nested = (sub.children || []).filter(c => c.published); return `<a class="drawer__sub" href="shop.html?type=${encodeURIComponent(sub.slug)}">${KE.esc(sub.name)}</a>${nested.map(n => `<a class="drawer__sub drawer__sub--nested" href="shop.html?type=${encodeURIComponent(n.slug)}">${KE.esc(n.name)}</a>`).join('')}`; }).join('');
     html += `<div class="drawer__group"><button type="button" class="drawer__toggle" aria-expanded="false" aria-controls="${groupId}"><span>${KE.esc(cat.name)}</span>${ICON.chevron}</button><div class="drawer__sub-list" id="${groupId}"><div>${subLinks}<a class="drawer__sub drawer__sub--all" href="shop.html?cat=${encodeURIComponent(cat.slug)}">View all ${KE.esc(cat.name)} →</a></div></div></div>`;
   });
-  html += `<a href="store-location.html" class="drawer__link">Visit our store</a><a href="track-order.html" class="drawer__link">Track order</a><a href="cart.html" class="drawer__link">Cart</a>`;
+  html += `<a href="account.html" class="drawer__link">My account</a><a href="store-location.html" class="drawer__link">Visit our store</a><a href="track-order.html" class="drawer__link">Track order</a><a href="cart.html" class="drawer__link">Cart</a>`;
   return html;
 }
 
+/* ===== Header — identical to index.html ===== */
 function renderHeader(){
   const host = document.getElementById('siteHeader'); if (!host) return;
   const topCats = KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order);
   const catIcons = { phone: ICON.phone, headphones: ICON.headphones, laptop: ICON.laptop, speaker: ICON.speaker, watch: ICON.watch, battery: ICON.battery, casing: ICON.casing };
   const catLinks = topCats.map(cat => { const hasSubs = (cat.children || []).some(c => c.published); return `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}">${catIcons[cat.icon] || ICON.laptop}${KE.esc(cat.name)}${hasSubs ? ICON.chevronSm : ''}</a>`; }).join('');
+  let accountLink;
+  try {
+    const u = (window.KE && KE.auth && KE.auth.current) ? KE.auth.current() : null;
+    if (u) {
+      const first = String(u.name || u.email || 'Account').split(' ')[0];
+      accountLink = '<a href="account.html" class="j-action is-signed-in" aria-label="My account">' + ICON.user + ' ' + KE.esc(first) + '</a>';
+    } else {
+      accountLink = '<a href="account.html" class="j-action" aria-label="My account">' + ICON.user + ' Account</a>';
+    }
+  } catch (e) {
+    accountLink = '<a href="account.html" class="j-action" aria-label="My account">' + ICON.user + ' Account</a>';
+  }
   host.innerHTML = `
     <div class="j-topbar"><div class="wrap j-topbar__inner">
       <nav class="j-topbar__links" aria-label="Information"><a href="store-location.html">Visit our store</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="delivery.html">Delivery</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="warranty.html">Warranty</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="return.html">Returns</a></nav>
-      <div class="j-topbar__right"><a href="track-order.html">Track order</a><span class="j-topbar__sep" aria-hidden="true" id="topbarCartSep" style="display:none"></span><a href="cart.html" class="j-topbar__cart" id="topbarCartLink" style="display:none" aria-label="View cart">Cart · <span class="count" id="topbarCartCount">0</span></a><span class="j-topbar__sep" aria-hidden="true"></span><a href="tel:+2347034652385">${KE.CONFIG.business.phonePretty}</a></div>
+      <div class="j-topbar__right"><a href="track-order.html">Track order</a><span class="j-topbar__sep" aria-hidden="true" id="topbarCartSep" style="display:none"></span><a href="cart.html" class="j-topbar__cart" id="topbarCartLink" style="display:none" aria-label="View cart">Cart · <span class="count" id="topbarCartCount">0</span></a><span class="j-topbar__sep" aria-hidden="true"></span><a href="tel:+2347034652385">${KE.CONFIG.business.phonePretty || KE.CONFIG.business.phone}</a></div>
     </div></div>
     <div class="j-main"><div class="wrap j-main__inner">
       <a href="index.html" class="j-brand" aria-label="${KE.esc(KE.CONFIG.business.name)} — Home">${SVG_LOGO}</a>
       <form class="j-search" id="searchForm" role="search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) location.href='shop.html?q='+encodeURIComponent(q);">${ICON.search}<label class="sr" for="q">Search products</label><input id="q" name="q" type="search" placeholder="Search products…" autocomplete="off" /><button type="submit">Search</button></form>
-      <div class="j-actions"><button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button><a href="#" class="j-action">${ICON.user} Account</a><a href="#" class="j-action">${ICON.help} Help</a><a href="cart.html" class="j-action j-cart" aria-label="Open cart">${ICON.cart} Cart<span class="icon-badge" id="cartBadge" hidden>0</span></a></div>
+      <div class="j-actions"><button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button>${accountLink}<a href="#" class="j-action">${ICON.help} Help</a><a href="cart.html" class="j-action j-cart" aria-label="Open cart">${ICON.cart} Cart<span class="icon-badge" id="cartBadge" hidden>0</span></a></div>
     </div></div>
     <nav class="j-cats" aria-label="Shop by category"><div class="wrap j-cats__scroll"><a href="shop.html">${ICON.store} All products</a>${catLinks}</div></nav>
     <div class="drawer" id="navDrawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer__scrim" data-close></div><div class="drawer__panel"><button class="drawer__close" data-close aria-label="Close menu">${ICON.close}</button><nav class="drawer__nav" aria-label="Mobile">${buildDrawerNav()}</nav></div></div>
   `;
 }
 
+/* ===== Footer — identical to index.html ===== */
 function renderFooter(){
   const host = document.getElementById('siteFooter'); if (!host) return;
   const biz = KE.CONFIG.business;
@@ -435,7 +466,7 @@ function renderFooter(){
           <p class="site-footer__tagline">Phone &amp; computer accessories for retail and wholesale buyers.</p>
           <ul class="site-footer__contact">
             <li>${ICON.pin}<span>${KE.esc(biz.address)}</span></li>
-            <li>${ICON.phoneSm}<a href="tel:+2347034652385">${KE.esc(biz.phonePretty)}</a></li>
+            <li>${ICON.phoneSm}<a href="tel:+2347034652385">${KE.esc(biz.phonePretty || biz.phone)}</a></li>
             <li>${ICON.whatsappSm}<a href="https://wa.me/${biz.whatsapp}" target="_blank" rel="noopener">WhatsApp us</a></li>
           </ul>
         </div>
@@ -447,14 +478,15 @@ function renderFooter(){
         </div>
         <div>
           <h5>Help</h5>
+          <a href="account.html">My account</a>
           <a href="cart.html">Your cart</a>
           <a href="track-order.html">Track your order</a>
           <a href="delivery.html">Delivery info</a>
         </div>
         <div>
-          <h5>About</h5>
-          <a href="index.html"></a>
-          <a href="store-location.html">Visit our store/ </a>
+          <h5>About Us</h5>
+          <a href="index.html">Home</a>
+          <a href="store-location.html">Visit our store</a>
           <a href="store-location.html">Contact us</a>
         </div>
       </div>
@@ -503,32 +535,106 @@ function bindHeaderSticky(){
    ============================================================ */
 function readRef() {
   const p = new URLSearchParams(location.search);
-  return p.get('ref') || p.get('id') || '';
+  return p.get('order') || p.get('ref') || p.get('id') || '';
 }
 
-/* Normalizer handles both the checkout.html shape and the original order-confirm shape */
+function findOrder(ref) {
+  if (!ref) return null;
+  const target = String(ref).trim();
+  try {
+    const raw = localStorage.getItem('kaka:last-order:v1');
+    if (raw) {
+      const last = JSON.parse(raw);
+      if (last && (last.id === target || last.ref === target)) return normalizeOrder(last);
+    }
+  } catch {}
+  try {
+    const session = JSON.parse(localStorage.getItem('kaka:session:v1') || 'null');
+    if (session && session.email) {
+      const users = JSON.parse(localStorage.getItem('kaka:users:v1') || '{}');
+      const u = users[session.email];
+      if (u && Array.isArray(u.orders)) {
+        const found = u.orders.find(o => o.id === target || o.ref === target);
+        if (found) return normalizeOrder(found);
+      }
+    }
+  } catch {}
+  try {
+    const users = JSON.parse(localStorage.getItem('kaka:users:v1') || '{}');
+    for (const email in users) {
+      const list = users[email] && users[email].orders;
+      if (Array.isArray(list)) {
+        const found = list.find(o => o.id === target || o.ref === target);
+        if (found) return normalizeOrder(found);
+      }
+    }
+  } catch {}
+  try {
+    const last = JSON.parse(sessionStorage.getItem('kaka:lastOrder') || localStorage.getItem('kaka:lastOrder') || 'null');
+    if (last && (last.ref === target || last.id === target)) return normalizeOrder(last);
+  } catch {}
+  try {
+    const orders = JSON.parse(localStorage.getItem('kaka:orders') || '[]');
+    const found = orders.find(o => o.ref === target || o.id === target);
+    if (found) return normalizeOrder(found);
+  } catch {}
+  return null;
+}
+
 function normalizeOrder(raw) {
   if (!raw) return null;
-  const c = raw.customer || {};
-  const s = raw.shipping || {};
-  const t = raw.totals || {};
+  const isCheckoutShape =
+    raw.customerName !== undefined ||
+    raw.paymentStatus !== undefined ||
+    raw.customerEmail !== undefined ||
+    raw.customerPhone !== undefined;
+  if (isCheckoutShape) {
+    const addr = raw.address || {};
+    const items = (raw.items || []).map(it => ({
+      name: it.name || 'Item', sku: it.sku || '', qty: Number(it.qty) || 1,
+      unit_price: Number(it.price) || 0,
+      line_total: Number(it.lineTotal) || (Number(it.price) || 0) * (Number(it.qty) || 1)
+    }));
+    const pmRaw = String(raw.paymentMethod || '').toLowerCase();
+    const paymentMethodSlug =
+      pmRaw.includes('pay on delivery') || pmRaw.includes('cod') ? 'cod' :
+      pmRaw.includes('transfer') ? 'transfer' : 'paystack';
+    const psRaw = String(raw.paymentStatus || 'pending').toLowerCase();
+    const paymentStatus =
+      (psRaw === 'paid' || psRaw === 'successful') ? 'paid' :
+      (paymentMethodSlug === 'cod'      ? 'pending_on_delivery' :
+       paymentMethodSlug === 'transfer' ? 'awaiting_transfer' :
+       psRaw === 'awaiting'             ? 'awaiting_transfer' : 'pending');
+    const delivery = Number(raw.delivery) || 0;
+    return {
+      ref: raw.id || raw.ref || 'KE-ORDER',
+      invoice_number: raw.id || raw.ref || 'KE-INV',
+      created_at: raw.createdAt || new Date().toISOString(),
+      customer_name: raw.customerName || addr.name || 'Customer',
+      phone: raw.customerPhone || addr.phone || '',
+      email: raw.customerEmail || addr.email || '',
+      address: addr.line1 || '', city: addr.city || '', state: addr.state || '',
+      notes: raw.deliveryNotes || '', items,
+      subtotal: Number(raw.subtotal) || items.reduce((a,b)=>a+b.line_total, 0),
+      shipping_fee: delivery, delivery_free: delivery === 0,
+      total: Number(raw.total) || 0,
+      payment_method: paymentMethodSlug, payment_status: paymentStatus,
+      order_type: 'retail', business_name: ''
+    };
+  }
+  const c = raw.customer || {}; const s = raw.shipping || {}; const t = raw.totals || {};
   const items = (raw.items || []).map(it => ({
-    name: it.name || it.name_snapshot || 'Item',
-    sku: it.sku || '',
-    qty: it.qty || 1,
+    name: it.name || it.name_snapshot || 'Item', sku: it.sku || '', qty: Number(it.qty) || 1,
     unit_price: it.unitPrice || it.unit_price_snapshot || 0,
     line_total: it.lineTotal || it.line_total || ((it.unitPrice || 0) * (it.qty || 1))
   }));
-  const subtotal = t.subtotal ?? raw.subtotal ?? items.reduce((a,b)=>a+b.line_total,0);
+  const subtotal     = t.subtotal ?? raw.subtotal     ?? items.reduce((a,b)=>a+b.line_total,0);
   const shipping_fee = t.delivery ?? raw.shipping_fee ?? 0;
-  const total = t.total ?? raw.total ?? (subtotal + shipping_fee);
-
+  const total        = t.total    ?? raw.total        ?? (subtotal + shipping_fee);
   const payment = raw.paymentMethod || raw.payment_method || 'paystack';
   const payment_status = raw.payment_status
     || (payment === 'cod' ? 'pending_on_delivery'
-       : payment === 'transfer' ? 'awaiting_transfer'
-       : 'pending');
-
+      : payment === 'transfer' ? 'awaiting_transfer' : 'pending');
   return {
     ref: raw.ref || raw.id || 'KE-ORDER',
     invoice_number: raw.invoice_number || (raw.ref || raw.id || 'KE-INV'),
@@ -540,35 +646,16 @@ function normalizeOrder(raw) {
     city: raw.city || s.city || '',
     state: raw.state || s.state || '',
     notes: raw.notes || s.notes || '',
-    items,
-    subtotal,
-    shipping_fee,
-    delivery_free: shipping_fee === 0,
-    total,
-    payment_method: payment,
-    payment_status,
-    order_type: raw.order_type || (raw.deliveryMethod === 'pickup' ? 'retail' : 'retail'),
+    items, subtotal, shipping_fee, delivery_free: shipping_fee === 0, total,
+    payment_method: payment, payment_status,
+    order_type: raw.order_type || 'retail',
     business_name: raw.business_name || ''
   };
-}
-
-function findOrder(ref) {
-  try {
-    const last = JSON.parse(sessionStorage.getItem('kaka:lastOrder') || localStorage.getItem('kaka:lastOrder') || 'null');
-    if (last && (last.ref === ref || last.id === ref)) return normalizeOrder(last);
-  } catch {}
-  try {
-    const orders = JSON.parse(localStorage.getItem('kaka:orders') || '[]');
-    const found = orders.find(o => o.ref === ref || o.id === ref);
-    if (found) return normalizeOrder(found);
-  } catch {}
-  return null;
 }
 
 function paymentNextSteps(order) {
   const payment = order.payment_method;
   const total = KE.money(order.total);
-
   if (payment === 'cod') {
     return {
       title: 'Pay on delivery',
@@ -614,11 +701,9 @@ const OC = {
 
   render(order) {
     document.title = 'Order ' + order.ref + ' confirmed — KAKA ENTERPRISES';
-
     const created = new Date(order.created_at || Date.now());
     const dateStr = created.toLocaleDateString('en-NG', { day:'2-digit', month:'short', year:'numeric' });
     const timeStr = created.toLocaleTimeString('en-NG', { hour:'2-digit', minute:'2-digit' });
-
     const next = paymentNextSteps(order);
     const isWholesale = order.order_type === 'wholesale';
     const waHref = `https://wa.me/${KE.CONFIG.business.whatsapp}?text=${encodeURIComponent(`Hi KAKA ENTERPRISES, I'd like to follow up on my order ${order.ref}.`)}`;
@@ -780,7 +865,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!order) OC.renderNotFound();
   else OC.render(order);
 
-  window.addEventListener('storage', e => { if (e.key === 'kaka:cart:v1') updateCartBadge(); });
+  window.addEventListener('storage', e => {
+    if (e.key === 'kaka:cart:v1') updateCartBadge();
+    if (e.key === 'kaka:session:v1') { renderHeader(); bindHeaderSticky(); bindDrawer(); updateCartBadge(); }
+  });
   document.addEventListener('cart:updated', updateCartBadge);
 });
 </script>
