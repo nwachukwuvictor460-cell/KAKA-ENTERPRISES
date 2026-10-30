@@ -35,7 +35,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .mono{font-family:var(--font-mono);font-feature-settings:"tnum" 1}
 .muted{color:var(--muted)}
-[data-placeholder]{opacity:.55;cursor:not-allowed;pointer-events:none;text-decoration:line-through;text-decoration-color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}}
 #siteHeader{position:sticky;position:-webkit-sticky;top:0;z-index:9999;background:#FFFFFF;transition:box-shadow .2s ease}
 [data-theme="dark"] #siteHeader{background:#0F0F1A}
@@ -148,6 +147,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .site-footer h5{color:var(--ink);font-size:var(--fs-13);font-weight:700;margin-bottom:var(--sp-4);text-transform:uppercase;letter-spacing:0.06em}
 .site-footer a{display:block;padding:5px 0;color:var(--muted);font-size:var(--fs-14)}
 .site-footer a:hover{color:var(--brand)}
+.site-footer a.footer-inline{display:inline;padding:0}
 .site-footer__brand{display:flex;align-items:center;margin-bottom:var(--sp-4)}
 .site-footer__brand-col{min-width:0}
 .site-footer__tagline{font-size:var(--fs-13);color:var(--muted);margin:0 0 var(--sp-4);line-height:1.55;max-width:38ch}
@@ -338,7 +338,6 @@ button,input,select,textarea{font:inherit;color:inherit}
   <section class="account">
     <div class="wrap">
 
-      <!-- ============ LOGGED OUT ============ -->
       <div id="authView">
         <div class="auth-card">
           <h1>Create an account with us</h1>
@@ -351,7 +350,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 
           <div class="auth-alert" id="authAlert" role="alert" hidden></div>
 
-          <!-- Register -->
           <form id="panelRegister" role="tabpanel" aria-labelledby="tabRegister" novalidate>
             <div class="field">
               <label for="regName">Full name</label>
@@ -389,10 +387,9 @@ button,input,select,textarea{font:inherit;color:inherit}
             <p class="field__error" data-error-for="regTerms" style="margin-bottom:var(--sp-3)"></p>
             <button class="btn btn--primary btn--lg" type="submit" id="registerSubmit" style="width:100%">Create account</button>
             <p class="auth__switch">Already have an account? <a href="#login" data-goto="login">Log in</a></p>
-            <p class="demo-note"><strong>Note:</strong> This account system is a frontend demo (no backend). Passwords are hashed with PBKDF2 and stored in your browser only. Do not reuse a real password.</p>
+            <p class="demo-note"><strong>Note:</strong> This account system is a frontend demo (no backend). Passwords are hashed with SHA-256 and stored in your browser only. Do not reuse a real password.</p>
           </form>
 
-          <!-- Login -->
           <form id="panelLogin" role="tabpanel" aria-labelledby="tabLogin" novalidate hidden>
             <h2 style="margin:0 0 6px;font-size:var(--fs-22)">Welcome back</h2>
             <p class="auth-sub">Log in to your account to continue shopping and access your order history.</p>
@@ -419,7 +416,6 @@ button,input,select,textarea{font:inherit;color:inherit}
         </div>
       </div>
 
-      <!-- ============ LOGGED IN ============ -->
       <div id="dashboardView" class="account__shell" hidden>
         <aside class="acct-side">
           <div class="acct-side__profile">
@@ -459,7 +455,6 @@ button,input,select,textarea{font:inherit;color:inherit}
         </aside>
 
         <section class="acct-main">
-          <!-- OVERVIEW -->
           <div class="acct-panel is-active" id="panelOverview" data-panel="overview">
             <div class="acct-head"><div><h1 id="greeting">Welcome back</h1><p>Here's a quick snapshot of your account.</p></div></div>
             <div class="stat-grid">
@@ -474,25 +469,21 @@ button,input,select,textarea{font:inherit;color:inherit}
             <div id="overviewOrders"></div>
           </div>
 
-          <!-- ORDERS -->
           <div class="acct-panel" id="panelOrders" data-panel="orders">
             <div class="acct-head"><div><h1>My orders</h1><p>Track and review every order you've placed.</p></div></div>
             <div id="ordersList"></div>
           </div>
 
-          <!-- CART -->
           <div class="acct-panel" id="panelCart" data-panel="cart">
             <div class="acct-head"><div><h1>Saved cart</h1><p>Your cart is saved to your account and syncs across devices.</p></div></div>
             <div id="cartContent"></div>
           </div>
 
-          <!-- ADDRESSES -->
           <div class="acct-panel" id="panelAddresses" data-panel="addresses">
             <div class="acct-head"><div><h1>Delivery addresses</h1><p>Save addresses to check out faster next time.</p></div></div>
             <div class="addr-grid" id="addrGrid"></div>
           </div>
 
-          <!-- SETTINGS -->
           <div class="acct-panel" id="panelSettings" data-panel="settings">
             <div class="acct-head"><div><h1>Account settings</h1><p>Manage your profile, password and preferences.</p></div></div>
 
@@ -535,7 +526,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 </main>
 <div id="siteFooter"></div>
 
-<!-- Address modal -->
 <div class="modal" id="addrModal" data-open="false" role="dialog" aria-modal="true" aria-label="Add address">
   <div class="modal__scrim" data-close></div>
   <div class="modal__panel">
@@ -566,14 +556,357 @@ button,input,select,textarea{font:inherit;color:inherit}
 <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
 
 <!-- ============================================================
-     SHARED code — all pages load this. Provides KE namespace,
-     KE.auth, KE.account, renderHeader/renderFooter (Account link
-     already points at account.html), cart, toast, etc.
+     SHARED JS — header/footer identical to shop.html
      ============================================================ -->
-<script src="assets/js/kaka.js"></script>
+<script>
+window.KE = window.KE || {};
+KE.CONFIG = {flatDeliveryFee: 2500,freeDeliveryFrom: 50000,wholesale: [{ min:1, max:9, off:0 },{ min:10, max:49, off:0.09 },{ min:50, max:Infinity, off:0.15 }],business: {name: 'KAKA ENTERPRISES',tagline: 'Power. Connect. Deliver.',address: "No. 19 St. Michael's Road, Aba, Abia State, Nigeria",phone: '07034652385',phonePretty: '0703 465 2385',whatsapp: '2347034652385',mapQuery: "KAKA ENTERPRISES, No. 19 St. Michael's Road, Aba, Abia State, Nigeria"}};
+KE.CATEGORIES = [
+  { slug:'phones-tablets', name:'Phones & Tablets', icon:'phone', order:1, published:true, children:[{ slug:'smartphones', name:'Smartphones', order:1, published:true, children:[] },{ slug:'tablets', name:'Tablets', order:2, published:true, children:[] },{ slug:'feature-phones', name:'Feature Phones', order:3, published:true, children:[] }]},
+  { slug:'phone-accessories', name:'Phone Accessories', icon:'headphones', order:2, published:true, children:[{ slug:'charging-accessories', name:'Charging Accessories', order:1, published:true, children:[{ slug:'chargers', name:'Chargers', order:1, published:true, children:[] },{ slug:'power-banks', name:'Power Banks', order:2, published:true, children:[] },{ slug:'charging-cables', name:'Charging Cables', order:3, published:true, children:[] },{ slug:'wireless-chargers', name:'Wireless Chargers', order:4, published:true, children:[] }]},{ slug:'audio-accessories', name:'Audio Accessories', order:2, published:true, children:[{ slug:'earbuds', name:'Earbuds', order:1, published:true, children:[] },{ slug:'headphones', name:'Headphones', order:2, published:true, children:[] },{ slug:'speakers', name:'Speakers', order:3, published:true, children:[] }]},{ slug:'screen-protectors', name:'Screen Protectors', order:3, published:true, children:[] }]},
+  { slug:'phone-batteries', name:'Phone Batteries', icon:'battery', order:3, published:true, children:[{ slug:'iphone-batteries', name:'iPhone Batteries', order:1, published:true, children:[] },{ slug:'samsung-batteries', name:'Samsung Batteries', order:2, published:true, children:[] },{ slug:'tecno-batteries', name:'Tecno Batteries', order:3, published:true, children:[] },{ slug:'infinix-batteries', name:'Infinix Batteries', order:4, published:true, children:[] },{ slug:'other-batteries', name:'Other Brands', order:5, published:true, children:[] }]},
+  { slug:'phone-casings', name:'Phone Casings', icon:'casing', order:4, published:true, children:[{ slug:'clear-cases', name:'Clear Cases', order:1, published:true, children:[] },{ slug:'silicone-cases', name:'Silicone Cases', order:2, published:true, children:[] },{ slug:'leather-cases', name:'Leather Cases', order:3, published:true, children:[] },{ slug:'rugged-cases', name:'Rugged Cases', order:4, published:true, children:[] },{ slug:'flip-covers', name:'Flip Covers', order:5, published:true, children:[] },{ slug:'magsafe-cases', name:'MagSafe Cases', order:6, published:true, children:[] }]},
+  { slug:'computer-accessories', name:'Computer Accessories', icon:'laptop', order:5, published:true, children:[{ slug:'computer-input', name:'Input Devices', order:1, published:true, children:[{ slug:'keyboards', name:'Keyboards', order:1, published:true, children:[] },{ slug:'mice', name:'Mice', order:2, published:true, children:[] }]},{ slug:'computer-desk', name:'Desk & Hubs', order:2, published:true, children:[{ slug:'usb-hubs', name:'USB Hubs & Docks', order:1, published:true, children:[] },{ slug:'laptop-stands', name:'Laptop Stands', order:2, published:true, children:[] },{ slug:'webcams', name:'Webcams', order:3, published:true, children:[] }]},{ slug:'computer-storage', name:'Storage Devices', order:3, published:true, children:[{ slug:'ssds', name:'SSDs', order:1, published:true, children:[] },{ slug:'memory-cards', name:'Memory Cards', order:2, published:true, children:[] },{ slug:'flash-drives', name:'Flash Drives', order:3, published:true, children:[] }]}]},
+  { slug:'audio-gadgets', name:'Audio Gadgets', icon:'speaker', order:6, published:true, children:[{ slug:'bluetooth-speakers', name:'Bluetooth Speakers', order:1, published:true, children:[] },{ slug:'soundbars', name:'Soundbars', order:2, published:true, children:[] }]},
+  { slug:'smart-gadgets', name:'Smart Gadgets', icon:'watch', order:7, published:true, children:[{ slug:'smart-watches', name:'Smart Watches', order:1, published:true, children:[] },{ slug:'smart-bands', name:'Smart Bands', order:2, published:true, children:[] }]}
+];
+KE.BRANDS = [{ slug:'voltix', name:'Voltix', initial:'V' },{ slug:'kord', name:'Kord', initial:'K' },{ slug:'sona', name:'Sona', initial:'S' },{ slug:'peak', name:'Peak', initial:'P' },{ slug:'northloop', name:'Northloop', initial:'N' },{ slug:'arkstore', name:'Arkstore', initial:'A' },{ slug:'oraimo', name:'Oraimo', initial:'O' }];
+KE.PRODUCTS = [
+  { slug:'gan-65w-usb-c-wall-charger', sku:'KE-CHG-001', name:'GaN 65W USB-C Wall Charger', categoryPath:['phone-accessories','charging-accessories','chargers'], brand:'voltix', price:18500, compare_at_price:22000, tag:'Sale', stock:24, rating:4.8, reviews:246, img:'photo-1583863788434-e58a36330cf0', image_alt:'GaN 65W USB-C wall charger' },
+  { slug:'magsafe-10000mah-power-bank', sku:'KE-PWB-001', name:'MagSafe 10,000mAh Power Bank', categoryPath:['phone-accessories','charging-accessories','power-banks'], brand:'voltix', price:24900, compare_at_price:null, tag:'New', stock:12, rating:4.7, reviews:132, img:'photo-1609091839311-d5365f9ff1c5', image_alt:'MagSafe wireless power bank' },
+  { slug:'usb-c-to-usb-c-2m-cable', sku:'KE-CBL-001', name:'USB-C to USB-C 2m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:4500, compare_at_price:6000, tag:'Sale', stock:60, rating:4.6, reviews:320, img:'photo-1572569511254-d8f925fe2cbb', image_alt:'USB-C to USB-C charging cable' },
+  { slug:'lightning-braided-1m-cable', sku:'KE-CBL-002', name:'Lightning Braided 1m Cable', categoryPath:['phone-accessories','charging-accessories','charging-cables'], brand:'kord', price:3800, compare_at_price:null, tag:null, stock:42, rating:4.5, reviews:180, img:'photo-1572569511254-d8f925fe2cbb', image_alt:'Braided Lightning cable' },
+  { slug:'true-wireless-earbuds-pro', sku:'KE-AUD-001', name:'True Wireless Earbuds Pro', categoryPath:['phone-accessories','audio-accessories','earbuds'], brand:'sona', price:32500, compare_at_price:38000, tag:'Popular', stock:8, rating:4.9, reviews:412, img:'photo-1590658268037-6bf12165a8df', image_alt:'True wireless earbuds' },
+  { slug:'over-ear-studio-headset', sku:'KE-AUD-002', name:'Over-Ear Studio Headset', categoryPath:['phone-accessories','audio-accessories','headphones'], brand:'sona', price:42000, compare_at_price:null, tag:null, stock:5, rating:4.7, reviews:210, img:'photo-1505740420928-5e560c06d30e', image_alt:'Over-ear studio headphones' },
+  { slug:'tempered-glass-2-pack', sku:'KE-SCP-001', name:'Tempered Glass Screen Protector', categoryPath:['phone-accessories','screen-protectors'], brand:'peak', price:3200, compare_at_price:4500, tag:'Sale', stock:100, rating:4.6, reviews:540, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Tempered glass screen protector' },
+  { slug:'smart-watch-band-nylon', sku:'KE-WB-001', name:'Smart Watch Band — Nylon', categoryPath:['smart-gadgets','smart-watches'], brand:'peak', price:5500, compare_at_price:null, tag:null, stock:22, rating:4.3, reviews:88, img:'photo-1546868871-7041f2a55e12', image_alt:'Nylon smart watch band' },
+  { slug:'oraimo-picbuddy-dual-camera-kids-camera', sku:'KE-KID-001', name:'Oraimo PicBuddy Dual Camera HD Kids Camera', categoryPath:['smart-gadgets'], brand:'oraimo', price:35900, compare_at_price:39890, tag:'Sale', stock:20, rating:4.7, reviews:120, img:'photo-1512756290469-ec264b7fbf87', image_alt:'Kids digital camera' },
+  { slug:'phone-battery-iphone-11-oem', sku:'KE-BAT-001', name:'Phone Battery — iPhone 11 (OEM)', categoryPath:['phone-batteries','iphone-batteries'], brand:'voltix', price:12500, compare_at_price:15000, tag:'Sale', stock:18, rating:4.5, reviews:96, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery' },
+  { slug:'phone-battery-iphone-12-pro', sku:'KE-BAT-002', name:'Phone Battery — iPhone 12 Pro', categoryPath:['phone-batteries','iphone-batteries'], brand:'voltix', price:14500, compare_at_price:null, tag:'New', stock:14, rating:4.6, reviews:64, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery' },
+  { slug:'phone-battery-samsung-a52', sku:'KE-BAT-003', name:'Phone Battery — Samsung A52', categoryPath:['phone-batteries','samsung-batteries'], brand:'voltix', price:9800, compare_at_price:12000, tag:'Sale', stock:26, rating:4.4, reviews:118, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery' },
+  { slug:'phone-battery-samsung-s21', sku:'KE-BAT-004', name:'Phone Battery — Samsung S21', categoryPath:['phone-batteries','samsung-batteries'], brand:'voltix', price:13500, compare_at_price:null, tag:null, stock:11, rating:4.5, reviews:72, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery' },
+  { slug:'phone-battery-tecno-camon-17', sku:'KE-BAT-005', name:'Phone Battery — Tecno Camon 17', categoryPath:['phone-batteries','tecno-batteries'], brand:'voltix', price:7500, compare_at_price:null, tag:'Popular', stock:30, rating:4.3, reviews:140, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery' },
+  { slug:'phone-battery-infinix-hot-10', sku:'KE-BAT-006', name:'Phone Battery — Infinix Hot 10', categoryPath:['phone-batteries','infinix-batteries'], brand:'voltix', price:6800, compare_at_price:8500, tag:'Sale', stock:24, rating:4.2, reviews:88, img:'photo-1609592806596-bd6bd1d16c45', image_alt:'Replacement phone battery' },
+  { slug:'clear-shock-case-iphone', sku:'KE-CAS-001', name:'Clear Shock Case — iPhone', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:6500, compare_at_price:null, tag:'New', stock:30, rating:4.4, reviews:96, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Clear shock-proof phone case' },
+  { slug:'case-clear-shock-iphone-14', sku:'KE-CAS-002', name:'Clear Shock Case — iPhone 14', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:4500, compare_at_price:6000, tag:'Sale', stock:45, rating:4.6, reviews:220, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Clear shock-proof phone case' },
+  { slug:'case-silicone-iphone-13', sku:'KE-CAS-003', name:'Silicone Case — iPhone 13', categoryPath:['phone-casings','silicone-cases'], brand:'peak', price:3800, compare_at_price:null, tag:null, stock:52, rating:4.5, reviews:180, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Silicone phone case' },
+  { slug:'case-leather-samsung-s22', sku:'KE-CAS-004', name:'Leather Case — Samsung S22', categoryPath:['phone-casings','leather-cases'], brand:'peak', price:7500, compare_at_price:9500, tag:'Sale', stock:20, rating:4.7, reviews:96, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Leather phone case' },
+  { slug:'case-rugged-armour-tecno', sku:'KE-CAS-005', name:'Rugged Armour Case — Tecno', categoryPath:['phone-casings','rugged-cases'], brand:'peak', price:5500, compare_at_price:null, tag:'New', stock:34, rating:4.5, reviews:120, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Rugged phone case' },
+  { slug:'case-flip-cover-infinix', sku:'KE-CAS-006', name:'Flip Cover — Infinix', categoryPath:['phone-casings','flip-covers'], brand:'peak', price:4200, compare_at_price:5200, tag:'Sale', stock:38, rating:4.4, reviews:140, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Flip cover phone case' },
+  { slug:'case-transparent-shock-xiaomi', sku:'KE-CAS-007', name:'Transparent Shock Case — Xiaomi', categoryPath:['phone-casings','clear-cases'], brand:'peak', price:3500, compare_at_price:null, tag:null, stock:60, rating:4.5, reviews:186, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'Transparent phone case' },
+  { slug:'case-magsafe-iphone-15-pro', sku:'KE-CAS-008', name:'MagSafe Case — iPhone 15 Pro', categoryPath:['phone-casings','magsafe-cases'], brand:'peak', price:8500, compare_at_price:null, tag:'Popular', stock:16, rating:4.8, reviews:92, img:'photo-1601784551446-20c9e07cdbdb', image_alt:'MagSafe phone case' },
+  { slug:'mechanical-keyboard-75', sku:'KE-KB-001', name:'Mechanical Keyboard 75%', categoryPath:['computer-accessories','computer-input','keyboards'], brand:'northloop', price:46500, compare_at_price:52000, tag:'Popular', stock:7, rating:4.8, reviews:310, img:'photo-1587829741301-dc798b83add3', image_alt:'Mechanical keyboard' },
+  { slug:'silent-wireless-mouse', sku:'KE-MS-001', name:'Silent Wireless Mouse', categoryPath:['computer-accessories','computer-input','mice'], brand:'northloop', price:9800, compare_at_price:null, tag:null, stock:18, rating:4.6, reviews:220, img:'photo-1527814050087-3793815479db', image_alt:'Wireless computer mouse' },
+  { slug:'usb-c-7in1-hub', sku:'KE-HUB-001', name:'USB-C 7-in-1 Hub', categoryPath:['computer-accessories','computer-desk','usb-hubs'], brand:'northloop', price:27500, compare_at_price:31000, tag:'Sale', stock:14, rating:4.7, reviews:188, img:'photo-1625842268584-8f3296236761', image_alt:'USB-C hub' },
+  { slug:'laptop-stand-aluminium', sku:'KE-STD-001', name:'Aluminium Laptop Stand', categoryPath:['computer-accessories','computer-desk','laptop-stands'], brand:'peak', price:15900, compare_at_price:null, tag:null, stock:11, rating:4.5, reviews:140, img:'photo-1618384887929-16ec33fab9ef', image_alt:'Aluminium laptop stand' },
+  { slug:'1080p-webcam-with-mic', sku:'KE-CAM-001', name:'1080p Webcam with Mic', categoryPath:['computer-accessories','computer-desk','webcams'], brand:'arkstore', price:21500, compare_at_price:null, tag:'New', stock:9, rating:4.4, reviews:96, img:'photo-1587826080692-f439cd0b70da', image_alt:'1080p webcam' },
+  { slug:'nvme-ssd-1tb-enclosure', sku:'KE-SSD-001', name:'NVMe SSD 1TB + Enclosure', categoryPath:['computer-accessories','computer-storage','ssds'], brand:'arkstore', price:78000, compare_at_price:89000, tag:'Sale', stock:4, rating:4.9, reviews:210, img:'photo-1591370874773-6702e8f12fd8', image_alt:'NVMe SSD drive' },
+  { slug:'usb-c-dock-dual-hdmi', sku:'KE-DOCK-001', name:'USB-C Dock — Dual HDMI', categoryPath:['computer-accessories','computer-desk','usb-hubs'], brand:'northloop', price:58000, compare_at_price:null, tag:null, stock:6, rating:4.6, reviews:110, img:'photo-1625842268584-8f3296236761', image_alt:'USB-C dual HDMI dock' }
+];
+KE.money = n => '₦' + (Number(n) || 0).toLocaleString('en-NG', { maximumFractionDigits: 0 });
+KE.esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+KE.PLACEHOLDER_IMG = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#E8F1FF"/><text x="50%" y="50%" text-anchor="middle" fill="#0A5DFF" font-family="system-ui,sans-serif" font-size="16" font-weight="700" dy=".35em">KAKA</text></svg>');
+KE.img = (id, w = 500) => { if (!id) return KE.PLACEHOLDER_IMG; if (id.startsWith('http') || id.startsWith('data:') || id.startsWith('/') || id.startsWith('assets/')) return id; return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`; };
+KE.imgFallback = function(el){ if (!el || el.dataset.fallbackApplied) return; el.dataset.fallbackApplied = '1'; el.src = KE.PLACEHOLDER_IMG; };
+KE.tierFor = q => KE.CONFIG.wholesale.find(t => q >= t.min && q <= t.max) || KE.CONFIG.wholesale[0];
+KE.unitPrice = (p, q = 1) => Math.round(p.price * (1 - KE.tierFor(q).off));
+KE.findProduct = slug => KE.PRODUCTS.find(p => p.slug === slug) || null;
+KE.findBrand = slug => KE.BRANDS.find(b => b.slug === slug) || null;
+KE.brandName = slug => KE.findBrand(slug)?.name || slug;
+
+/* ---- Full auth (account page specific) ---- */
+function _readUsers(){ try { return JSON.parse(localStorage.getItem('kaka:users:v1')) || {}; } catch(e){ return {}; } }
+function _writeUsers(u){ try { localStorage.setItem('kaka:users:v1', JSON.stringify(u)); } catch(e){} }
+function _readSession(){
+  try {
+    var s = JSON.parse(localStorage.getItem('kaka:session:v1'));
+    if (!s || !s.email) return null;
+    if (s.expiresAt && s.expiresAt < Date.now()) { localStorage.removeItem('kaka:session:v1'); return null; }
+    return s;
+  } catch(e){ return null; }
+}
+function _writeSession(email, ttlMs){
+  try {
+    localStorage.setItem('kaka:session:v1', JSON.stringify({
+      email: email,
+      expiresAt: Date.now() + (ttlMs || 30 * 24 * 60 * 60 * 1000)
+    }));
+  } catch(e){}
+}
+function _uid(){ return 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function _randSalt(){
+  try { return Array.from(crypto.getRandomValues(new Uint8Array(8))).map(b => b.toString(16).padStart(2, '0')).join(''); }
+  catch(e){ return Math.random().toString(36).slice(2, 12); }
+}
+async function _hashPw(pw, salt){
+  var data = new TextEncoder().encode(salt + ':' + pw);
+  if (window.crypto && window.crypto.subtle){
+    try {
+      var buf = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    } catch(e){ /* fall through */ }
+  }
+  var h = 0;
+  for (var i = 0; i < data.length; i++) h = ((h << 5) - h + data[i]) | 0;
+  return 'fallback:' + Math.abs(h).toString(16);
+}
+
+KE.auth = {
+  current: function(){
+    var s = _readSession(); if (!s) return null;
+    var u = _readUsers()[s.email]; if (!u) return null;
+    return {
+      id: u.id, name: u.name, email: u.email, phone: u.phone,
+      orders: u.orders || [], addresses: u.addresses || [],
+      cart: u.cart || {}, createdAt: u.createdAt
+    };
+  },
+  register: async function(opts){
+    var email = String(opts.email || '').trim().toLowerCase();
+    if (!email) return { ok: false, error: 'Email is required.' };
+    var users = _readUsers();
+    if (users[email]) return { ok: false, error: 'An account with that email already exists. Please log in instead.' };
+    var salt = _randSalt();
+    var hash = await _hashPw(opts.password || '', salt);
+    var user = {
+      id: _uid(), name: opts.name || '', email: email, phone: opts.phone || '',
+      salt: salt, hash: hash, orders: [], addresses: [], cart: {},
+      createdAt: new Date().toISOString()
+    };
+    users[email] = user;
+    _writeUsers(users);
+    _writeSession(email);
+    return { ok: true, user: {
+      id: user.id, name: user.name, email: user.email, phone: user.phone,
+      orders: [], addresses: [], cart: {}, createdAt: user.createdAt
+    }};
+  },
+  signIn: async function(opts){
+    var id = String(opts.email || '').trim().toLowerCase();
+    var users = _readUsers();
+    var user = users[id], email = id;
+    if (!user){
+      var norm = id.replace(/[\s\-()]/g, '');
+      for (var k in users){
+        if ((users[k].phone || '').replace(/[\s\-()]/g, '') === norm){ user = users[k]; email = k; break; }
+      }
+    }
+    if (!user) return { ok: false, error: 'No account found with that email or phone.' };
+    var hash = await _hashPw(opts.password || '', user.salt);
+    if (hash !== user.hash) return { ok: false, error: 'Incorrect password.' };
+    _writeSession(email, opts.remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000);
+    return { ok: true, user: {
+      id: user.id, name: user.name, email: user.email, phone: user.phone,
+      orders: user.orders || [], addresses: user.addresses || [],
+      cart: user.cart || {}, createdAt: user.createdAt
+    }};
+  },
+  signOut: function(){ try { localStorage.removeItem('kaka:session:v1'); } catch(e){} },
+  updatePassword: async function(email, curPw, newPw){
+    var users = _readUsers(); var u = users[email];
+    if (!u) return { ok: false, error: 'User not found.' };
+    if (await _hashPw(curPw || '', u.salt) !== u.hash) return { ok: false, error: 'Current password is incorrect.' };
+    u.salt = _randSalt();
+    u.hash = await _hashPw(newPw || '', u.salt);
+    users[email] = u; _writeUsers(users);
+    return { ok: true };
+  },
+  deleteAccount: function(email){
+    var users = _readUsers(); delete users[email]; _writeUsers(users);
+    try { localStorage.removeItem('kaka:session:v1'); } catch(e){}
+  }
+};
+
+KE.account = {
+  save: function(updates){
+    var cur = KE.auth.current(); if (!cur) return null;
+    var users = _readUsers(); var u = users[cur.email]; if (!u) return null;
+    var newEmail = String(updates.email || cur.email).toLowerCase();
+    if (newEmail !== cur.email && users[newEmail]) return { conflict: true };
+    if (updates.name !== undefined) u.name = updates.name;
+    if (updates.phone !== undefined) u.phone = updates.phone;
+    if (newEmail !== cur.email){
+      delete users[cur.email];
+      u.email = newEmail;
+      _writeSession(newEmail);
+    }
+    users[newEmail] = u;
+    _writeUsers(users);
+    return { ok: true };
+  },
+  cartTotals: function(){
+    var cur = KE.auth.current(); if (!cur) return { subtotal:0, delivery:0, total:0 };
+    var subtotal = 0;
+    var cart = cur.cart || {};
+    for (var slug in cart){
+      var p = KE.findProduct(slug); if (!p) continue;
+      subtotal += KE.unitPrice(p, cart[slug]) * cart[slug];
+    }
+    var freeFrom = KE.CONFIG.freeDeliveryFrom || 50000;
+    var delivery = subtotal > 0 ? (subtotal >= freeFrom ? 0 : KE.CONFIG.flatDeliveryFee) : 0;
+    return { subtotal: subtotal, delivery: delivery, total: subtotal + delivery };
+  },
+  setCartQty: function(slug, qty){
+    var cur = KE.auth.current(); if (!cur) return;
+    var users = _readUsers(); var u = users[cur.email]; if (!u) return;
+    u.cart = u.cart || {};
+    var n = Math.max(0, Math.min(Number(qty) || 0, 999));
+    if (n <= 0) delete u.cart[slug]; else u.cart[slug] = n;
+    users[cur.email] = u; _writeUsers(users);
+    document.dispatchEvent(new CustomEvent('cart:updated'));
+  },
+  removeFromCart: function(slug){ this.setCartQty(slug, 0); },
+  clearCart: function(){
+    var cur = KE.auth.current(); if (!cur) return;
+    var users = _readUsers();
+    if (users[cur.email]) { users[cur.email].cart = {}; _writeUsers(users); }
+    document.dispatchEvent(new CustomEvent('cart:updated'));
+  },
+  addAddress: function(data){
+    var cur = KE.auth.current(); if (!cur) return;
+    var users = _readUsers(); var u = users[cur.email]; if (!u) return;
+    u.addresses = u.addresses || [];
+    var addr = Object.assign({ id: 'a_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6) }, data);
+    if (addr.isDefault) u.addresses.forEach(function(a){ a.isDefault = false; });
+    u.addresses.push(addr);
+    if (u.addresses.length === 1) addr.isDefault = true;
+    users[cur.email] = u; _writeUsers(users);
+  },
+  updateAddress: function(id, data){
+    var cur = KE.auth.current(); if (!cur) return;
+    var users = _readUsers(); var u = users[cur.email]; if (!u) return;
+    u.addresses = (u.addresses || []).map(function(a){
+      if (a.id !== id) { if (data.isDefault) a.isDefault = false; return a; }
+      return Object.assign({}, a, data);
+    });
+    users[cur.email] = u; _writeUsers(users);
+  },
+  deleteAddress: function(id){
+    var cur = KE.auth.current(); if (!cur) return;
+    var users = _readUsers(); var u = users[cur.email]; if (!u) return;
+    u.addresses = (u.addresses || []).filter(function(a){ return a.id !== id; });
+    users[cur.email] = u; _writeUsers(users);
+  },
+  placeOrder: function(order){
+    var cur = KE.auth.current(); if (!cur) return null;
+    var users = _readUsers(); var u = users[cur.email]; if (!u) return null;
+    u.orders = u.orders || []; u.orders.push(order);
+    users[cur.email] = u; _writeUsers(users);
+    return order;
+  }
+};
+
+/* Cart — v2 (matches cart.html / checkout.html) */
+KE.cart = (function(){
+  var KEY = 'kaka:cart:v2';
+  function read(){ try { var raw = JSON.parse(localStorage.getItem(KEY)); return (raw && Array.isArray(raw.lines)) ? raw : { lines: [] }; } catch(e){ return { lines: [] }; } }
+  return {
+    count: function(){
+      var r = read();
+      return r.lines.reduce(function(s, l){
+        var units = (Number(l.qtyPacks) || 0) * (Number(l.unitsPerPackage) || 0);
+        return s + (units > 0 ? units : 0);
+      }, 0);
+    }
+  };
+})();
+
+KE.toast = function(msg, kind = '', action){ const stack = document.getElementById('toastStack'); if (!stack) return; const el = document.createElement('div'); el.className = 'toast' + (kind ? ' toast--' + kind : ''); const span = document.createElement('span'); span.textContent = msg; el.appendChild(span); if (action && action.href && action.label) { const a = document.createElement('a'); a.href = action.href; a.textContent = action.label; el.appendChild(a); } stack.appendChild(el); setTimeout(() => { el.style.transition = 'opacity .2s ease, transform .2s ease'; el.style.opacity = '0'; el.style.transform = 'translateY(6px)'; setTimeout(() => el.remove(), 240); }, 2400); };
+
+/* ---- ICON (same set as shop.html) ---- */
+const ICON = {phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',headphones:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 14v3a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/></svg>',laptop:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',speaker:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="14" r="4"/><circle cx="12" cy="6" r="1"/></svg>',watch:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 2M9 2h6M9 22h6"/></svg>',battery:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4"/><path d="M6 10v4M10 10v4"/></svg>',casing:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M9 5h6"/></svg>',search:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',cart:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a2 2 0 0 0 2 1.7h8.2a2 2 0 0 0 2-1.6L21 7H6"/></svg>',menu:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',close:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6l-12 12"/></svg>',chevron:'<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',chevronSm:'<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',user:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',help:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 1 1 5.3 2c-.8.8-2 1.4-2 2.7v.3"/><circle cx="12.5" cy="17.5" r=".5" fill="currentColor"/></svg>',store:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 4 4h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 22V13h6v9"/></svg>',pin:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',phoneSm:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>',whatsappSm:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M20.52 3.449C12.831-3.984.106 1.407.101 11.893c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c7.691 0 14.525-6.242 14.527-13.91.001-3.715-1.443-7.21-4.065-9.835zm-8.516 21.19h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z"/></svg>'};
+
+/* ---- SVG_LOGO (same as shop.html) ---- */
+const SVG_LOGO = `
+<svg class="j-brand__logo" viewBox="0 0 480 115" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="KAKA ENTERPRISES Logo">
+  <defs>
+    <linearGradient id="kGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0A5DFF" />
+      <stop offset="100%" stop-color="#4D9FFF" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 15)">
+    <rect x="0" y="0" width="18" height="80" rx="4" fill="#001F4B" class="k-stem" />
+    <path d="M 18 40 L 58 0 L 80 0 L 40 45 Z" fill="url(#kGrad)" class="k-gradient" />
+    <path d="M 18 40 L 58 80 L 80 80 L 40 35 Z" fill="url(#kGrad)" class="k-gradient" />
+    <circle cx="65" cy="12" r="5" fill="#4D9FFF" />
+    <circle cx="65" cy="68" r="5" fill="#4D9FFF" />
+  </g>
+  <g transform="translate(110, 0)">
+    <text x="0" y="58" font-family="'Inter', system-ui, sans-serif" font-size="62" font-weight="900" fill="#001F4B" letter-spacing="-2">AKA</text>
+    <text x="0" y="86" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="#0A5DFF" letter-spacing="4.5">ENTERPRISES</text>
+    <text x="0" y="105" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="600" fill="#5F6579" letter-spacing="1.5">- POWER . CONNECT . DELIVER -</text>
+  </g>
+</svg>
+`;
+
+/* ---- Drawer nav — matches shop.html ---- */
+function buildDrawerNav(){
+  let html = `<a href="shop.html" class="drawer__link">Shop all products</a><a href="shop.html?tag=Sale" class="drawer__link">Deals</a><a href="shop.html?sort=new" class="drawer__link">New Arrivals</a>`;
+  KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order).forEach(cat => {
+    const subs = (cat.children || []).filter(c => c.published);
+    if (!subs.length) { html += `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}" class="drawer__link">${KE.esc(cat.name)}</a>`; return; }
+    const groupId = 'drawer-group-' + cat.slug;
+    const subLinks = subs.map(sub => { const nested = (sub.children || []).filter(c => c.published); return `<a class="drawer__sub" href="shop.html?type=${encodeURIComponent(sub.slug)}">${KE.esc(sub.name)}</a>${nested.map(n => `<a class="drawer__sub drawer__sub--nested" href="shop.html?type=${encodeURIComponent(n.slug)}">${KE.esc(n.name)}</a>`).join('')}`; }).join('');
+    html += `<div class="drawer__group"><button type="button" class="drawer__toggle" aria-expanded="false" aria-controls="${groupId}"><span>${KE.esc(cat.name)}</span>${ICON.chevron}</button><div class="drawer__sub-list" id="${groupId}"><div>${subLinks}<a class="drawer__sub drawer__sub--all" href="shop.html?cat=${encodeURIComponent(cat.slug)}">View all ${KE.esc(cat.name)} →</a></div></div></div>`;
+  });
+  html += `<a href="#store" class="drawer__link">Visit our store</a><a href="track-order.html" class="drawer__link">Track order</a><a href="cart.html" class="drawer__link">Cart</a>`;
+  return html;
+}
+
+/* ---- Header — matches shop.html ---- */
+function renderHeader(){
+  const host = document.getElementById('siteHeader'); if (!host) return;
+  const topCats = KE.CATEGORIES.filter(c => c.published).sort((a,b) => a.order - b.order);
+  const catIcons = { phone: ICON.phone, headphones: ICON.headphones, laptop: ICON.laptop, speaker: ICON.speaker, watch: ICON.watch, battery: ICON.battery, casing: ICON.casing };
+  const catLinks = topCats.map(cat => { const hasSubs = (cat.children || []).some(c => c.published); return `<a href="shop.html?cat=${encodeURIComponent(cat.slug)}">${catIcons[cat.icon] || ICON.laptop}${KE.esc(cat.name)}${hasSubs ? ICON.chevronSm : ''}</a>`; }).join('');
+  host.innerHTML = `
+    <div class="j-topbar"><div class="wrap j-topbar__inner">
+      <nav class="j-topbar__links" aria-label="Information"><a href="#store">Visit our store</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="delivery.html">Delivery</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="warranty.html">Warranty</a><span class="j-topbar__sep" aria-hidden="true"></span><a href="return.html">Returns</a></nav>
+      <div class="j-topbar__right"><a href="track-order.html">Track order</a><span class="j-topbar__sep" aria-hidden="true" id="topbarCartSep" style="display:none"></span><a href="cart.html" class="j-topbar__cart" id="topbarCartLink" style="display:none" aria-label="View cart">Cart · <span class="count" id="topbarCartCount">0</span></a><span class="j-topbar__sep" aria-hidden="true"></span><a href="tel:+2347034652385">${KE.CONFIG.business.phone}</a></div>
+    </div></div>
+    <div class="j-main"><div class="wrap j-main__inner">
+      <a href="index.html" class="j-brand" aria-label="${KE.esc(KE.CONFIG.business.name)} — Home">${SVG_LOGO}</a>
+      <form class="j-search" id="searchForm" role="search" onsubmit="event.preventDefault(); const q=this.q.value.trim(); if(q) location.href='shop.html?q='+encodeURIComponent(q);">${ICON.search}<label class="sr" for="q">Search products</label><input id="q" name="q" type="search" placeholder="Search products…" autocomplete="off" /><button type="submit">Search</button></form>
+      <div class="j-actions"><button class="j-menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navDrawer" aria-expanded="false">${ICON.menu}</button><a href="account.html" class="j-action">${ICON.user} Account</a><a href="account.html" class="j-action">${ICON.help} Help</a><a href="cart.html" class="j-action j-cart" aria-label="Open cart">${ICON.cart} Cart<span class="icon-badge" id="cartBadge" hidden>0</span></a></div>
+    </div></div>
+    <nav class="j-cats" aria-label="Shop by category"><div class="wrap j-cats__scroll"><a href="shop.html">${ICON.store} All products</a>${catLinks}</div></nav>
+    <div class="drawer" id="navDrawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer__scrim" data-close></div><div class="drawer__panel"><button class="drawer__close" data-close aria-label="Close menu">${ICON.close}</button><nav class="drawer__nav" aria-label="Mobile">${buildDrawerNav()}</nav></div></div>
+  `;
+}
+
+/* ---- Footer — matches shop.html ---- */
+function renderFooter(){
+  const host = document.getElementById('siteFooter'); if (!host) return;
+  host.innerHTML = `
+    <div class="wrap">
+      <div class="site-footer__grid">
+        <div>
+          <div class="site-footer__brand">${SVG_LOGO.replace('j-brand__logo', 'site-footer__logo')}</div>
+          <p style="font-size:13px">Phone &amp; computer accessories for retail and wholesale buyers.</p>
+          <p style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.8">${KE.esc(KE.CONFIG.business.address)}<br><a class="footer-inline" href="tel:+2347034652385">${KE.CONFIG.business.phone}</a><br><a class="footer-inline" href="https://wa.me/${KE.CONFIG.business.whatsapp}" target="_blank" rel="noopener">WhatsApp us</a></p>
+        </div>
+        <div><h5>Shop</h5><a href="shop.html">All products </a><a href="shop.html?tag=Sale">Sale/</a><a href="shop.html?sort=new">New arrivals</a></div>
+        <div><h5>Help</h5><a href="cart.html"></a><a href="track-order.html"> Track your order/</a><a href="delivery.html">Delivery info</a></div>
+        <div><h5>About</h5><a href="index.html"></a><a href="#store">Visit our store/</a><a href="store-location.html">Contact us</a></div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>© <span id="year"></span> ${KE.esc(KE.CONFIG.business.name)}</span>
+        <div class="site-footer__pay"><span class="pay-badge">VISA</span><span class="pay-badge">Mastercard</span><span class="pay-badge">Verve</span><span class="pay-badge">Paystack</span><span class="pay-badge">Transfer</span></div>
+      </div>
+    </div>`;
+  const y = host.querySelector('#year'); if (y) y.textContent = new Date().getFullYear();
+}
+
+function updateCartBadge(){ const n = KE.cart.count(); const b = document.getElementById('cartBadge'); if (b){ if (n > 0) { b.hidden = false; b.textContent = n > 99 ? '99+' : String(n); } else { b.hidden = true; b.textContent = '0'; } } const link = document.getElementById('topbarCartLink'); const sep = document.getElementById('topbarCartSep'); const cnt = document.getElementById('topbarCartCount'); if (link && cnt && sep){ if (n > 0){ link.style.display = 'inline-flex'; sep.style.display = 'inline-block'; cnt.textContent = n > 99 ? '99+' : String(n); } else { link.style.display = 'none'; sep.style.display = 'none'; } } const cta = document.getElementById('heroCta'); if (cta){ let cartBtn = cta.querySelector('[data-hero-cart]'); if (n > 0){ if (!cartBtn){ cartBtn = document.createElement('a'); cartBtn.setAttribute('data-hero-cart','1'); cta.appendChild(cartBtn); } cartBtn.className = 'btn btn--cart btn--lg'; cartBtn.href = 'cart.html'; cartBtn.innerHTML = `View cart <span class="count">${n > 99 ? '99+' : n}</span>`; } else if (cartBtn){ cartBtn.remove(); } } }
+
+function bindDrawer(){ const drawer = document.getElementById('navDrawer'); const openBtn = document.getElementById('menuBtn'); if (!drawer || !openBtn) return; let lastFocused = null; const open = () => { lastFocused = document.activeElement; drawer.setAttribute('data-open','true'); openBtn.setAttribute('aria-expanded','true'); document.body.style.overflow = 'hidden'; const closeBtn = drawer.querySelector('.drawer__close'); if (closeBtn) closeBtn.focus(); }; const close = () => { drawer.setAttribute('data-open','false'); openBtn.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus(); }; openBtn.addEventListener('click', open); drawer.addEventListener('click', e => { if (e.target.closest('[data-close]')) close(); }); drawer.querySelectorAll('.drawer__toggle').forEach(btn => { btn.addEventListener('click', () => { const isOpen = btn.getAttribute('aria-expanded') === 'true'; const listId = btn.getAttribute('aria-controls'); const list = listId ? document.getElementById(listId) : null; btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true'); if (list) list.classList.toggle('is-open', !isOpen); }); }); drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close)); document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') close(); }); }
+
+function bindHeaderSticky(){ const header = document.getElementById('siteHeader'); if (!header) return; const onScroll = () => { if (window.scrollY > 4) header.classList.add('is-stuck'); else header.classList.remove('is-stuck'); }; window.addEventListener('scroll', onScroll, { passive:true }); onScroll(); }
+</script>
 
 <!-- ============================================================
-     ACCOUNT PAGE CONTROLLER — only the account-specific logic
+     ACCOUNT PAGE CONTROLLER
      ============================================================ -->
 <script>
 (function(){
@@ -600,7 +933,7 @@ button,input,select,textarea{font:inherit;color:inherit}
   function clearErrors(form){
     if (!form) return;
     form.querySelectorAll('input,textarea').forEach(function(i){ i.setAttribute('aria-invalid','false'); });
-    form.querySelectorAll('.field__error').forEach(function(e){ e.textContent=''; e.classList.remove('is-shown'); });
+    form.querySelectorAll('.field__error').forEach(function(e){ e.textContent = ''; e.classList.remove('is-shown'); });
   }
   function setBusy(btn, busy, label){ if (!btn) return; btn.disabled = !!busy; if (label) btn.textContent = label; }
   function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
@@ -609,7 +942,6 @@ button,input,select,textarea{font:inherit;color:inherit}
   function fmtMonthYear(iso){ try { return new Date(iso).toLocaleDateString('en-NG', { year:'numeric', month:'short' }); } catch(e){ return '—'; } }
   function initial(s){ return (String(s || 'U').trim().charAt(0) || 'U').toUpperCase(); }
 
-  /* Tabs */
   function selectTab(name, focus){
     Object.keys(forms).forEach(function(k){
       if (forms[k]) forms[k].hidden = (k !== name);
@@ -627,28 +959,30 @@ button,input,select,textarea{font:inherit;color:inherit}
   ['register','login'].forEach(function(k){
     if (!tabs[k]) return;
     tabs[k].addEventListener('keydown', function(e){
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){ e.preventDefault(); var next = k === 'register' ? 'login' : 'register'; selectTab(next, true); tabs[next].focus(); }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+        e.preventDefault();
+        var next = k === 'register' ? 'login' : 'register';
+        selectTab(next, true); tabs[next].focus();
+      }
     });
   });
 
-  /* Password visibility */
   document.querySelectorAll('[data-pw-toggle]').forEach(function(btn){
     btn.addEventListener('click', function(){
       var input = $(btn.getAttribute('data-pw-toggle')); if (!input) return;
-      var show = input.type === 'password'; input.type = show ? 'text' : 'password';
+      var show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
       btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
       input.focus();
     });
   });
 
-  /* Forgot password */
   var forgot = $('forgotLink');
   if (forgot) forgot.addEventListener('click', function(e){
     e.preventDefault();
     showAlert('Password reset requires email delivery — this demo has no mail server. For now, contact us on WhatsApp at 0703 465 2385 and we\'ll help you regain access.');
   });
 
-  /* Register */
   if (forms.register) forms.register.addEventListener('submit', async function(e){
     e.preventDefault(); clearErrors(forms.register); showAlert('');
     var name = $('regName').value.trim();
@@ -664,19 +998,25 @@ button,input,select,textarea{font:inherit;color:inherit}
     if (pw.length < 8){ setError('regPassword', 'Password must be at least 8 characters.'); bad = true; }
     else if (!/\d/.test(pw)){ setError('regPassword', 'Add at least one number.'); bad = true; }
     if (confirm !== pw){ setError('regConfirm', 'Passwords do not match.'); bad = true; }
-    if (!terms){ var t = document.querySelector('[data-error-for="regTerms"]'); if (t){ t.textContent='Please accept the returns and warranty terms.'; t.classList.add('is-shown'); } bad = true; }
+    if (!terms){ var t = document.querySelector('[data-error-for="regTerms"]'); if (t){ t.textContent = 'Please accept the returns and warranty terms.'; t.classList.add('is-shown'); } bad = true; }
     if (bad) return;
     var btn = $('registerSubmit'); setBusy(btn, true, 'Creating account…');
     var res;
-    try { res = await KE.auth.register({ name: name, email: email, phone: phone, password: pw }); }
-    catch(err){ res = { ok: false, error: 'Something went wrong. Please try again.' }; }
+    try {
+      if (!window.KE || !KE.auth || typeof KE.auth.register !== 'function'){
+        throw new Error('Auth module not loaded. Please reload the page.');
+      }
+      res = await KE.auth.register({ name: name, email: email, phone: phone, password: pw });
+    } catch(err){
+      console.error('[account] register failed:', err);
+      res = { ok: false, error: 'Something went wrong: ' + (err && (err.message || String(err))) };
+    }
     setBusy(btn, false, 'Create account');
     if (!res.ok){ showAlert(res.error, 'error'); return; }
     KE.toast('Account created — welcome!', 'good');
     enterDashboard(res.user);
   });
 
-  /* Login */
   if (forms.login) forms.login.addEventListener('submit', async function(e){
     e.preventDefault(); clearErrors(forms.login); showAlert('');
     var id = $('loginEmail').value.trim();
@@ -689,20 +1029,26 @@ button,input,select,textarea{font:inherit;color:inherit}
     if (bad) return;
     var btn = $('loginSubmit'); setBusy(btn, true, 'Logging in…');
     var res;
-    try { res = await KE.auth.signIn({ email: id, password: pw, remember: remember }); }
-    catch(err){ res = { ok: false, error: 'Something went wrong. Please try again.' }; }
+    try {
+      if (!window.KE || !KE.auth || typeof KE.auth.signIn !== 'function'){
+        throw new Error('Auth module not loaded. Please reload the page.');
+      }
+      res = await KE.auth.signIn({ email: id, password: pw, remember: remember });
+    } catch(err){
+      console.error('[account] signIn failed:', err);
+      res = { ok: false, error: 'Something went wrong: ' + (err && (err.message || String(err))) };
+    }
     setBusy(btn, false, 'Log in');
     if (!res.ok){ showAlert(res.error, 'error'); return; }
     KE.toast('Welcome back!', 'good');
     enterDashboard(res.user);
   });
 
-  /* Dashboard */
   function enterDashboard(user){
     if (!user) return;
     authView.hidden = true;
     dashView.hidden = false;
-    renderHeader();        /* from kaka.js — refreshes account link */
+    renderHeader();
     bindHeaderSticky();
     bindDrawer();
     updateCartBadge();
@@ -719,7 +1065,12 @@ button,input,select,textarea{font:inherit;color:inherit}
     var av = $('sideAvatar'); if (av) av.textContent = initial(user.name || user.email);
     var nm = $('sideName'); if (nm) nm.textContent = user.name || '—';
     var em = $('sideEmail'); if (em) em.textContent = user.email || '—';
-    var cc = $('sideCartCount'); if (cc){ var c = (user.cart && typeof user.cart === 'object') ? Object.values(user.cart).reduce(function(a,b){ return a+b; },0) : 0; cc.textContent = c || ''; cc.style.display = c ? 'inline' : 'none'; }
+    var cc = $('sideCartCount');
+    if (cc){
+      var c = (user.cart && typeof user.cart === 'object') ? Object.values(user.cart).reduce(function(a,b){ return a + (Number(b) || 0); }, 0) : 0;
+      cc.textContent = c || '';
+      cc.style.display = c ? 'inline' : 'none';
+    }
   }
 
   function showPanel(name){
@@ -741,10 +1092,13 @@ button,input,select,textarea{font:inherit;color:inherit}
   });
 
   function renderOverview(user){
-    var greet = $('greeting'); if (greet) greet.textContent = 'Welcome back, ' + (user.name ? user.name.split(' ')[0] : 'friend');
-    var orders = user.orders || []; var cart = user.cart || {}; var addr = user.addresses || [];
+    var greet = $('greeting');
+    if (greet) greet.textContent = 'Welcome back, ' + (user.name ? user.name.split(' ')[0] : 'friend');
+    var orders = user.orders || [];
+    var cart = user.cart || {};
+    var addr = user.addresses || [];
     $('statOrders').textContent = orders.length;
-    $('statCart').textContent = Object.values(cart).reduce(function(a,b){ return a+b; }, 0);
+    $('statCart').textContent = Object.values(cart).reduce(function(a,b){ return a + (Number(b) || 0); }, 0);
     $('statAddr').textContent = addr.length;
     $('statMember').textContent = fmtMonthYear(user.createdAt);
     var info = $('overviewInfo');
@@ -772,7 +1126,8 @@ button,input,select,textarea{font:inherit;color:inherit}
     var items = (o.items || []).map(function(it){
       var p = KE.findProduct(it.slug);
       var name = p ? p.name : (it.name || it.slug);
-      return '<div class="order-item"><div><div class="name">' + KE.esc(name) + '</div><div class="qty">Qty ' + (it.qty || 1) + (it.pack ? ' · ' + KE.esc(it.pack) : '') + '</div></div><div class="mono">' + KE.money(it.price || 0) + '</div></div>';
+      var price = it.price != null ? it.price : (p ? KE.unitPrice(p, it.qty || 1) : 0);
+      return '<div class="order-item"><div><div class="name">' + KE.esc(name) + '</div><div class="qty">Qty ' + (it.qty || 1) + (it.pack ? ' · ' + KE.esc(it.pack) : '') + '</div></div><div class="mono">' + KE.money(price * (it.qty || 1)) + '</div></div>';
     }).join('');
     var track = (o.tracking || []).map(function(t){
       return '<div class="track-step ' + (t.state || 'pending') + '"><div class="track-step__dot"></div><div class="track-step__body"><div class="track-step__title">' + KE.esc(t.title) + '</div>' + (t.time ? '<div class="track-step__time">' + KE.esc(t.time) + '</div>' : '') + '</div></div>';
@@ -796,7 +1151,10 @@ button,input,select,textarea{font:inherit;color:inherit}
   function renderOrders(user){
     var host = $('ordersList'); if (!host) return;
     var orders = user.orders || [];
-    if (!orders.length){ host.innerHTML = '<div class="empty"><h3>No orders yet</h3><p>When you place your first order, it will appear here with tracking updates.</p><a class="btn btn--primary" href="shop.html">Start shopping</a></div>'; return; }
+    if (!orders.length){
+      host.innerHTML = '<div class="empty"><h3>No orders yet</h3><p>When you place your first order, it will appear here with tracking updates.</p><a class="btn btn--primary" href="shop.html">Start shopping</a></div>';
+      return;
+    }
     host.innerHTML = '<div class="order-list">' + orders.slice().reverse().map(orderCardHtml).join('') + '</div>';
   }
 
@@ -812,14 +1170,18 @@ button,input,select,textarea{font:inherit;color:inherit}
     var user = KE.auth.current(); if (!user) return;
     var cart = user.cart || {};
     var slugs = Object.keys(cart);
-    if (!slugs.length){ host.innerHTML = '<div class="empty"><h3>Your cart is empty</h3><p>Add a few accessories and they\'ll be saved here automatically.</p><a class="btn btn--primary" href="shop.html">Browse products</a></div>'; return; }
+    if (!slugs.length){
+      host.innerHTML = '<div class="empty"><h3>Your cart is empty</h3><p>Add a few accessories and they\'ll be saved here automatically.</p><a class="btn btn--primary" href="shop.html">Browse products</a></div>';
+      return;
+    }
     var itemsHtml = slugs.map(function(slug){
       var p = KE.findProduct(slug); if (!p) return '';
       var qty = cart[slug];
+      var unit = KE.unitPrice(p, qty);
       return '<div class="cart-item">' +
         '<img class="cart-item__img" src="' + KE.img(p.img, 120) + '" alt="' + KE.esc(p.name) + '" onerror="window.KE && KE.imgFallback && KE.imgFallback(this)" />' +
         '<div><p class="cart-item__name">' + KE.esc(p.name) + '</p>' +
-          '<div class="cart-item__meta">' + KE.esc(KE.brandName(p.brand)) + ' · ' + KE.money(KE.unitPrice(p, qty)) + ' each</div>' +
+          '<div class="cart-item__meta">' + KE.esc(KE.brandName(p.brand)) + ' · ' + KE.money(unit) + ' each</div>' +
           '<div class="cart-item__controls">' +
             '<button class="qty-btn" type="button" data-cart-qty="' + KE.esc(slug) + '" data-delta="-1" aria-label="Decrease quantity">−</button>' +
             '<span class="qty-val">' + qty + '</span>' +
@@ -827,7 +1189,7 @@ button,input,select,textarea{font:inherit;color:inherit}
             '<button class="cart-remove" type="button" data-cart-remove="' + KE.esc(slug) + '">Remove</button>' +
           '</div>' +
         '</div>' +
-        '<div class="cart-item__price">' + KE.money(KE.unitPrice(p, qty) * qty) + '</div>' +
+        '<div class="cart-item__price">' + KE.money(unit * qty) + '</div>' +
       '</div>';
     }).join('');
     var t = KE.account.cartTotals();
@@ -859,7 +1221,6 @@ button,input,select,textarea{font:inherit;color:inherit}
     }
   });
 
-  /* Addresses */
   var addrModal = $('addrModal');
   function openAddrModal(addr){
     $('addrId').value = addr ? addr.id : '';
@@ -901,11 +1262,22 @@ button,input,select,textarea{font:inherit;color:inherit}
 
   document.addEventListener('click', function(e){
     var ed = e.target.closest('[data-addr-edit]');
-    if (ed){ var user = KE.auth.current(); var a = (user.addresses || []).find(function(x){ return x.id === ed.getAttribute('data-addr-edit'); }); if (a) openAddrModal(a); return; }
+    if (ed){
+      var user = KE.auth.current();
+      var a = (user.addresses || []).find(function(x){ return x.id === ed.getAttribute('data-addr-edit'); });
+      if (a) openAddrModal(a); return;
+    }
     var df = e.target.closest('[data-addr-default]');
-    if (df){ KE.account.updateAddress(df.getAttribute('data-addr-default'), { isDefault: true }); renderAddresses(KE.auth.current()); KE.toast('Default address updated','good'); return; }
+    if (df){
+      KE.account.updateAddress(df.getAttribute('data-addr-default'), { isDefault: true });
+      renderAddresses(KE.auth.current()); KE.toast('Default address updated', 'good'); return;
+    }
     var del = e.target.closest('[data-addr-del]');
-    if (del){ if (!confirm('Delete this address?')) return; KE.account.deleteAddress(del.getAttribute('data-addr-del')); renderAddresses(KE.auth.current()); KE.toast('Address removed','good'); }
+    if (del){
+      if (!confirm('Delete this address?')) return;
+      KE.account.deleteAddress(del.getAttribute('data-addr-del'));
+      renderAddresses(KE.auth.current()); KE.toast('Address removed', 'good');
+    }
   });
 
   var addrForm = $('addrForm');
@@ -952,7 +1324,8 @@ button,input,select,textarea{font:inherit;color:inherit}
     if (res && res.conflict){ setError('setEmail', 'An account with that email already exists.'); return; }
     KE.toast('Profile updated', 'good');
     var u = KE.auth.current();
-    hydrateSidebar(u); renderOverview(u); renderSettingsForm(u); renderHeader(); bindHeaderSticky(); bindDrawer();
+    hydrateSidebar(u); renderOverview(u); renderSettingsForm(u);
+    renderHeader(); bindHeaderSticky(); bindDrawer();
   });
 
   var passwordForm = $('passwordForm');
@@ -968,7 +1341,9 @@ button,input,select,textarea{font:inherit;color:inherit}
     var user = KE.auth.current(); if (!user) return;
     var btn = passwordForm.querySelector('button[type="submit"]');
     setBusy(btn, true, 'Updating…');
-    var res = await KE.auth.updatePassword(user.email, cur, np);
+    var res;
+    try { res = await KE.auth.updatePassword(user.email, cur, np); }
+    catch(err){ console.error('[account] updatePassword failed:', err); res = { ok: false, error: (err && err.message) || 'Failed.' }; }
     setBusy(btn, false, 'Update password');
     if (!res.ok){ setError('curPw', res.error); return; }
     passwordForm.reset();
@@ -986,9 +1361,13 @@ button,input,select,textarea{font:inherit;color:inherit}
     selectTab('register', true);
   });
 
-  /* Boot */
   document.addEventListener('DOMContentLoaded', function(){
-    /* kaka.js already rendered header/footer, bound drawer, etc. Just wire account UI. */
+    renderHeader();
+    renderFooter();
+    bindHeaderSticky();
+    bindDrawer();
+    updateCartBadge();
+
     var hash = (location.hash || '').replace('#', '');
     var user = KE.auth.current();
     if (user){
@@ -998,15 +1377,22 @@ button,input,select,textarea{font:inherit;color:inherit}
       if (hash === 'login') selectTab('login');
       else selectTab('register');
     }
+
     document.addEventListener('cart:updated', function(){
       updateCartBadge();
       var u = KE.auth.current();
       if (u){ hydrateSidebar(u); renderCartPanel(); }
     });
+
+    window.addEventListener('storage', function(e){
+      if (e.key === 'kaka:cart:v1' || e.key === 'kaka:cart:v2') updateCartBadge();
+      if (e.key === 'kaka:session:v1'){
+        renderHeader(); bindHeaderSticky(); bindDrawer(); updateCartBadge();
+      }
+    });
   });
 })();
 
-/* KE.checkout.place — used by checkout.html after successful payment */
 KE.checkout = KE.checkout || {
   place: function(order){
     var user = KE.auth.current();
